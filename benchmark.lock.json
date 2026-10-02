@@ -1,0 +1,30 @@
+{
+  "benchmark_repository": "vehicle-claim-verification-baselines",
+  "git_commit": "1d1f864a3eabe9d72b7bc6a5bc786c2d62c00d29",
+  "manifest_identifier": null,
+  "manifest_sha256": null,
+  "splits_identifier": null,
+  "splits_sha256": null,
+  "schema_version": "0.1.0",
+  "evidence_packets_identifier": null,
+  "evidence_packets_sha256": null,
+  "availability": {
+    "manifest": "NOT AVAILABLE YET",
+    "splits": "NOT AVAILABLE YET",
+    "frozen_evidence_packets": "NOT AVAILABLE YET"
+  },
+  "contract_files_sha256": {
+    "src/schemas/claim.py": "b96ed766b6de7625f93902e702e2e4abc2c8ea756718adfe4defb7a4e374f7a6",
+    "src/schemas/evidence.py": "87e4e92c2c7372cb3c6abf71e9087a2c3e2dd823b2f564e9003b324a3af15602",
+    "src/schemas/packet.py": "6d9a5525b0500777a1d06d267d47565ebe4d7300d728518e7ed2e557455e560f",
+    "configs/labels.yaml": "cef27ed3931057d2f3a7dec7ec3f9e88c5adfdb72a6a646b8a48a6257e424496",
+    "configs/baseline.yaml": "e762ca785bff18c2ffc9214a137d841f522718c4053f2fe58a01b7e81ed0959c",
+    "src/data/manifest.py": "945bd10da94c241b32deb8a67f3e7b70217693b6aaf6e88fb9a7e2a8a92a02f4",
+    "src/data/split.py": "5a92cb80920d8e01796edb3dd50af2d974e033d283b3454d044c736ba2540835",
+    "src/data/split_audit.py": "a30f06ad489aeccc084f863b974b4b8542cd9bab6d8b21ac0772db289b8ea3e1",
+    "src/evaluation/metrics.py": "ba59b5b6cde76bc6584e16b011ca4da36636566d664fbdbaea4d84d276bc98ec",
+    "src/evaluation/stress_slices.py": "6201036accf2f16138c8ff67ea651e1c9c8c2d55565d8565afeaba3b23609a41",
+    "src/fusion/rules.py": "a45bdccc51347fb3a719a082ef732053c6d4acfc18369dd66633d5b8168c1713",
+    "EXPERIMENTAL_PROTOCOL.md": "1487003f410b439618e7c6c392563e433806f5293c7aa605ff6a5ac580d67a64"
+  }
+}

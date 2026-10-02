@@ -1,0 +1,4 @@
+# Run from this repository; install the canonical sibling explicitly.
+-e ../vehicle-claim-verification-baselines
+-e .
+pytest==9.1.1

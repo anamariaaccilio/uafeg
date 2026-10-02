@@ -1,0 +1,31 @@
+name: contract-and-graph-tests
+# Remotes do not exist yet. Supply the actual published canonical repository.
+on:
+  workflow_dispatch:
+    inputs:
+      benchmark_repository:
+        description: "Published canonical repository (owner/name), containing the locked commit"
+        required: true
+        type: string
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: uafeg
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - id: lock
+        working-directory: uafeg
+        run: python -c 'import json,os; f=open(os.environ["GITHUB_OUTPUT"],"a"); print("commit="+json.load(open("benchmark.lock.json"))["git_commit"],file=f)'
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.benchmark_repository }}
+          ref: ${{ steps.lock.outputs.commit }}
+          path: vehicle-claim-verification-baselines
+      - working-directory: uafeg
+        run: python -m pip install -r requirements.txt
+      - working-directory: uafeg
+        run: python -m pytest -q

@@ -1,0 +1,5 @@
+system: P1
+status: NOT IMPLEMENTED
+architecture: graph_without_reliability_gate
+reliability_gate: false
+benchmark_lock: benchmark.lock.json

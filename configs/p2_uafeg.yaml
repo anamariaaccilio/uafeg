@@ -1,0 +1,5 @@
+system: P2
+status: NOT IMPLEMENTED
+architecture: P1_plus_reliability_aware_mechanism
+reliability_gate: true
+benchmark_lock: benchmark.lock.json
