@@ -1,6 +1,6 @@
 {
   "benchmark_repository": "vehicle-claim-verification-baselines",
-  "git_commit": "1d1f864a3eabe9d72b7bc6a5bc786c2d62c00d29",
+  "git_commit": "fa4914517c641bcfd51b3596b049b4440d958c7d",
   "manifest_identifier": null,
   "manifest_sha256": null,
   "splits_identifier": null,
@@ -25,6 +25,8 @@
     "src/evaluation/metrics.py": "ba59b5b6cde76bc6584e16b011ca4da36636566d664fbdbaea4d84d276bc98ec",
     "src/evaluation/stress_slices.py": "6201036accf2f16138c8ff67ea651e1c9c8c2d55565d8565afeaba3b23609a41",
     "src/fusion/rules.py": "a45bdccc51347fb3a719a082ef732053c6d4acfc18369dd66633d5b8168c1713",
-    "EXPERIMENTAL_PROTOCOL.md": "1487003f410b439618e7c6c392563e433806f5293c7aa605ff6a5ac580d67a64"
+    "EXPERIMENTAL_PROTOCOL.md": "288055bf7f2e89463b11f6ac9a96521361c42e7768062c2f1a9a7b4f14ff1ba2",
+    "src/data/hitl_supervisely.py": "077adfe803ec92a8b51adf5dd955df6f5100711cdfbe0b04468be9cb442b30ca",
+    "data/hitl_pilot_receipt.json": "5c1cb66edd838a8f6778eda9d3bcb814d7ab3e7e5dae3f1965e30693955191c4"
   }
 }
