@@ -112,3 +112,34 @@ def test_node_rejects_mismatched_evidence():
 def test_builder_requires_canonical_packet():
     with pytest.raises(TypeError):
         build_graph({"claim": {"claim_id": "x"}})
+
+
+def test_real_benchmark_packets_use_canonical_contract_without_fabricated_outputs():
+    import src.schemas.packet as canonical
+    root = Path(canonical.__file__).resolve().parents[2]
+    lock = verify_benchmark(LOCK)
+    claims = [ClaimRecord.model_validate_json(line) for line in (root/lock['manifest_identifier']).read_text().splitlines()]
+    packets = [EvidencePacket.model_validate_json(line) for line in (root/lock['evidence_packets_identifier']).read_text().splitlines()]
+    assert len(claims) == len(packets) > 0
+    for claim, evidence in zip(claims, packets):
+        assert evidence.claim == claim
+        assert all(getattr(evidence,k) is None for k in ('narrative','visual','image_quality','forensic'))
+        graph = build_graph(evidence)
+        assert graph.claim_id == claim.claim_id
+        assert len(graph.nodes) == 1 and graph.edges == ()
+        assert 'expected_label' not in graph.model_dump_json()
+
+
+def test_benchmark_manifest_hash_tampering_is_rejected(tmp_path):
+    lock = json.loads(LOCK.read_text())
+    lock['manifest_sha256'] = '0'*64
+    path = tmp_path/'lock.json'
+    path.write_text(json.dumps(lock))
+    with pytest.raises(ValueError, match='manifest changed'):
+        verify_benchmark(path)
+
+
+def test_pin_script_checks_actual_artifacts():
+    import subprocess
+    import sys
+    subprocess.run([sys.executable, str(LOCK.parent/'scripts/pin_benchmark.py'), '--check'],check=True)

@@ -34,11 +34,22 @@ graph = build_graph(packet)  # solo nodo claim: evidencias ausentes
 
 Las fixtures son sintéticas y compatibles con el schema canónico. `None` representa evidencia ausente; visual presente con detecciones vacías no equivale a ausencia. Forense `available=False` no crea nodo. Labels, condición experimental y paths no se copian al grafo. Los IDs solo son metadata de trazabilidad; futuros modelos no deben usarlos como features. El grafo usa salidas de especialistas existentes, sin fabricar scores ni reliability.
 
-`benchmark.lock.json` registra el commit real y SHA256 de archivos canónicos. La versión 0.1.0 del packet fue introducida explícitamente en esta migración. Manifest, splits persistidos y EvidencePackets congelados son `null / NOT AVAILABLE YET`: Repo A ya tiene un piloto real de 24 imágenes de daños, pero aún no existe el benchmark de reclamos con narrativas/labels/packets congelados. Ni ese piloto ni una fixture ocupan su lugar. El test de compatibilidad verifica commit, versión y hashes contra el checkout realmente importado. Esto fija el contrato del MVP, no un benchmark experimental terminado.
+`benchmark.lock.json` fija el commit real de Repo A, schema 0.2.0, manifest de 127 reclamos controlados, splits y EvidencePackets con sus SHA256 reales. El dataset es fotografía real de daño vehicular más escenarios sintéticos, no expedientes de una aseguradora. Las salidas NLI/visual/forense/calidad de los packets son null; no se inventa evidencia para construir grafos.
+
+La generación, taxonomía C0–C10, narrativas, transformaciones, auditoría de duplicados y benchmark pertenecen exclusivamente a Repo A. Esta versión implementa un subconjunto; no equivale a completar C0–C10 ni a validar científicamente modelos. El test de compatibilidad carga los packets reales con el schema de A y comprueba que el grafo no copie labels.
+
+El lock se obtiene mediante lectura de artefactos reales de un Repo A limpio y commiteado:
+
+```bash
+env -u PYTHONPATH .venv/bin/python scripts/pin_benchmark.py --write
+env -u PYTHONPATH .venv/bin/python scripts/pin_benchmark.py --check
+```
+
+No editar hashes a mano. Cambiar el benchmark requiere nueva validación y actualizar el lock explícitamente.
 
 Para reproducir en otra máquina, colocar ambos repos como hermanos y hacer checkout del commit indicado en el lock antes de instalar. Cambiar el contrato requiere actualizar el lock de forma explícita y repetir validación. Los wheels de Repo A no son el mecanismo de distribución soportado para este MVP; su configuración reside en el checkout editable.
 
-Las comparaciones B6 vs P1, P1 vs P2 y P2 vs ablations usarán exactamente el mismo manifest, splits, packets, labels, métricas y test set. Ver el protocolo canónico de Repo A. Faltan datos reales, métricas y sistemas de comparación antes de entrenar.
+Las comparaciones B6 vs P1, P1 vs P2 y P2 vs ablations usarán exactamente el mismo manifest, splits, packets, labels, métricas y test set. Ver el protocolo canónico de Repo A. Ya hay un primer benchmark de escenarios controlados; faltan revisión científica, mayor cobertura, métricas y sistemas de comparación antes de entrenar.
 
 CI define Python 3.11 + instalación editable + pytest sin modelos ni datasets. Se activa manualmente con `workflow_dispatch` indicando el repositorio canónico publicado (`owner/name`), pues aún no hay remotos reales configurados; el commit se obtiene del lock. No se ha ejecutado Actions. No requiere secretos adicionales para repositorios públicos; el acceso remoto privado entre repositorios no está configurado ni validado.
 
