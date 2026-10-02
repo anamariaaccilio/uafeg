@@ -20,7 +20,7 @@ def generate_lock():
     status = subprocess.check_output(['git','-C',str(repository),'status','--porcelain'],text=True)
     if status:
         raise ValueError('Canonical repository must be committed and clean before pinning')
-    artifact_dir = Path('data/manifests/benchmark_v1')
+    artifact_dir = Path('data/manifests/benchmark_v2')
     metadata_path = repository/artifact_dir/'metadata.json'
     metadata = json.loads(metadata_path.read_text())
     if metadata['schema_version'] != canonical.SCHEMA_VERSION:
@@ -28,6 +28,8 @@ def generate_lock():
     old = json.loads((ROOT/'benchmark.lock.json').read_text())
     contract_paths = set(old['contract_files_sha256']) | {
         'configs/benchmark_v1.yaml', 'configs/benchmark_conditions.yaml',
+        'configs/benchmark_v2.yaml', 'configs/benchmark_conditions_v2.yaml',
+        'src/data/benchmark_v2.py',
         'src/data/duplicate_audit.py', 'src/data/claim_benchmark.py',
         str(artifact_dir/'metadata.json'),
     }

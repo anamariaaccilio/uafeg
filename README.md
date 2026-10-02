@@ -54,3 +54,9 @@ Las comparaciones B6 vs P1, P1 vs P2 y P2 vs ablations usarán exactamente el mi
 CI define Python 3.11 + instalación editable + pytest sin modelos ni datasets. Se activa manualmente con `workflow_dispatch` indicando el repositorio canónico publicado (`owner/name`), pues aún no hay remotos reales configurados; el commit se obtiene del lock. No se ha ejecutado Actions. No requiere secretos adicionales para repositorios públicos; el acceso remoto privado entre repositorios no está configurado ni validado.
 
 No se versionan raw datasets, weights, `.venv`, `.env` ni caches. No se ha iniciado entrenamiento. La siguiente fase experimental requiere autorización.
+
+El lock actual consume el benchmark completo v0.2.0 (`benchmark_v2`) del repo
+canónico, con schema 0.3.0 y las once condiciones. C10 es exclusivamente de test
+(etiqueta OOD), separada de las tres clases de decisión. Los 226 EvidencePackets
+mantienen especialistas null: el grafo mínimo no recibe etiquetas como features.
+No se han implementado P1/P2 ni entrenado modelos.
