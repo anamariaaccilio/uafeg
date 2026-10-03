@@ -1,7 +1,7 @@
 {
   "benchmark_repository": "vehicle-claim-verification-baselines",
   "benchmark_version": "0.2.0",
-  "git_commit": "58130d874a5adf9facce06e4a82da843cb5f8340",
+  "git_commit": "417084d12a92d9081d6a1b66078ea3b39bb9dccc",
   "schema_version": "0.3.0",
   "availability": {
     "manifest": "AVAILABLE",
@@ -9,7 +9,7 @@
     "frozen_evidence_packets": "AVAILABLE_WITH_SPECIALISTS_NULL"
   },
   "contract_files_sha256": {
-    "EXPERIMENTAL_PROTOCOL.md": "81388ef0e28a2341d8a92d9de4ca8353f4ee0d38750b4e32fffd9029c0075f5f",
+    "EXPERIMENTAL_PROTOCOL.md": "15e3399493abbf2ab8b8e204844eb5b01afa6d2961e2599a25d25790316fb5b7",
     "configs/baseline.yaml": "e762ca785bff18c2ffc9214a137d841f522718c4053f2fe58a01b7e81ed0959c",
     "configs/benchmark_conditions.yaml": "a9140f875823c445bcb9e821c5b6427deb9ecd62a0fc3decaae735a88784e52a",
     "configs/benchmark_conditions_v2.yaml": "dac7807ab0eceb2f1e777e7234206b0a39f9e5013505b44cff28e6e9f34da67c",
@@ -31,10 +31,10 @@
     "data/manifests/benchmark_v2/metadata.json": "d027a0c81d1b2960c894cad86ad05204815bd1537f191da286c5391d0873eb0d",
     "data/manifests/benchmark_v2/splits.json": "2b49d6a8428fc9e58e050bc1ec3b39692351bb32e50da8b1405e5b19cf609544",
     "data/manifests/benchmark_v2/validation.json": "cb36a8199ebf7a2de662894a9464d52e02580c231db3eb49620ad2f0c008f607",
-    "src/data/benchmark_v2.py": "840fd64cc33d70e45234e6e80d9b53a422742567b782af6f719a83b7e6ae6acb",
-    "src/data/claim_benchmark.py": "525a0eab6fa89025ffb20db88550a6fbdf33d7abd94e4e443874ab42c92991e9",
+    "src/data/benchmark_v2.py": "e8db40a48ced65a9607ffded6f958b7f2fea53876445b92517a2e6faca69a1d7",
+    "src/data/claim_benchmark.py": "7f4177e668a1422ce61ee932a4046a809f29b1c51720223c200ce54329d72325",
     "src/data/duplicate_audit.py": "ba5929b2a1fc47189db11e9a0662deebd36ef2c0fd5d42ecf896c1b5d34c625b",
-    "src/data/hitl_supervisely.py": "077adfe803ec92a8b51adf5dd955df6f5100711cdfbe0b04468be9cb442b30ca",
+    "src/data/hitl_supervisely.py": "a956b3174ebbf54aae39dce7bf3a12f429e231c9b494c923c920858b18503ca8",
     "src/data/manifest.py": "945bd10da94c241b32deb8a67f3e7b70217693b6aaf6e88fb9a7e2a8a92a02f4",
     "src/data/split.py": "5a92cb80920d8e01796edb3dd50af2d974e033d283b3454d044c736ba2540835",
     "src/data/split_audit.py": "a30f06ad489aeccc084f863b974b4b8542cd9bab6d8b21ac0772db289b8ea3e1",

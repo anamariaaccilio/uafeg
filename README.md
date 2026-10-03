@@ -60,3 +60,9 @@ canónico, con schema 0.3.0 y las once condiciones. C10 es exclusivamente de tes
 (etiqueta OOD), separada de las tres clases de decisión. Los 226 EvidencePackets
 mantienen especialistas null: el grafo mínimo no recibe etiquetas como features.
 No se han implementado P1/P2 ni entrenado modelos.
+
+La fase de QA científica generó un candidato v3 en el repositorio canónico, con
+807 fuentes y controles C8 adicionales. Su estado es `READY_FOR_MODELS = NO`.
+Este repositorio mantiene el manifest v2 consumido por el lock; actualizar el
+commit canónico conserva su verificación sin promover automáticamente el candidato
+v3 ni iniciar modelos. P1/P2 permanecen sin implementar.
