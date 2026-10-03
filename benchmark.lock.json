@@ -1,7 +1,7 @@
 {
   "benchmark_repository": "vehicle-claim-verification-baselines",
   "benchmark_version": "0.2.0",
-  "git_commit": "5eef24437b837ec76ce7b407c6710291a67d938c",
+  "git_commit": "e7c4cfb1a6dfa487f42ec4e9edfdd77e4600781d",
   "schema_version": "0.3.0",
   "availability": {
     "manifest": "AVAILABLE",
