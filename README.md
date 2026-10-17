@@ -1,18 +1,47 @@
 # UAFEG
 
-**Uncertainty-Aware Forensic Evidence Graph**: repositorio de la propuesta de tesis sobre verificación robusta de reclamos de seguros vehiculares.
+**Uncertainty-Aware Forensic Evidence Graph**: repositorio de la propuesta de tesis sobre
+verificación robusta de reclamos de seguros vehiculares. Combina evidencia narrativa, visual y
+forense en un grafo, con una compuerta de confiabilidad que modula cuánto pesa cada pieza de
+evidencia según su cobertura, calidad, confiabilidad e incertidumbre.
 
-El milestone implementado es únicamente `EvidencePacket → EvidenceGraph → validación`. El grafo mínimo es una estrella determinista: un nodo claim, un nodo por modalidad disponible y aristas dirigidas `evidence_for` hacia claim. Valida tipos, IDs únicos, existencia de nodos, correspondencia de evidencias y aristas completas. No realiza predicciones, entrenamiento, GATv2 ni propagación aprendida.
+El repositorio hermano `vehicle-claim-verification-baselines` (Repo A) es la única fuente de
+`ClaimRecord`, `EvidencePacket`, labels, manifest, splits, condiciones C0–C10 y evaluación
+compartida (métricas, calibración, incertidumbre, abstención, bootstrap). Se consume por
+instalación editable; no hay schemas duplicados.
 
-La hipótesis investigada combina representación de evidencias a nivel de reclamo y propagación consciente de confiabilidad, evaluada bajo contradicción, manipulación, evidencia faltante y degradación. Su novedad y efectividad deben demostrarse experimentalmente; no se afirman resultados.
+## B6 → P1 → P2
 
-Son componentes existentes de literatura: GAT/GATv2, DeepSets, NLI, encoders visuales, damage detection/segmentation, modelos forenses (incluido TruFor), concatenación, late fusion, temperature scaling, deep ensembles, calibración estándar, Discounted Belief Fusion y el concepto genérico de grafo multimodal. No se presentan como invenciones de UAFEG.
+Tres sistemas comparten exactamente el mismo encoder de evidencia, el mismo espacio de labels
+(SUPPORTED/SUSPICIOUS/INSUFFICIENT) y el mismo protocolo de entrenamiento, para que la
+comparación aísle una sola variable cada vez:
 
-- **P1**: Evidence Graph + modelo de grafo, sin reliability gate. NOT IMPLEMENTED; solo configuración de intención.
-- **P2**: P1 + mecanismo reliability-aware de UAFEG. NOT IMPLEMENTED; solo configuración de intención.
-- **MVP disponible**: construcción/validación de grafo sin modelo. No equivale a P1 completo.
+- **B6** (`src/uafeg/models/b6_deepsets.py`): evidence encoders → pooling permutation-invariante
+  (DeepSets) → clasificador. Sin grafo explícito.
+- **P1** (`src/uafeg/models/p1_graph.py`): `EvidenceGraph` → atención relacional GATv2
+  (implementación propia, sin `torch_geometric`) → pooling → el mismo clasificador que B6. Sin
+  reliability gate. B6 vs P1 aísla el aporte de la estructura de grafo.
+- **P2** (`src/uafeg/models/p2_uafeg.py`): reutiliza P1 como base; la única diferencia es el
+  reliability gate `g_j = clip(c_j·q_j·r_j·(1-u_j), 0, 1)` (`src/uafeg/models/gate.py`), aplicado
+  al mensaje de cada nodo de evidencia antes de la atención. P1 vs P2 aísla el aporte de la
+  compuerta.
 
-El repositorio hermano `vehicle-claim-verification-baselines` es la única fuente de ClaimRecord, EvidencePacket, labels, manifest, splits, condiciones y evaluación. Se consume por instalación editable; no hay schemas duplicados ni submodules. No se crearon carpetas vacías de modelos/reliability/uncertainty.
+**Estado: `IMPLEMENTED_CODE_NOT_TRAINED` para los tres.** El código, el forward/train/checkpoint/
+inferencia y los tests son reales (ver `uafeg/docs/IMPLEMENTATION_STATUS.md` para el detalle
+completo, incluida la comparación línea por línea contra el `.tex` de la tesis). **Ningún
+entrenamiento se ha ejecutado sobre el benchmark real.** Las únicas ejecuciones hechas hasta
+ahora usan `--data smoke` (fixtures sintéticas, `experiments/smoke_data.py`) y se marcan
+`SMOKE_RESULT` explícitamente — nunca deben leerse como resultado científico.
+
+## Por qué no se ha entrenado todavía
+
+`READY_FOR_MODELS = NO`. El benchmark v2 (el que este repo tiene pinneado) tiene los
+`EvidencePacket` congelados con los especialistas en `null` (nunca se ejecutaron antes de
+congelar). El candidato v3 de Repo A (807 fuentes, 9.275 claims) está `PENDING_SCIENTIFIC_QA`:
+la condición C2 (sustitución) necesita adjudicación humana y C3/C4/C5 necesitan revisión de
+realismo perceptual. Ver `../PROJECT_COMPLETION_GAP.md` para el detalle y el plan.
+
+## Instalación y tests
 
 ```bash
 cd '/home/ana/Documentos/tesis 2/uafeg'
@@ -21,7 +50,43 @@ python3.11 -m venv .venv
 env -u PYTHONPATH .venv/bin/python -m pytest -q
 ```
 
-Ejemplo mínimo, sin modelos ni datos raw:
+## Benchmark pinneado
+
+`benchmark.lock.json` fija el commit real de Repo A, `schema_version`, el manifest/splits/
+EvidencePackets de `benchmark_v2` y sus SHA256 reales. Se regenera leyendo artefactos reales de
+un Repo A limpio y commiteado — nunca se edita a mano:
+
+```bash
+env -u PYTHONPATH .venv/bin/python scripts/pin_benchmark.py --write
+env -u PYTHONPATH .venv/bin/python scripts/pin_benchmark.py --check
+```
+
+Promover a v3 (o a una versión futura) requiere que Repo A marque esa versión
+`READY_FOR_MODELS=YES` primero; este repo no promueve versiones por su cuenta.
+
+## Cómo se entrenará (cuando el benchmark esté listo)
+
+```bash
+python -m experiments.train --system {B6,P1,P2} --config configs/{b6_deepsets,p1_graph,p2_uafeg}.yaml
+python -m experiments.evaluate --system {B6,P1,P2} --config ... --checkpoint ...
+```
+
+Hoy `--data` solo acepta `smoke`; pasar cualquier otro valor lanza `NotImplementedError`
+explícito en vez de fingir que hay datos reales disponibles. Las ablaciones A1–A3 de la tesis
+están implementadas (`--ablation no_gate|no_forensic|graph_to_deepsets`); A4 y A5 lanzan
+`NotImplementedError` a propósito (requieren funcionalidad que no existe todavía). Ver
+`uafeg/docs/IMPLEMENTATION_STATUS.md`.
+
+## Qué todavía NO debe interpretarse como resultado
+
+- Cualquier métrica marcada `SMOKE_RESULT` en un manifest de `artifacts/runs/` (fixtures
+  sintéticas, no el benchmark real).
+- El grafo mínimo (`EvidenceGraph`) no hace razonamiento aprendido por sí solo; eso es trabajo de
+  B6/P1/P2 montados encima.
+- Ningún número de B6/P1/P2 es comparable a una cifra "final" de tesis mientras
+  `READY_FOR_MODELS = NO`.
+
+## Ejemplo mínimo (construcción de grafo, sin modelos)
 
 ```python
 from src.schemas.claim import ClaimRecord
@@ -32,37 +97,9 @@ packet = EvidencePacket(claim=ClaimRecord(claim_id="example"))
 graph = build_graph(packet)  # solo nodo claim: evidencias ausentes
 ```
 
-Las fixtures son sintéticas y compatibles con el schema canónico. `None` representa evidencia ausente; visual presente con detecciones vacías no equivale a ausencia. Forense `available=False` no crea nodo. Labels, condición experimental y paths no se copian al grafo. Los IDs solo son metadata de trazabilidad; futuros modelos no deben usarlos como features. El grafo usa salidas de especialistas existentes, sin fabricar scores ni reliability.
+`None` representa evidencia ausente; visual presente con detecciones vacías no equivale a
+ausencia. Forense `available=False` no crea nodo. Labels, condición experimental y paths no se
+copian al grafo ni a los features de B6/P1/P2 (verificado por tests dedicados).
 
-`benchmark.lock.json` fija el commit real de Repo A, schema 0.2.0, manifest de 127 reclamos controlados, splits y EvidencePackets con sus SHA256 reales. El dataset es fotografía real de daño vehicular más escenarios sintéticos, no expedientes de una aseguradora. Las salidas NLI/visual/forense/calidad de los packets son null; no se inventa evidencia para construir grafos.
-
-La generación, taxonomía C0–C10, narrativas, transformaciones, auditoría de duplicados y benchmark pertenecen exclusivamente a Repo A. Esta versión implementa un subconjunto; no equivale a completar C0–C10 ni a validar científicamente modelos. El test de compatibilidad carga los packets reales con el schema de A y comprueba que el grafo no copie labels.
-
-El lock se obtiene mediante lectura de artefactos reales de un Repo A limpio y commiteado:
-
-```bash
-env -u PYTHONPATH .venv/bin/python scripts/pin_benchmark.py --write
-env -u PYTHONPATH .venv/bin/python scripts/pin_benchmark.py --check
-```
-
-No editar hashes a mano. Cambiar el benchmark requiere nueva validación y actualizar el lock explícitamente.
-
-Para reproducir en otra máquina, colocar ambos repos como hermanos y hacer checkout del commit indicado en el lock antes de instalar. Cambiar el contrato requiere actualizar el lock de forma explícita y repetir validación. Los wheels de Repo A no son el mecanismo de distribución soportado para este MVP; su configuración reside en el checkout editable.
-
-Las comparaciones B6 vs P1, P1 vs P2 y P2 vs ablations usarán exactamente el mismo manifest, splits, packets, labels, métricas y test set. Ver el protocolo canónico de Repo A. Ya hay un primer benchmark de escenarios controlados; faltan revisión científica, mayor cobertura, métricas y sistemas de comparación antes de entrenar.
-
-CI define Python 3.11 + instalación editable + pytest sin modelos ni datasets. Se activa manualmente con `workflow_dispatch` indicando el repositorio canónico publicado (`owner/name`), pues aún no hay remotos reales configurados; el commit se obtiene del lock. No se ha ejecutado Actions. No requiere secretos adicionales para repositorios públicos; el acceso remoto privado entre repositorios no está configurado ni validado.
-
-No se versionan raw datasets, weights, `.venv`, `.env` ni caches. No se ha iniciado entrenamiento. La siguiente fase experimental requiere autorización.
-
-El lock actual consume el benchmark completo v0.2.0 (`benchmark_v2`) del repo
-canónico, con schema 0.3.0 y las once condiciones. C10 es exclusivamente de test
-(etiqueta OOD), separada de las tres clases de decisión. Los 226 EvidencePackets
-mantienen especialistas null: el grafo mínimo no recibe etiquetas como features.
-No se han implementado P1/P2 ni entrenado modelos.
-
-La fase de QA científica generó un candidato v3 en el repositorio canónico, con
-807 fuentes y controles C8 adicionales. Su estado es `READY_FOR_MODELS = NO`.
-Este repositorio mantiene el manifest v2 consumido por el lock; actualizar el
-commit canónico conserva su verificación sin promover automáticamente el candidato
-v3 ni iniciar modelos. P1/P2 permanecen sin implementar.
+No se versionan raw datasets, weights, `.venv`, `.env` ni caches, ni checkpoints (`artifacts/`
+está en `.gitignore`).

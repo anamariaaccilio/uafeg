@@ -1,12 +1,20 @@
 """B6: DeepSets baseline.
 
 evidence encoders (compartidos, ver uafeg.models.encoders)
-  -> pooling permutation-invariante (suma) sobre las modalidades presentes
+  -> pooling permutation-invariante (media) sobre las modalidades presentes
   -> clasificador de 3 clases (SUPPORTED, SUSPICIOUS, INSUFFICIENT)
 
 Mismos EvidencePackets, mismo encoder y mismo espacio de labels que P1/P2
 (ver uafeg/configs/b6_deepsets.yaml); la comparacion B6 vs P1 aisla el
 aporte del grafo porque ambos comparten este mismo frente de entrada.
+
+El pooling es MEDIA (no suma) a proposito, para que sea comparable con el
+pooling de P1/P2 (uafeg.models.p1_graph.GraphClassifier.forward, tambien
+media sobre los nodos). Con suma, la magnitud del vector agrupado
+escalaria con la CANTIDAD de modalidades presentes (1 a 4), lo cual
+confundiria "aporta el grafo" con "aporta tener mas evidencia presente" —
+una diferencia accidental ajena a la estructura relacional que se quiere
+aislar en la comparacion B6 vs P1.
 """
 from __future__ import annotations
 
@@ -42,7 +50,7 @@ class DeepSetsClassifier(nn.Module):
         if not modality_features:
             raise ValueError("Al menos una modalidad de evidencia debe estar presente")
         encoded = self.encoder_bank(modality_features)
-        pooled = torch.stack(list(encoded.values()), dim=0).sum(dim=0)  # permutation-invariant
+        pooled = torch.stack(list(encoded.values()), dim=0).mean(dim=0)  # permutation-invariant
         return self.classifier(pooled)
 
     def forward(self, packet) -> torch.Tensor:

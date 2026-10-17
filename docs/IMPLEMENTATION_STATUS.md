@@ -22,6 +22,34 @@ Toda métrica obtenida por `experiments.train`/`experiments.evaluate` en esta se
 equivalente a **SMOKE_ONLY**: nunca debe leerse como resultado científico (p.ej. el macro-F1≈0.16
 obtenido en un smoke run no es evidencia de que el modelo funcione o no funcione).
 
+## Contraste controlado B6 / P1 / P2
+
+Verificado en la pasada de CIERRE (2026-10-17) leyendo el código de los tres modelos línea por
+línea para confirmar que no hay diferencias accidentales entre ellos más allá de las dos
+variables que se quieren aislar (estructura de grafo, reliability gate).
+
+| PROPERTY | B6 | P1 | P2 |
+|---|---|---|---|
+| Input | `EvidencePacket` vía `packet_to_modality_features` | idéntico | idéntico |
+| Encoder | `EvidenceEncoderBank` (shared_dim=32, hidden_dim=64) | idéntico (misma clase, mismos defaults) | idéntico |
+| Graph | ninguno (conjunto plano de embeddings) | `EvidenceGraph` (`build_graph`) | idéntico a P1 |
+| Explicit relations | N/A | `evidence_for` + narrativa↔visual (support/contradiction/unknown) | idéntico a P1 |
+| Reliability gate | N/A | ninguno (`message_scale` = 1.0 siempre) | `g_j=clip(c·q·r·(1-u),0,1)` (`message_scale` sobreescrito) |
+| Pooling | **media** sobre embeddings de modalidades presentes | **media** sobre nodos del grafo tras GATv2 (incluye nodo `claim`) | idéntico a P1 |
+| Classifier | `Linear(32,64)→ReLU→Linear(64,3)` | idéntico (misma arquitectura) | idéntico |
+| Label space | `CLASS_ORDER` de `src.evaluation.metrics` (SUPPORTED/SUSPICIOUS/INSUFFICIENT) | idéntico | idéntico |
+| Split | (ninguno real ejecutado aún; mismo `benchmark.lock.json`/manifest previstos para los tres cuando se entrene) | idéntico | idéntico |
+| Training protocol | `experiments.train`/`uafeg.models.training.train` (Adam, CrossEntropyLoss, mismo manejo de seed) | idéntico | idéntico |
+
+**Hallazgo corregido en esta pasada**: B6 usaba pooling por **suma** mientras P1/P2 ya usaban
+pooling por **media**. Con suma, la magnitud del vector agrupado de B6 escalaba con la cantidad
+de modalidades presentes (1 a 4 por claim), lo cual habría confundido "aporta el grafo" (B6 vs
+P1) con "aporta tener más evidencia presente" — una diferencia accidental ajena a la estructura
+relacional que la comparación debe aislar. Corregido a media en
+`src/uafeg/models/b6_deepsets.py` (un único cambio de línea + docstring); no se reentrenó nada
+porque no había entrenamiento real previo que invalidar, solo los smoke runs de la sesión
+anterior, que ya estaban marcados `SMOKE_RESULT`.
+
 ## Tabla de implementación
 
 | Component | Status | Tests | Scientific evaluation |
