@@ -1,0 +1,11 @@
+ablation: no_gate
+thesis_id: A1
+status: IMPLEMENTED_CODE_NOT_TRAINED
+description: >
+  P2 sin reliability gate es, por construccion, P1 (ver
+  uafeg/experiments/ablations.py). No existe un "P2 con gate desactivado"
+  distinto de P1: ejecutar esta ablacion es correr --system P1 sobre el
+  mismo benchmark/split/seed que P2.
+equivalent_run:
+  system: P1
+  config: ../p1_graph.yaml

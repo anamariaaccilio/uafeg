@@ -1,0 +1,11 @@
+ablation: graph_to_deepsets
+thesis_id: A3
+status: IMPLEMENTED_CODE_NOT_TRAINED
+description: >
+  GATv2 reemplazado por DeepSets con los mismos EvidencePacket (tesis,
+  capitulo4.tex, "Estudios de ablacion", item 3). "Mismos EvidencePacket,
+  sin estructura relacional" es, por definicion, B6 (ver
+  uafeg/experiments/ablations.py) — no se duplica codigo.
+equivalent_run:
+  system: B6
+  config: ../b6_deepsets.yaml

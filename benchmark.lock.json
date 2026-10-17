@@ -1,7 +1,7 @@
 {
   "benchmark_repository": "vehicle-claim-verification-baselines",
   "benchmark_version": "0.2.0",
-  "git_commit": "e7c4cfb1a6dfa487f42ec4e9edfdd77e4600781d",
+  "git_commit": "bd4b3aa6e376d82dbcdb051290ddd64cbae13943",
   "schema_version": "0.3.0",
   "availability": {
     "manifest": "AVAILABLE",
@@ -38,8 +38,8 @@
     "src/data/manifest.py": "945bd10da94c241b32deb8a67f3e7b70217693b6aaf6e88fb9a7e2a8a92a02f4",
     "src/data/split.py": "5a92cb80920d8e01796edb3dd50af2d974e033d283b3454d044c736ba2540835",
     "src/data/split_audit.py": "a30f06ad489aeccc084f863b974b4b8542cd9bab6d8b21ac0772db289b8ea3e1",
-    "src/evaluation/metrics.py": "ba59b5b6cde76bc6584e16b011ca4da36636566d664fbdbaea4d84d276bc98ec",
-    "src/evaluation/stress_slices.py": "6201036accf2f16138c8ff67ea651e1c9c8c2d55565d8565afeaba3b23609a41",
+    "src/evaluation/metrics.py": "7eb6e4912e8565a29cb259866e5a0baa395c3db7071b566f1acd6668de7560b7",
+    "src/evaluation/stress_slices.py": "c7b60d9fe62b9c9008a71ff865fec52206743be0e13ff592053a2b108e062a63",
     "src/fusion/rules.py": "a45bdccc51347fb3a719a082ef732053c6d4acfc18369dd66633d5b8168c1713",
     "src/schemas/claim.py": "398597b92bc52b432a606ce7b7b7842263e49a8a174f8c6405fe8c8e3e500c86",
     "src/schemas/evidence.py": "87e4e92c2c7372cb3c6abf71e9087a2c3e2dd823b2f564e9003b324a3af15602",

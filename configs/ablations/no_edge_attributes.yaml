@@ -1,0 +1,13 @@
+ablation: no_edge_attributes
+thesis_id: A4
+status: NOT_IMPLEMENTED
+description: >
+  Sin atributos de arista: las relaciones conservan su tipo pero pierden
+  los puntajes continuos (tesis, capitulo4.tex, "Estudios de ablacion",
+  item 4; formula de atributos en capitulo2.tex eq:aristas:
+  [p_support, p_contradiction, p_unknown, sim_sem, overlap_spatial]).
+  Requiere que EvidenceGraph.Edge lleve ese vector continuo ademas del tipo
+  categorico actual (ver src/uafeg/relations.py, src/uafeg/graph.py) y que
+  GATv2Layer lo consuma en el calculo de atencion. No implementado: es
+  nueva funcionalidad, fuera de alcance de una pasada de consistencia
+  (ver PROJECT_COMPLETION_GAP.md).

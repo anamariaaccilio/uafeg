@@ -1,0 +1,12 @@
+ablation: no_benign_no_ood_training
+thesis_id: A5
+status: NOT_IMPLEMENTED
+description: >
+  Entrenamiento sin controles benignos (C8) ni condiciones OOD (C10)
+  (tesis, capitulo4.tex, "Estudios de ablacion", item 5). Requiere que
+  experiments.train conozca la condicion C0-C10 de cada EvidencePacket para
+  poder filtrar el split de entrenamiento; hoy ni el dataset sintetico de
+  smoke (experiments/smoke_data.py) ni el loader de benchmark real
+  transportan esa condicion hasta el runner. No implementado: es nueva
+  funcionalidad, fuera de alcance de una pasada de consistencia (ver
+  PROJECT_COMPLETION_GAP.md).

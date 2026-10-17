@@ -1,5 +1,23 @@
 system: P1
-status: NOT IMPLEMENTED
+status: IMPLEMENTED_CODE_NOT_TRAINED
 architecture: graph_without_reliability_gate
 reliability_gate: false
+# IMPLEMENTED_CODE_NOT_TRAINED = forward/train/eval/checkpoint existen y
+# tienen smoke tests sobre fixtures (ver uafeg/tests/test_p1_graph.py), pero
+# no se ha entrenado sobre el benchmark real (ver ../PROJECT_COMPLETION_GAP.md).
+# Ningun numero producido con este config hoy es un REAL_RESULT.
+
+model:
+  shared_dim: 32
+  hidden_dim: 64
+  heads: 2
+  num_classes: 3  # SUPPORTED, SUSPICIOUS, INSUFFICIENT
+
+training:
+  epochs: 1
+  learning_rate: 0.001
+  seed: 42
+
 benchmark_lock: benchmark.lock.json
+# P1 debe evaluarse sobre EXACTAMENTE el mismo manifest/splits/packets/
+# encoder que B6 (ver b6_deepsets.yaml): B6 vs P1 aisla el aporte del grafo.

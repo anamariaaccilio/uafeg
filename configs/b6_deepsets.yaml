@@ -1,0 +1,23 @@
+system: B6
+status: IMPLEMENTED_CODE_NOT_TRAINED
+architecture: deepsets
+# IMPLEMENTED_CODE_NOT_TRAINED = el forward/train/eval/checkpoint existe y
+# tiene smoke tests sobre fixtures, pero no se ha entrenado sobre el
+# benchmark real: v2 tiene specialists en null y v3 esta
+# PENDING_SCIENTIFIC_QA (ver ../PROJECT_COMPLETION_GAP.md). Ningun numero
+# producido con este config hoy es un REAL_RESULT.
+
+model:
+  shared_dim: 32
+  hidden_dim: 64
+  num_classes: 3  # SUPPORTED, SUSPICIOUS, INSUFFICIENT (ver src.evaluation.metrics.CLASS_ORDER)
+
+training:
+  epochs: 1          # smoke default; aumentar solo con benchmark promovido
+  learning_rate: 0.001
+  seed: 42
+
+benchmark_lock: benchmark.lock.json
+# B6 debe evaluarse sobre EXACTAMENTE el mismo manifest/splits/packets que
+# P1 y P2 (ver uafeg/configs/p1_graph.yaml, p2_uafeg.yaml) para que la
+# comparacion B6 vs P1 aisle el aporte del grafo.

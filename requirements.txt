@@ -2,3 +2,7 @@
 -e ../vehicle-claim-verification-baselines
 -e .
 pytest==9.1.1
+
+# B6/P1/P2: evidence encoders + model backbones (FASE siguiente).
+numpy>=2.0
+torch>=2.2

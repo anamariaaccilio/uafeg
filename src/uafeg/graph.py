@@ -8,6 +8,8 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from src.schemas.packet import EvidencePacket
 from src.schemas.evidence import NarrativeEvidence, VisualEvidence, ImageQuality, ForensicResult
 
+from uafeg.relations import narrative_visual_relation
+
 _PAYLOAD_TYPES = {"narrative": NarrativeEvidence, "visual": VisualEvidence,
                   "image_quality": ImageQuality, "forensic": ForensicResult}
 
@@ -34,7 +36,7 @@ class Edge(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
     source: str = Field(min_length=1)
     target: str = Field(min_length=1)
-    relation: Literal["evidence_for"] = "evidence_for"
+    relation: Literal["evidence_for", "support", "contradiction", "overlap", "unknown"] = "evidence_for"
 
 
 class EvidenceGraph(BaseModel):
@@ -55,12 +57,29 @@ class EvidenceGraph(BaseModel):
         kinds = [node.kind for node in self.nodes]
         if len(kinds) != len(set(kinds)):
             raise ValueError("MVP permits one node per modality")
+        claim_id = claims[0].id
+        id_set = set(ids)
+
         links = [(edge.source, edge.target) for edge in self.edges]
         if len(links) != len(set(links)):
             raise ValueError("Duplicate edges")
-        expected = {(node.id, claims[0].id) for node in self.nodes if node.kind != "claim"}
-        if set(links) != expected:
+
+        # Star edges (claim-ward) must exist for every evidence node, with
+        # relation=evidence_for, exactly as before this was a plain star graph.
+        expected_star = {(node.id, claim_id) for node in self.nodes if node.kind != "claim"}
+        star_links = {link for link in links if link[1] == claim_id}
+        if star_links != expected_star:
             raise ValueError("Each evidence must point to the claim; dangling/self/missing edges forbidden")
+
+        for edge in self.edges:
+            if edge.source not in id_set or edge.target not in id_set:
+                raise ValueError("Edge endpoints must reference existing nodes")
+            if edge.source == edge.target:
+                raise ValueError("Self-loop edges are forbidden")
+            if edge.target == claim_id and edge.relation != "evidence_for":
+                raise ValueError("Edges into the claim node must use relation=evidence_for")
+            if edge.target != claim_id and edge.relation == "evidence_for":
+                raise ValueError("relation=evidence_for is reserved for edges into the claim node")
         return self
 
 
@@ -77,6 +96,12 @@ def build_graph(packet: EvidencePacket) -> EvidenceGraph:
             continue
         nodes.append(Node(id=kind, kind=kind, evidence=evidence.model_copy(deep=True)))
         edges.append(Edge(source=kind, target="claim"))
+
+    node_kinds = {node.kind for node in nodes}
+    if "narrative" in node_kinds and "visual" in node_kinds:
+        relation = narrative_visual_relation(packet.narrative, packet.visual)
+        edges.append(Edge(source="narrative", target="visual", relation=relation))
+
     return EvidenceGraph(claim_id=packet.claim.claim_id,
                          source_image_id=packet.claim.source_image_id,
                          nodes=tuple(nodes), edges=tuple(edges))

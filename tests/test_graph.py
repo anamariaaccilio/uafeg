@@ -53,7 +53,11 @@ def test_packet_compatibility_and_graph_construction():
     assert graph.claim_id == original.claim.claim_id
     assert graph.source_image_id == original.claim.source_image_id
     assert [n.kind for n in graph.nodes] == ["claim", "narrative", "visual"]
-    assert [(e.source, e.target) for e in graph.edges] == [("narrative", "claim"), ("visual", "claim")]
+    assert [(e.source, e.target, e.relation) for e in graph.edges] == [
+        ("narrative", "claim", "evidence_for"),
+        ("visual", "claim", "evidence_for"),
+        ("narrative", "visual", "support"),  # ambos afirman/detectan "dent"
+    ]
     assert EvidenceGraph.model_validate_json(graph.model_dump_json()) == graph
     assert build_graph(loaded) == graph
 
@@ -137,6 +141,51 @@ def test_benchmark_manifest_hash_tampering_is_rejected(tmp_path):
     path.write_text(json.dumps(lock))
     with pytest.raises(ValueError, match='manifest changed'):
         verify_benchmark(path)
+
+
+def test_narrative_visual_relation_support_contradiction_unknown():
+    from uafeg.relations import narrative_visual_relation
+
+    claims_dent = NarrativeEvidence(raw_scores={"dent": .9}, normalized_scores={"dent": 1.0},
+                                    model_name="fixture", device="cpu")
+    detects_dent = VisualEvidence(detections=[DamageAnnotation(damage_class="dent", confidence=.7)],
+                                  model_name="fixture", image_width=32, image_height=32)
+    detects_scratch = VisualEvidence(detections=[DamageAnnotation(damage_class="scratch", confidence=.7)],
+                                     model_name="fixture", image_width=32, image_height=32)
+    detects_nothing = VisualEvidence(detections=[], model_name="fixture", image_width=32, image_height=32)
+    claims_nothing = NarrativeEvidence(raw_scores={"dent": .1}, normalized_scores={"dent": .1},
+                                       model_name="fixture", device="cpu")
+
+    assert narrative_visual_relation(claims_dent, detects_dent) == "support"
+    assert narrative_visual_relation(claims_dent, detects_scratch) == "contradiction"
+    assert narrative_visual_relation(claims_dent, detects_nothing) == "unknown"
+    assert narrative_visual_relation(claims_nothing, detects_dent) == "unknown"
+
+
+def test_relation_edge_present_only_when_both_modalities_exist():
+    only_narrative = EvidencePacket(
+        claim=ClaimRecord(claim_id="only-narrative"),
+        narrative=NarrativeEvidence(raw_scores={"dent": .9}, normalized_scores={"dent": 1.0},
+                                    model_name="fixture", device="cpu"),
+    )
+    graph = build_graph(only_narrative)
+    assert [(e.source, e.target) for e in graph.edges] == [("narrative", "claim")]
+
+
+def test_relation_never_depends_on_expected_label_contradiction_case():
+    original = EvidencePacket(
+        claim=ClaimRecord(claim_id="contradiction-fixture", expected_label=DecisionLabel.SUPPORTED),
+        narrative=NarrativeEvidence(raw_scores={"dent": .9}, normalized_scores={"dent": 1.0},
+                                    model_name="fixture", device="cpu"),
+        visual=VisualEvidence(detections=[DamageAnnotation(damage_class="scratch", confidence=.7)],
+                              model_name="fixture", image_width=32, image_height=32),
+    )
+    graph_before = build_graph(original)
+    assert [e.relation for e in graph_before.edges if e.source == "narrative" and e.target == "visual"] == ["contradiction"]
+
+    original.claim.expected_label = DecisionLabel.INSUFFICIENT
+    graph_after = build_graph(original)
+    assert graph_after == graph_before
 
 
 def test_pin_script_checks_actual_artifacts():

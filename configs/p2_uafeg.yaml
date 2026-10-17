@@ -1,5 +1,34 @@
 system: P2
-status: NOT IMPLEMENTED
-architecture: P1_plus_reliability_aware_mechanism
+status: IMPLEMENTED_CODE_NOT_TRAINED
+architecture: P1_plus_reliability_gate
 reliability_gate: true
+# IMPLEMENTED_CODE_NOT_TRAINED = g_j = clip(c_j*q_j*r_j*(1-u_j),0,1) esta
+# implementado (uafeg/src/uafeg/models/gate.py) y aplicado al mensaje de
+# cada nodo de evidencia antes de la atencion GATv2
+# (uafeg/src/uafeg/models/p2_uafeg.py, que reutiliza P1 como base). Tiene
+# smoke tests (rango, monotonicidad por factor, gate=1 == P1, gradientes,
+# no target leakage; ver uafeg/tests/test_gate.py y test_p2_uafeg.py), pero
+# no se ha entrenado sobre el benchmark real (ver ../PROJECT_COMPLETION_GAP.md).
+# Ningun numero producido con este config hoy es un REAL_RESULT.
+
+model:
+  shared_dim: 32
+  hidden_dim: 64
+  heads: 2
+  num_classes: 3  # SUPPORTED, SUSPICIOUS, INSUFFICIENT
+
+gate:
+  # c_j, q_j, r_j, u_j se derivan SOLO de senales observables del propio
+  # EvidencePacket (ver uafeg/src/uafeg/models/gate.py); nunca de
+  # expected_label. Donde el contrato actual no expone un factor para una
+  # modalidad se usa el valor neutro documentado en gate.py.
+  formula: "g_j = clip(c_j * q_j * r_j * (1 - u_j), 0, 1)"
+
+training:
+  epochs: 1
+  learning_rate: 0.001
+  seed: 42
+
 benchmark_lock: benchmark.lock.json
+# P2 debe evaluarse sobre EXACTAMENTE el mismo manifest/splits/packets/
+# encoder que B6 y P1: P1 vs P2 aisla el aporte exclusivo de la compuerta.

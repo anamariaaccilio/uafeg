@@ -1,0 +1,19 @@
+ablation: no_forensic
+thesis_id: A2
+status: IMPLEMENTED_CODE_NOT_TRAINED
+description: >
+  Elimina la modalidad forense de todos los EvidencePackets antes de
+  construir el grafo (ver uafeg/experiments/ablations.py:strip_forensic),
+  independientemente de si el especialista forense estaba disponible.
+  Util para H3 (P2 completo vs P2 sin forense en slices de manipulacion).
+system: P2
+model:
+  shared_dim: 32
+  hidden_dim: 64
+  heads: 2
+  num_classes: 3
+training:
+  epochs: 1
+  learning_rate: 0.001
+  seed: 42
+benchmark_lock: ../../benchmark.lock.json

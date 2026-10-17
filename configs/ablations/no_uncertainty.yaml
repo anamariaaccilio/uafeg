@@ -1,0 +1,21 @@
+ablation: no_uncertainty
+thesis_id: null  # EXTRA: no corresponde a ninguna A1-A5 del capitulo4.tex de la tesis
+status: IMPLEMENTED_CODE_NOT_TRAINED
+description: >
+  EXTRA, no especificada por la tesis. Reliability gate sin el termino
+  (1 - u_j): fuerza u_j=0 para todos los nodos de evidencia (ver
+  uafeg/src/uafeg/models/gate.py:node_gate, parametro disable). El resto
+  del gate (coverage, quality, reliability) se mantiene igual que P2
+  completo.
+system: P2
+model:
+  shared_dim: 32
+  hidden_dim: 64
+  heads: 2
+  num_classes: 3
+  disable_gate_terms: ["uncertainty"]
+training:
+  epochs: 1
+  learning_rate: 0.001
+  seed: 42
+benchmark_lock: ../../benchmark.lock.json
