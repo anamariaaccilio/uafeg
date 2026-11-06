@@ -192,3 +192,13 @@ def test_pin_script_checks_actual_artifacts():
     import subprocess
     import sys
     subprocess.run([sys.executable, str(LOCK.parent/'scripts/pin_benchmark.py'), '--check'],check=True)
+
+
+def test_pin_write_rejects_dirty_repository(monkeypatch):
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("pin_benchmark", LOCK.parent / "scripts/pin_benchmark.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    monkeypatch.setattr(module.subprocess, "check_output", lambda *args, **kwargs: " M README.md\n")
+    with pytest.raises(ValueError, match="committed and clean"):
+        module.generate_lock()

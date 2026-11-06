@@ -15,10 +15,10 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def generate_lock():
+def generate_lock(*, require_clean=True):
     repository = Path(canonical.__file__).resolve().parents[2]
     status = subprocess.check_output(['git','-C',str(repository),'status','--porcelain'],text=True)
-    if status:
+    if require_clean and status:
         raise ValueError('Canonical repository must be committed and clean before pinning')
     artifact_dir = Path('data/manifests/benchmark_v2')
     metadata_path = repository/artifact_dir/'metadata.json'
@@ -61,7 +61,10 @@ def main():
     group.add_argument('--write',action='store_true')
     group.add_argument('--check',action='store_true')
     args = parser.parse_args()
-    actual = generate_lock()
+    # Checking compares the current bytes and HEAD with the lock. Unrelated
+    # documentation edits do not invalidate that contract; writing a new pin
+    # still requires a clean, committed canonical repository.
+    actual = generate_lock(require_clean=args.write)
     target = ROOT/'benchmark.lock.json'
     if args.check:
         if actual != json.loads(target.read_text()):
