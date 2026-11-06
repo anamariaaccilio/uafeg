@@ -8,7 +8,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from src.schemas.packet import EvidencePacket
 from src.schemas.evidence import NarrativeEvidence, VisualEvidence, ImageQuality, ForensicResult
 
-from uafeg.relations import narrative_visual_relation
+from uafeg.relations import EdgeAttributes, narrative_visual_attributes, narrative_visual_relation
 
 _PAYLOAD_TYPES = {"narrative": NarrativeEvidence, "visual": VisualEvidence,
                   "image_quality": ImageQuality, "forensic": ForensicResult}
@@ -37,6 +37,10 @@ class Edge(BaseModel):
     source: str = Field(min_length=1)
     target: str = Field(min_length=1)
     relation: Literal["evidence_for", "support", "contradiction", "overlap", "unknown"] = "evidence_for"
+    attributes: EdgeAttributes = Field(default_factory=EdgeAttributes.unobserved)
+    """a_ij de la tesis (eq:aristas) con su mascara de observabilidad. Las
+    aristas evidence_for hacia el nodo claim lo llevan completamente
+    enmascarado: no son una relacion entre dos evidencias."""
 
 
 class EvidenceGraph(BaseModel):
@@ -100,7 +104,8 @@ def build_graph(packet: EvidencePacket) -> EvidenceGraph:
     node_kinds = {node.kind for node in nodes}
     if "narrative" in node_kinds and "visual" in node_kinds:
         relation = narrative_visual_relation(packet.narrative, packet.visual)
-        edges.append(Edge(source="narrative", target="visual", relation=relation))
+        attributes = narrative_visual_attributes(packet.narrative, packet.visual)
+        edges.append(Edge(source="narrative", target="visual", relation=relation, attributes=attributes))
 
     return EvidenceGraph(claim_id=packet.claim.claim_id,
                          source_image_id=packet.claim.source_image_id,
