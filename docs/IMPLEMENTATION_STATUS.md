@@ -11,6 +11,10 @@ entrenó/evaluó sobre el benchmark real?). Nunca confundir `IMPLEMENTED` con `T
 
 ## Estado declarado explícitamente (instrucción de cierre)
 
+> Actualización 2026-11-06 (rama `infra/complete-pipeline`): se implementaron los atributos
+> continuos de arista y la capa GATv2 de la tesis; A4 pasa a implementada. La taxonomía de nodos
+> sigue siendo **PENDING_ADVISOR_DECISION**. Nada de esto se entrenó ni evaluó.
+
 - **B6 = IMPLEMENTED_CODE_NOT_TRAINED**
 - **P1 = IMPLEMENTED_CODE_NOT_TRAINED**
 - **P2 = IMPLEMENTED_CODE_NOT_TRAINED**
@@ -60,7 +64,10 @@ anterior, que ya estaban marcados `SMOKE_RESULT`.
 | P1 (GATv2 relacional, sin gate) | IMPLEMENTED_CODE_NOT_TRAINED | 7 tests | NOT_RUN (solo SMOKE_ONLY) |
 | P2 (P1 + reliability gate) | IMPLEMENTED_CODE_NOT_TRAINED | 21 tests | NOT_RUN (solo SMOKE_ONLY) |
 | Ablaciones A1/A2/A3 (no_gate, no_forensic, graph_to_deepsets) | IMPLEMENTED_CODE_NOT_TRAINED | 8 tests | NOT_RUN |
-| Ablaciones A4/A5 (no_edge_attributes, no_benign_no_ood_training) | NOT_IMPLEMENTED (`NotImplementedError` explícito, no fingido) | — | — |
+| Ablación A4 (no_edge_attributes) | IMPLEMENTED_CODE_NOT_TRAINED | 2 tests | NOT_RUN |
+| Ablación A5 (no_benign_no_ood_training) | NOT_IMPLEMENTED (`NotImplementedError` explícito, no fingido) | — | — |
+| Capa GATv2 de la tesis (W_r por relación, atención sobre a_ij, residual + LayerNorm) | IMPLEMENTED_CODE_NOT_TRAINED | 14 tests | NOT_RUN |
+| Atributos continuos de arista a_ij + máscara | IMPLEMENTED | 11 tests | N/A |
 | Ablaciones extra (no_uncertainty, no_explicit_relations) | IMPLEMENTED, fuera del protocolo de la tesis | incluidos en los 8 tests | NOT_RUN |
 | Protocolo oracle (4 combinaciones) | IMPLEMENTED (corregido esta pasada, ver tabla de abajo) | 6 tests | N/A (diagnóstico) |
 | Train/eval runner | IMPLEMENTED | validado por 7 ejecuciones reales (`--data smoke`) | SMOKE_ONLY |
@@ -70,7 +77,7 @@ anterior, que ya estaban marcados `SMOKE_RESULT`.
 | Grouped bootstrap + Holm | IMPLEMENTED (Holm añadido esta pasada) | 8 tests | NOT_RUN |
 | H1/H2/H3 runners dedicados | NOT_IMPLEMENTED | — | — |
 
-Total de tests: **Repo A 158 passed / 5 skipped. Repo B 76 passed / 0 failed.** `git diff --check`
+Total de tests: **Repo A 158 passed / 5 skipped. Repo B 103 passed / 0 failed** (76 antes de la pasada del 2026-11-06). `git diff --check`
 limpio en ambos.
 
 ## Tesis vs. código — tabla de verificación
@@ -84,7 +91,7 @@ limpio en ambos.
 | Ablación A1 (no gate) | `g_j=1` para todos los nodos | `no_gate` ≡ ejecutar P1 (probado `torch.allclose` con P2 gate=1) | **MATCH** | metadato `thesis_id: A1` añadido |
 | Ablación A2 (sin forense) | quitar nodos forensic | `strip_forensic` | **MATCH** | metadato `thesis_id: A2` añadido |
 | Ablación A3 (GATv2→DeepSets) | "mismos EvidencePacket, sin estructura" | no existía mapeo explícito a B6 | MISMATCH (solo de nomenclatura) | **CORREGIDO**: nuevo `graph_to_deepsets` ablation ≡ ejecutar B6, `configs/ablations/graph_to_deepsets.yaml` |
-| Ablación A4 (sin atributos de arista continuos) | aristas con `[p_support,p_contradiction,p_unknown,sim_sem,overlap_spatial]` (eq:aristas), A4 quita solo los puntajes | el código nunca implementó atributos continuos de arista (solo tipo categórico) | **MISMATCH real** | NO corregido (requiere nueva funcionalidad: vector continuo en `Edge` + consumo en `GATv2Layer`); declarado `NOT_IMPLEMENTED` explícito en `ablations.py`, `NotImplementedError` si se invoca |
+| Ablación A4 (sin atributos de arista continuos) | aristas con `[p_support,p_contradiction,p_unknown,sim_sem,overlap_spatial]` (eq:aristas), A4 quita solo los puntajes | `Edge.attributes` lleva el vector continuo + máscara (`uafeg.relations.EdgeAttributes`), consumido por `ThesisGATv2Layer`; A4 = `use_edge_attributes=False` conserva el tipo y enmascara a_ij | **MATCH** | **CORREGIDO** (pasada 2026-11-06): A4 pasa a `IMPLEMENTED_CODE_NOT_TRAINED` |
 | Ablación A5 (sin C8/C10 en train) | filtrar split de entrenamiento por condición | no existe condición por EvidencePacket en el runner | **MISMATCH real** | NO corregido (requiere nueva funcionalidad: propagar condición C0–C10 hasta `experiments.train`); declarado `NOT_IMPLEMENTED` explícito |
 | "no_uncertainty" (ablación previa de esta sesión) | no existe en la tesis | implementada | **EXTRA, no es del protocolo** | mantenida, pero `thesis_id: null` explícito en config y en `ABLATIONS` |
 | "no_explicit_relations" (ablación previa) | no existe en la tesis (A4 es más suave: conserva tipo, quita solo puntajes) | implementada (quita la arista completa) | **EXTRA, no es del protocolo** | mantenida, `thesis_id: null` explícito |
@@ -97,9 +104,9 @@ limpio en ambos.
 | Métricas principales: PR-AUC(SUSPICIOUS) principal, macro-F1/precision/recall/AUROC secundarias | sec:metricas | `compute_all_metrics` reporta `pr_auc_suspicious` primero | **MATCH** | ninguna |
 | ECE | `ECE=Σ(|B_b|/N)|acc-conf|` (eq:ece) | idéntico, bins por confianza top-1 | **MATCH** | ninguna |
 | AURC / risk-coverage | "clasificación selectiva" (Geifman & El-Yaniv) | implementación estándar equivalente | **MATCH** | ninguna |
-| Nodos del grafo | 4 tipos: `claim` (afirmaciones del relato, no un hub único), `visual`, `forensic`, `source` | 5 tipos: `claim` (hub único del caso), `narrative`, `visual`, `image_quality`, `forensic`; no existe nodo `source` ni múltiples nodos `claim` por afirmación | **MISMATCH real** (diseño conceptual distinto) | **NO corregido**: redefinir el esquema de nodos es un cambio de arquitectura mayor (afecta B6/P1/P2 ya construidos encima), fuera de alcance de "no añadir funcionalidades" en esta pasada. Documentado como deuda de diseño pendiente de decisión del asesor. |
-| Atributos de arista | vector continuo `a_ij=[p_support,p_contradiction,p_unknown,sim_sem,overlap_spatial]` (eq:aristas) | `Edge.relation` es un **tipo categórico único** (`evidence_for\|support\|contradiction\|overlap\|unknown`), sin puntajes continuos | **MISMATCH real** (mismo origen que A4) | NO corregido, mismo motivo que A4 |
-| Mensaje GATv2 con compuerta | `m=g_j·α_ij,r·W_r·h_j` (pesos **W_r por tipo de relación**), update con **residual + LayerNorm** (eq:mensaje, eq:update) | un único `W_src`/`W_dst` compartido entre relaciones (el tipo de relación solo sesga el *score* de atención vía un embedding), sin conexión residual explícita ni LayerNorm | **MISMATCH real** (simplificación de ingeniería ya documentada en el docstring de `GATv2Layer` desde su implementación original) | NO corregido: añadir pesos por relación + residual + LayerNorm es una extensión de arquitectura, no una corrección contenida; fuera de alcance de "no añadir funcionalidades" |
+| Nodos del grafo | 4 tipos: `claim` (afirmaciones del relato, no un hub único), `visual`, `forensic`, `source` | 5 tipos: `claim` (hub único del caso), `narrative`, `visual`, `image_quality`, `forensic`; no existe nodo `source` ni múltiples nodos `claim` por afirmación | **MISMATCH real** (diseño conceptual distinto) | **PENDING_ADVISOR_DECISION**: redefinir el esquema de nodos es un cambio de arquitectura mayor (afecta B6/P1/P2 ya construidos encima) y cambia qué representa una unidad de evidencia. La decisión es de la asesora, no del código. |
+| Atributos de arista | vector continuo `a_ij=[p_support,p_contradiction,p_unknown,sim_sem,overlap_spatial]` (eq:aristas) | `Edge.attributes` transporta los cinco valores con una máscara de observabilidad; `sim_sem` queda enmascarado si el especialista visual no reporta confianzas y `overlap_spatial` siempre, porque ninguna punta de la relación narrativa-visual expone una región comparable | **MATCH, con dos atributos declarados no observables hoy** | **CORREGIDO** (pasada 2026-11-06). Un 0.0 enmascarado es un ausente declarado, nunca un valor medido; `overlap_spatial` se activará cuando `ForensicResult` publique localización |
+| Mensaje GATv2 con compuerta | `m=g_j·α_ij,r·W_r·h_j` (pesos **W_r por tipo de relación**), update con **residual + LayerNorm** (eq:mensaje, eq:update) | `ThesisGATv2Layer`: `W_r` por tipo de relación (self-loop incluido, con peso propio), atención que consume `a_ij` y su máscara, y `h_i ← LayerNorm(h_i + σ(Σ m_ij))`. `g_j` escala el mensaje del vecino, no el `h_i` del residual | **MATCH** | **CORREGIDO** (pasada 2026-11-06). `model.gat_variant: thesis` por defecto; `legacy` conserva la capa previa solo para comparar contra ella |
 
 ### Resumen de la comparación
 
@@ -109,10 +116,12 @@ limpio en ambos.
   riesgo): A3 (mapeo a B6), protocolo oracle (visual+forense bundle), abstención (evidence_coverage
   en vez de confidence), corrección de comparaciones múltiples (Holm en vez de solo Bonferroni),
   descripción de H1 en la documentación.
-- **Mismatches pendientes** (reales, pero requieren nueva funcionalidad — fuera de alcance de
-  "no añadir funcionalidades" en una pasada de consistencia): A4 (atributos continuos de arista),
-  A5 (filtrar entrenamiento por condición), taxonomía de nodos del grafo (`source`, `claim`
-  multi-afirmación), pesos `W_r` por relación + residual + LayerNorm en el mensaje GATv2.
+- **Mismatches cerrados el 2026-11-06**: atributos continuos de arista `a_ij` (con máscara de
+  observabilidad), A4, y la capa de mensaje de la tesis (`W_r` por relación + atención sobre
+  `a_ij` + residual y LayerNorm).
+- **Mismatches pendientes**: A5 (filtrar el entrenamiento por condición C0–C10; requiere que
+  `experiments.train` conozca la condición de cada packet) y la taxonomía de nodos del grafo
+  (`source`, `claim` multi-afirmación), que queda **PENDING_ADVISOR_DECISION**.
 
 ## Bloqueadores que impiden "Scientific evaluation"
 
@@ -120,7 +129,10 @@ limpio en ambos.
    `bd4b3aa...`) sigue fijado a v0.2.0 con specialists null.
 2. v3 candidato sigue `PENDING_SCIENTIFIC_QA` / `READY_FOR_MODELS=NO`.
 3. Especialista forense sin código real; especialista visual sin pesos.
-4. Los mismatches pendientes de arquitectura (tabla de arriba) significan que P1/P2, aunque
-   "IMPLEMENTED_CODE_NOT_TRAINED" y funcionales, son una **simplificación documentada** del
-   diseño exacto de la tesis en 3 puntos (taxonomía de nodos, atributos de arista, pesos
-   por relación/residual/LayerNorm). Cualquier resultado futuro debe citar esto como limitación.
+4. Tras la pasada del 2026-11-06, P1/P2 siguen "IMPLEMENTED_CODE_NOT_TRAINED" pero ya no son
+   una simplificación en atributos de arista ni en la forma del mensaje: la variante por defecto
+   `gat_variant: thesis` implementa eq:aristas, eq:mensaje y eq:update. Queda **una** divergencia
+   de diseño, la taxonomía de nodos (`source`, `claim` multi-afirmación), en
+   PENDING_ADVISOR_DECISION, más dos atributos (`sim_sem` sin confianzas visuales y
+   `overlap_spatial`) declarados no observables con el contrato actual. Cualquier resultado futuro
+   debe citar esto como limitación.
