@@ -1,105 +1,65 @@
-# UAFEG
+# UAFEG: grafo y modelos de la tesis
 
-**Uncertainty-Aware Forensic Evidence Graph**: repositorio de la propuesta de tesis sobre
-verificación robusta de reclamos de seguros vehiculares. Combina evidencia narrativa, visual y
-forense en un grafo, con una compuerta de confiabilidad que modula cuánto pesa cada pieza de
-evidencia según su cobertura, calidad, confiabilidad e incertidumbre.
+Repo B: implementa la comparación B6 → P1 → P2 usando los contratos y herramientas del [Repo A](../vehicle-claim-verification-baselines/README.md).
 
-El repositorio hermano `vehicle-claim-verification-baselines` (Repo A) es la única fuente de
-`ClaimRecord`, `EvidencePacket`, labels, manifest, splits, condiciones C0–C10 y evaluación
-compartida (métricas, calibración, incertidumbre, abstención, bootstrap). Se consume por
-instalación editable; no hay schemas duplicados.
+**B6/P1/P2 implementados, sin entrenamiento sobre el benchmark real.** La carga de datos real todavía no está implementada; `--data smoke` usa datos sintéticos. [Preparación del entrenamiento](docs/TRAINING.md).
 
-## B6 → P1 → P2
+## Comparación experimental
 
-Tres sistemas comparten exactamente el mismo encoder de evidencia, el mismo espacio de labels
-(SUPPORTED/SUSPICIOUS/INSUFFICIENT) y el mismo protocolo de entrenamiento, para que la
-comparación aísle una sola variable cada vez:
-
-- **B6** (`src/uafeg/models/b6_deepsets.py`): evidence encoders → pooling permutation-invariante
-  (DeepSets) → clasificador. Sin grafo explícito.
-- **P1** (`src/uafeg/models/p1_graph.py`): `EvidenceGraph` → atención relacional GATv2
-  (implementación propia, sin `torch_geometric`) → pooling → el mismo clasificador que B6. Sin
-  reliability gate. B6 vs P1 aísla el aporte de la estructura de grafo.
-- **P2** (`src/uafeg/models/p2_uafeg.py`): reutiliza P1 como base; la única diferencia es el
-  reliability gate `g_j = clip(c_j·q_j·r_j·(1-u_j), 0, 1)` (`src/uafeg/models/gate.py`), aplicado
-  al mensaje de cada nodo de evidencia antes de la atención. P1 vs P2 aísla el aporte de la
-  compuerta.
-
-**Estado: `IMPLEMENTED_CODE_NOT_TRAINED` para los tres.** El código, el forward/train/checkpoint/
-inferencia y los tests son reales (ver `uafeg/docs/IMPLEMENTATION_STATUS.md` para el detalle
-completo, incluida la comparación línea por línea contra el `.tex` de la tesis). **Ningún
-entrenamiento se ha ejecutado sobre el benchmark real.** Las únicas ejecuciones hechas hasta
-ahora usan `--data smoke` (fixtures sintéticas, `experiments/smoke_data.py`) y se marcan
-`SMOKE_RESULT` explícitamente — nunca deben leerse como resultado científico.
-
-## Por qué no se ha entrenado todavía
-
-`READY_FOR_MODELS = NO`. El benchmark v2 (el que este repo tiene pinneado) tiene los
-`EvidencePacket` congelados con los especialistas en `null` (nunca se ejecutaron antes de
-congelar). El candidato v3 de Repo A (807 fuentes, 9.275 claims) está `PENDING_SCIENTIFIC_QA`:
-la condición C2 (sustitución) necesita adjudicación humana y C3/C4/C5 necesitan revisión de
-realismo perceptual. Ver `../PROJECT_COMPLETION_GAP.md` para el detalle y el plan.
-
-## Instalación y tests
-
-```bash
-cd '/home/ana/Documentos/tesis 2/uafeg'
-python3.11 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-env -u PYTHONPATH .venv/bin/python -m pytest -q
+```mermaid
+flowchart LR
+    E[EvidencePacket del Repo A] --> B[B6: conjunto sin relaciones]
+    E --> P[P1: grafo con atención]
+    E --> U[P2: mismo grafo con compuerta]
+    B --> M[Mismas métricas del Repo A]
+    P --> M
+    U --> M
 ```
 
-## Benchmark pinneado
+B6/P1 comparten codificadores y clasificador; la comparación estudia el efecto de la arquitectura de grafo. P2 reutiliza P1 y escala mensajes con `g = clip(cobertura × calidad × confiabilidad × (1 − incertidumbre), 0, 1)`. Su beneficio aún no se ha medido.
 
-`benchmark.lock.json` fija el commit real de Repo A, `schema_version`, el manifest/splits/
-EvidencePackets de `benchmark_v2` y sus SHA256 reales. Se regenera leyendo artefactos reales de
-un Repo A limpio y commiteado — nunca se edita a mano:
+## Mapa de archivos
+
+| Ruta | Contenido |
+|---|---|
+| `src/uafeg/graph.py` | Construye y valida nodos/aristas desde EvidencePacket. |
+| `src/uafeg/relations.py` | Relaciones narrativa-visual a partir de señales observables. |
+| `src/uafeg/models/features.py`, `encoders.py` | Características y codificadores compartidos. |
+| `src/uafeg/models/b6_deepsets.py` | B6: agregación por media, sin aristas. |
+| `src/uafeg/models/p1_graph.py` | P1: atención sobre el grafo. |
+| `src/uafeg/models/p2_uafeg.py`, `gate.py` | P2 y compuerta de confiabilidad. |
+| `src/uafeg/models/training.py`, `oracle.py` | Entrenamiento/checkpoints y controles con evidencia de referencia. |
+| `experiments/` | CLI de entrenamiento/evaluación, ablaciones y datos sintéticos. |
+| `configs/` | Configuraciones de modelos y ablaciones. |
+| `tests/` | Pruebas de modelos, contratos y compuerta. |
+| `benchmark.lock.json`, `scripts/pin_benchmark.py` | Fijan/verifican el contrato y snapshot v2 del Repo A. |
+| `artifacts/` | Salidas locales, checkpoints y registros; fuera de Git. |
+| `docs/IMPLEMENTATION_STATUS.md` | Auditoría técnica y diferencias respecto a la tesis; incluye antecedentes fechados. |
+
+## Instalación y comprobación
+
+Mantener ambos repositorios como carpetas hermanas. Desde `uafeg/`:
 
 ```bash
-env -u PYTHONPATH .venv/bin/python scripts/pin_benchmark.py --write
+python3.11 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+env -u PYTHONPATH OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python -m pytest -q
 env -u PYTHONPATH .venv/bin/python scripts/pin_benchmark.py --check
 ```
 
-Promover a v3 (o a una versión futura) requiere que Repo A marque esa versión
-`READY_FOR_MODELS=YES` primero; este repo no promueve versiones por su cuenta.
-
-## Cómo se entrenará (cuando el benchmark esté listo)
+## Primera corrida de desarrollo
 
 ```bash
-python -m experiments.train --system {B6,P1,P2} --config configs/{b6_deepsets,p1_graph,p2_uafeg}.yaml
-python -m experiments.evaluate --system {B6,P1,P2} --config ... --checkpoint ...
+env -u PYTHONPATH OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python -m experiments.train --system B6 --config configs/b6_deepsets.yaml --data smoke --epochs 1 --checkpoint-out artifacts/checkpoints/b6-smoke.pt
+env -u PYTHONPATH OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python -m experiments.evaluate --system B6 --config configs/b6_deepsets.yaml --data smoke --checkpoint artifacts/checkpoints/b6-smoke.pt
 ```
 
-Hoy `--data` solo acepta `smoke`; pasar cualquier otro valor lanza `NotImplementedError`
-explícito en vez de fingir que hay datos reales disponibles. Las ablaciones A1–A3 de la tesis
-están implementadas (`--ablation no_gate|no_forensic|graph_to_deepsets`); A4 y A5 lanzan
-`NotImplementedError` a propósito (requieren funcionalidad que no existe todavía). Ver
-`uafeg/docs/IMPLEMENTATION_STATUS.md`.
+La corrida guarda pesos y un registro, pero no produce resultados científicos. Para P1/P2 usar el sistema y configuración correspondientes. [Detalle de experimentos](experiments/README.md).
 
-## Qué todavía NO debe interpretarse como resultado
+## Reglas de integración
 
-- Cualquier métrica marcada `SMOKE_RESULT` en un manifest de `artifacts/runs/` (fixtures
-  sintéticas, no el benchmark real).
-- El grafo mínimo (`EvidenceGraph`) no hace razonamiento aprendido por sí solo; eso es trabajo de
-  B6/P1/P2 montados encima.
-- Ningún número de B6/P1/P2 es comparable a una cifra "final" de tesis mientras
-  `READY_FOR_MODELS = NO`.
-
-## Ejemplo mínimo (construcción de grafo, sin modelos)
-
-```python
-from src.schemas.claim import ClaimRecord
-from src.schemas.packet import EvidencePacket
-from uafeg import build_graph
-
-packet = EvidencePacket(claim=ClaimRecord(claim_id="example"))
-graph = build_graph(packet)  # solo nodo claim: evidencias ausentes
-```
-
-`None` representa evidencia ausente; visual presente con detecciones vacías no equivale a
-ausencia. Forense `available=False` no crea nodo. Labels, condición experimental y paths no se
-copian al grafo ni a los features de B6/P1/P2 (verificado por tests dedicados).
-
-No se versionan raw datasets, weights, `.venv`, `.env` ni caches, ni checkpoints (`artifacts/`
-está en `.gitignore`).
+- Importar esquemas y métricas del Repo A; nunca copiar sus definiciones aquí.
+- No usar etiquetas, condiciones, IDs o rutas como entradas predictivas.
+- El grafo actual tiene un nodo central de caso y un nodo por modalidad presente; no implementa aún todos los nodos/atributos del diseño del PDF.
+- A1–A3 tienen implementación; A4/A5 siguen pendientes. No presentarlas como experimentos completados.
+- No actualizar el lock durante una limpieza. `--write` se reserva para un cambio deliberado y revisado del contrato/versionado del Repo A.

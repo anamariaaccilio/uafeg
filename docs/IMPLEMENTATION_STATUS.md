@@ -78,7 +78,7 @@ limpio en ambos.
 | ELEMENTO | TESIS | CÓDIGO | MATCH/MISMATCH | ACCIÓN |
 |---|---|---|---|---|
 | Reliability gate | `g_j=clip(c_j q_j r_j (1-u_j),0,1)` (eq:gate, capitulo2.tex) | Idéntico en `gate.py:reliability_gate` | **MATCH** | ninguna |
-| H1 (robustez) | P2 vs **mejor sistema sin grafo** (B0–B8) bajo **condiciones de estrés**, PR-AUC(SUSPICIOUS) | No implementado (runner H1 no existe) | MATCH conceptual, pendiente de implementar | Corregida la descripción en `PROJECT_COMPLETION_GAP.md` (antes decía "B6 vs P1"); runner queda `NOT_IMPLEMENTED` |
+| H1 (robustez) | P2 vs **mejor sistema sin grafo** (B0–B8) bajo **condiciones de estrés**, PR-AUC(SUSPICIOUS) | No implementado (runner H1 no existe) | MATCH conceptual, pendiente de implementar | Corregida la descripción en `docs/TRAINING.md` (antes decía "B6 vs P1"); runner queda `NOT_IMPLEMENTED` |
 | H2 (calibración) | P2 calibrado vs P1 calibrado, Brier | No implementado | MATCH conceptual, pendiente | sin cambios de código |
 | H3 (forensia) | P2 con forense vs P2 sin forense, subconjunto con manipulación | `no_forensic` ablation ya implementada y testeada | MATCH | sin cambios |
 | Ablación A1 (no gate) | `g_j=1` para todos los nodos | `no_gate` ≡ ejecutar P1 (probado `torch.allclose` con P2 gate=1) | **MATCH** | metadato `thesis_id: A1` añadido |
