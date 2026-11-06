@@ -1,7 +1,7 @@
 """Smoke tests de B6 (DeepSets) sobre fixtures sinteticas pequenas. Estos
 tests validan que el codigo FUNCIONA (forward/train/checkpoint/inferencia),
 NO que el modelo tenga una metrica cientifica real: el benchmark real sigue
-bloqueado (ver PROJECT_COMPLETION_GAP.md). Cualquier numero aqui es
+bloqueado (ver docs/TRAINING.md). Cualquier numero aqui es
 SMOKE_RESULT, nunca REAL_RESULT."""
 import numpy as np
 import pytest

@@ -4,7 +4,7 @@
 
 SOLO evaluacion final: nunca ajusta thresholds/temperatura aqui (eso se
 hace en validation, ver src.calibration / src.abstention). El benchmark
-real no esta disponible (ver PROJECT_COMPLETION_GAP.md); `--data` solo
+real no esta disponible (ver docs/TRAINING.md); `--data` solo
 acepta 'smoke' hoy, y el resultado se marca result_type=SMOKE_RESULT.
 """
 from __future__ import annotations
@@ -24,7 +24,7 @@ def _load_dataset(spec: str, seed: int):
     if spec == "smoke":
         return make_smoke_dataset(n=40, seed=seed)
     raise NotImplementedError(
-        "Evaluacion sobre benchmark real NO disponible todavia (ver PROJECT_COMPLETION_GAP.md). "
+        "Evaluacion sobre benchmark real NO disponible todavia (ver docs/TRAINING.md). "
         "Use --data smoke."
     )
 

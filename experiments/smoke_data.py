@@ -1,7 +1,7 @@
 """Dataset sintetico de fixtures para smoke tests de experiments.train /
 experiments.evaluate. NUNCA debe reportarse como benchmark real: el
 benchmark real (v2/v3) sigue bloqueado para modelos (ver
-PROJECT_COMPLETION_GAP.md). Cualquier metrica calculada sobre este dataset
+docs/TRAINING.md). Cualquier metrica calculada sobre este dataset
 es SMOKE_RESULT, nunca REAL_RESULT."""
 from __future__ import annotations
 

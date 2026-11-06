@@ -8,7 +8,7 @@ narrativa (clases de danio afirmadas via NLI, src/narrative/nli_extractor.py)
 vs visual (clases de danio efectivamente detectadas). Una relacion tipo
 "overlap" (IoU/Jaccard sobre regiones) requeriria localizacion espacial del
 resultado forense, que `ForensicResult` no expone todavia (ver
-PROJECT_COMPLETION_GAP.md); no se fabrica esa relacion sin esa senal.
+docs/TRAINING.md); no se fabrica esa relacion sin esa senal.
 """
 from __future__ import annotations
 

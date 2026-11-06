@@ -12,7 +12,7 @@ expected_label, condition u otro metadato de ground truth. Donde el
 contrato actual (EvidencePacket) no expone un factor para una modalidad, se
 usa el valor neutro (1.0 para c/q/r, 0.0 para u) para no penalizar ni
 beneficiar artificialmente el gate; es una limitacion documentada del
-contrato (ver PROJECT_COMPLETION_GAP.md), no evidencia fabricada.
+contrato (ver docs/TRAINING.md), no evidencia fabricada.
 """
 from __future__ import annotations
 

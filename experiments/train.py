@@ -6,7 +6,7 @@
 
 El benchmark real (v2/v3) no esta disponible para entrenamiento (v2 tiene
 specialists en null; v3 esta PENDING_SCIENTIFIC_QA, ver
-PROJECT_COMPLETION_GAP.md): `--data` solo acepta 'smoke' hoy. Cualquier
+docs/TRAINING.md): `--data` solo acepta 'smoke' hoy. Cualquier
 metrica de esta corrida se marca result_type=SMOKE_RESULT, nunca
 REAL_RESULT.
 
@@ -31,7 +31,7 @@ def _load_dataset(spec: str, seed: int):
         return make_smoke_dataset(n=40, seed=seed)
     raise NotImplementedError(
         "Carga de benchmark real NO disponible: v2 tiene specialists en null y v3 esta "
-        "PENDING_SCIENTIFIC_QA (ver PROJECT_COMPLETION_GAP.md). Use --data smoke."
+        "PENDING_SCIENTIFIC_QA (ver docs/TRAINING.md). Use --data smoke."
     )
 
 
@@ -112,7 +112,7 @@ def main(argv: list[str] | None = None) -> int:
     manifest_path = save_run_manifest(manifest)
     print(f"[experiments.train] run_id={run_id} ablation={args.ablation} checkpoint={checkpoint_path}")
     print(f"[experiments.train] manifest={manifest_path}")
-    print(f"[experiments.train] result_type={result_type} (ver PROJECT_COMPLETION_GAP.md: benchmark real aun bloqueado)")
+    print(f"[experiments.train] result_type={result_type} (ver docs/TRAINING.md: benchmark real aun bloqueado)")
     return 0
 
 
