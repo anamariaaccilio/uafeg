@@ -4,13 +4,14 @@ architecture: graph_without_reliability_gate
 reliability_gate: false
 # IMPLEMENTED_CODE_NOT_TRAINED = forward/train/eval/checkpoint existen y
 # tienen smoke tests sobre fixtures (ver uafeg/tests/test_p1_graph.py), pero
-# no se ha entrenado sobre el benchmark real (ver ../PROJECT_COMPLETION_GAP.md).
+# no se ha entrenado sobre el benchmark real (ver docs/TRAINING.md).
 # Ningun numero producido con este config hoy es un REAL_RESULT.
 
 model:
   shared_dim: 32
   hidden_dim: 64
   heads: 2
+  gat_variant: thesis  # thesis = W_r por relacion + a_ij + residual/LayerNorm (eq:mensaje, eq:update); legacy = simplificacion previa, solo para comparar
   num_classes: 3  # SUPPORTED, SUSPICIOUS, INSUFFICIENT
 
 training:

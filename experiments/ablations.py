@@ -17,15 +17,13 @@ Mapeo a este modulo:
     - A2 == 'no_forensic' (strip_forensic).
     - A3 == 'graph_to_deepsets' (ejecutar system=B6 directamente: "mismos
       EvidencePacket, sin estructura" es, por definicion, B6).
-    - A4 y A5 estan marcadas status=NOT_IMPLEMENTED mas abajo: A4
-      requeriria que las aristas lleven un vector de atributos continuos
-      [p_support, p_contradiction, p_unknown, sim_sem, overlap_spatial]
-      (hoy solo existe el tipo categorico de relacion, ver
-      src/uafeg/relations.py), y A5 requeriria filtrar el dataset de
-      entrenamiento por condicion C0-C10 (hoy experiments.train no conoce
-      la condicion de cada EvidencePacket). Ambas son NUEVA funcionalidad,
-      fuera de alcance de una pasada de consistencia — no se inventan ni se
-      fingen implementadas.
+    - A4 == 'no_edge_attributes' (use_edge_attributes=False): las aristas
+      conservan su tipo y su W_r, pero a_ij llega completamente enmascarado.
+      Requiere gat_variant='thesis', la unica variante que consume a_ij.
+    - A5 sigue marcada status=NOT_IMPLEMENTED mas abajo: requeriria filtrar
+      el dataset de entrenamiento por condicion C0-C10, y hoy
+      experiments.train no conoce la condicion de cada EvidencePacket. Es
+      NUEVA funcionalidad; no se finge implementada.
 
 Dos ablaciones EXTRA (no correspondientes a ninguna A1-A5 de la tesis) se
 mantienen porque ya estaban implementadas y probadas antes de esta
@@ -70,13 +68,14 @@ ABLATIONS: dict[str, dict] = {
     },
     "no_edge_attributes": {
         "thesis_id": "A4",
-        "status": "NOT_IMPLEMENTED",
         "description": (
-            "Sin atributos de arista (conservar tipo, perder puntajes continuos). Requiere que las "
-            "aristas lleven [p_support, p_contradiction, p_unknown, sim_sem, overlap_spatial] "
-            "(eq:aristas de la tesis); hoy src/uafeg/relations.py solo produce el tipo categorico. "
-            "No implementado en esta pasada (requiere nueva funcionalidad)."
+            "Sin atributos de arista: las relaciones CONSERVAN su tipo (y por tanto su W_r) pero "
+            "entregan a_ij = [p_support, p_contradiction, p_unknown, sim_sem, overlap_spatial] "
+            "completamente enmascarado. Aisla el aporte de los puntajes continuos frente al del "
+            "tipo de relacion. Requiere gat_variant='thesis', la unica variante que consume a_ij."
         ),
+        "model_kwargs": {"use_edge_attributes": False},
+        "equivalent_system": "P2",
     },
     "no_benign_no_ood_training": {
         "thesis_id": "A5",
@@ -114,7 +113,7 @@ def apply_ablation(name: str, model_kwargs: dict, packets: list[EvidencePacket])
     """Devuelve (model_kwargs actualizado, packets transformados) para la
     ablacion `name`. No muta los argumentos de entrada. Lanza
     NotImplementedError explicito para ablaciones con status=NOT_IMPLEMENTED
-    (A4, A5) en vez de fingir un resultado."""
+    (hoy solo A5) en vez de fingir un resultado."""
     if name not in ABLATIONS:
         raise ValueError(f"Ablacion desconocida: {name!r}. Validas: {list(ABLATIONS)}")
     spec = ABLATIONS[name]

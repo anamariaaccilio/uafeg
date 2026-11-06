@@ -72,10 +72,20 @@ def test_gradients_flow_through_gated_pipeline():
     loss = logits.sum()
     loss.backward()
 
-    grads = [p.grad for p in model.parameters() if p.requires_grad]
+    # Con W_r por tipo de relacion (variante 'thesis'), los pesos de una
+    # relacion que NO aparece en este grafo tampoco reciben gradiente, por la
+    # misma razon que un encoder de modalidad ausente: no participaron en el
+    # forward. Lo que debe cumplirse es que haya gradiente y que sea finito
+    # alli donde si participaron.
+    grads = [p.grad for p in model.parameters() if p.requires_grad and p.grad is not None]
     assert len(grads) > 0
-    assert all(g is not None for g in grads)
     assert all(torch.isfinite(g).all() for g in grads)
+
+    used_relations = {relation for _, _, relation, _ in model._node_features_and_edges(packet)[2]}
+    assert used_relations, "el grafo de prueba debe tener al menos una arista"
+    for relation in used_relations:
+        weight = model.gat_layer.relation_value[relation].weight
+        assert weight.grad is not None, "W_r de una relacion presente debe recibir gradiente"
 
 
 def test_p2_never_reads_expected_label():

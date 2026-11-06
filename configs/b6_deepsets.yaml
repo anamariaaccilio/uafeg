@@ -4,7 +4,7 @@ architecture: deepsets
 # IMPLEMENTED_CODE_NOT_TRAINED = el forward/train/eval/checkpoint existe y
 # tiene smoke tests sobre fixtures, pero no se ha entrenado sobre el
 # benchmark real: v2 tiene specialists en null y v3 esta
-# PENDING_SCIENTIFIC_QA (ver ../PROJECT_COMPLETION_GAP.md). Ningun numero
+# PENDING_SCIENTIFIC_QA (ver docs/TRAINING.md). Ningun numero
 # producido con este config hoy es un REAL_RESULT.
 
 model:

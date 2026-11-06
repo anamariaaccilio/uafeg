@@ -54,8 +54,8 @@ def test_no_explicit_relations_ablation_removes_cross_edge():
     with_relations = GraphClassifier(include_cross_relations=True)
     without_relations = GraphClassifier(include_cross_relations=False)
 
-    _, _, edges_with = with_relations._node_features_and_edges(packet)
-    _, _, edges_without = without_relations._node_features_and_edges(packet)
+    _, _, edges_with, _ = with_relations._node_features_and_edges(packet)
+    _, _, edges_without, _ = without_relations._node_features_and_edges(packet)
 
     assert len(edges_with) == 3  # narrative->claim, visual->claim, narrative->visual
     assert len(edges_without) == 2  # solo evidence_for
@@ -88,13 +88,36 @@ def test_thesis_ablations_a1_a2_a3_are_registered_with_correct_thesis_id():
     assert ABLATIONS["graph_to_deepsets"]["equivalent_system"] == "B6"
 
 
-def test_thesis_ablations_a4_a5_are_explicitly_not_implemented():
+def test_a4_strips_attributes_but_keeps_the_relation_type():
+    """A4 de la tesis: misma arista, mismo tipo (y por tanto mismo W_r),
+    sin los puntajes continuos."""
+    from uafeg.models.p1_graph import THESIS_RELATION_INDEX
+
+    packet = _packet_with_forensic()
+    kwargs, packets = apply_ablation("no_edge_attributes", {}, [packet])
+    assert kwargs == {"use_edge_attributes": False}
+    assert packets == [packet]  # A4 no transforma datos, solo el consumo del modelo
+
+    full = ReliabilityGatedGraphClassifier(gat_variant="thesis")
+    ablated = ReliabilityGatedGraphClassifier(gat_variant="thesis", **kwargs)
+    edges_full = full._node_features_and_edges(packet)[2]
+    edges_ablated = ablated._node_features_and_edges(packet)[2]
+
+    # Mismas aristas y mismos tipos de relacion.
+    assert [(s, d, r) for s, d, r, _ in edges_full] == [(s, d, r) for s, d, r, _ in edges_ablated]
+    cross = THESIS_RELATION_INDEX["evidence_for"]
+    assert any(r != cross for _, _, r, _ in edges_ablated), "debe conservarse la relacion narrativa-visual"
+    # Pero el vector a_ij llega enteramente en cero/enmascarado.
+    assert all(all(v == 0.0 for v in attr) for _, _, _, attr in edges_ablated)
+    assert any(any(v != 0.0 for v in attr) for _, _, _, attr in edges_full)
+
+
+def test_a5_is_still_explicitly_not_implemented():
     import pytest
 
     assert ABLATIONS["no_edge_attributes"]["thesis_id"] == "A4"
+    assert "status" not in ABLATIONS["no_edge_attributes"]
     assert ABLATIONS["no_benign_no_ood_training"]["thesis_id"] == "A5"
-    with pytest.raises(NotImplementedError):
-        apply_ablation("no_edge_attributes", {}, [])
     with pytest.raises(NotImplementedError):
         apply_ablation("no_benign_no_ood_training", {}, [])
 
