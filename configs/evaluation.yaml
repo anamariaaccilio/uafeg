@@ -1,0 +1,22 @@
+# Protocolo de evaluación fijado ANTES de leer test (2026-11-13).
+# Ningún valor de este archivo se ajusta mirando test.
+bootstrap:
+  n_resamples: 2000          # dentro del rango 2 000–5 000 de la tesis; agrupado por source_image_id
+  group_by: source_image_id
+abstention:
+  # Cobertura operativa fijada de antemano (tesis, eq:abstencion): tau_U y tau_c se
+  # eligen en validación para responder esta fracción de los casos.
+  target_coverage: 0.80
+hypotheses:
+  alpha: 0.05                # Holm sobre H1, H2, H3
+  H1:
+    # Decidido por Ana (2026-11-13), según la tesis: métrica = PR-AUC de SUSPICIOUS sobre el
+    # conjunto de estrés = test restringido a C3, C4, C5 (positivos, SUSPICIOUS) y C8, C9
+    # (negativos). Comparación: P2 vs el mejor sistema sin grafo entre B1-B5, B7 y B6,
+    # elegido por PR-AUC SUSPICIOUS en VALIDACIÓN sobre ese mismo subconjunto. C10 aparte
+    # (OOD). ΔM_s = M(C0) - M(s) por condición es análisis secundario, fuera de Holm.
+    metric: pr_auc_suspicious
+    stress_conditions: [C3, C4, C5, C8, C9]
+    nongraph_candidates: [B1, B2, B3, B4, B5, B7, B6]
+  H2: {metric: brier, comparison: "P2 vs P1"}
+  H3: {metric: pr_auc_suspicious, comparison: "P2 vs A2"}
