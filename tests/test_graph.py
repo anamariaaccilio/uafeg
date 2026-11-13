@@ -32,18 +32,37 @@ def test_benchmark_contract_compatibility():
     assert lock["schema_version"] == packet().schema_version
 
 
-def test_lock_rejects_wrong_commit_and_hash(tmp_path):
-    for key in ["git_commit", "contract_files_sha256"]:
-        lock = json.loads(LOCK.read_text())
-        if key == "git_commit":
-            lock[key] = "0" * 40
-        else:
-            path = next(iter(lock[key]))
-            lock[key][path] = "0" * 64
-        path = tmp_path / "lock.json"
-        path.write_text(json.dumps(lock))
-        with pytest.raises(ValueError):
-            verify_benchmark(path)
+def test_lock_git_commit_is_informative_but_hash_is_enforced(tmp_path):
+    lock = json.loads(LOCK.read_text())
+    lock["git_commit"] = "0" * 40
+    path = tmp_path / "lock.json"
+    path.write_text(json.dumps(lock))
+    with pytest.warns(UserWarning, match="Informative only"):
+        verify_benchmark(path)  # a different commit alone does not break the contract
+    lock = json.loads(LOCK.read_text())
+    first = next(iter(lock["contract_files_sha256"]))
+    lock["contract_files_sha256"][first] = "0" * 64
+    path.write_text(json.dumps(lock))
+    with pytest.raises(ValueError, match="contract changed"):
+        verify_benchmark(path)
+
+
+def test_lock_fails_when_a_contract_file_changes(tmp_path):
+    """Copy the locked files, flip one byte of a contract file: the check must fail."""
+    import shutil
+    from uafeg.benchmark import canonical_repository
+    lock = json.loads(LOCK.read_text())
+    source = canonical_repository()
+    files = set(lock["contract_files_sha256"]) | {
+        lock[f"{n}_identifier"] for n in ("manifest", "splits", "evidence_packets") if lock.get(f"{n}_identifier")}
+    for relative in files:
+        (tmp_path / relative).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source / relative, tmp_path / relative)
+    verify_benchmark(LOCK, repository=tmp_path)  # untouched copy passes
+    victim = tmp_path / sorted(f for f in lock["contract_files_sha256"] if f.endswith(".yaml"))[0]
+    victim.write_bytes(victim.read_bytes() + b"\n# tampered\n")
+    with pytest.raises(ValueError, match="contract changed"):
+        verify_benchmark(LOCK, repository=tmp_path)
 
 
 def test_packet_compatibility_and_graph_construction():

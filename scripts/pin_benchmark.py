@@ -67,7 +67,10 @@ def main():
     actual = generate_lock(require_clean=args.write)
     target = ROOT/'benchmark.lock.json'
     if args.check:
-        if actual != json.loads(target.read_text()):
+        expected = json.loads(target.read_text())
+        # git_commit is informative provenance only; the contract is the hashes.
+        actual.pop('git_commit', None); expected.pop('git_commit', None)
+        if actual != expected:
             raise ValueError('Lock differs from actual canonical committed artifacts')
         print('PASS: lock matches actual canonical artifacts')
     else:
