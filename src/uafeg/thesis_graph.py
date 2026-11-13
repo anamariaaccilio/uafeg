@@ -134,6 +134,11 @@ def build_thesis_graph(view: EvidenceView, max_visual: int = MAX_VISUAL) -> Grap
         claims.append((add("claim", _onehot(a.damage_type) + list(a.p) + polarity + filled,
                            (a.coverage, 1.0, r, a.u)), a))
 
+    if view.narrative is not None and not claims:
+        # Relato presente sin ninguna afirmación extraíble: se representa como tal (tipo
+        # vacío, p neutral, u = 1, c = 0, polaridad indeterminada), sin inventar contenido.
+        add("claim", [0.0] * 8 + [0.0, 1.0, 0.0] + [0.0, 0.0, 1.0] + [0.0, 0.0, 0.0], (0.0, 1.0, 1.0, 1.0))
+
     source_idx = None
     q_source = 1.0
     if view.image_quality is not None:

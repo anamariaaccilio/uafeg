@@ -35,6 +35,10 @@ from uafeg.models.batched import DBF, MLP, EvidenceModel, collate
 from uafeg.thesis_graph import LEGACY_KINDS, NODE_KINDS
 
 RESULTS = REPO_B / "results"
+WITH_TEST = True
+RUNS_DIR = ART / "runs"
+SUMMARY_DIR = RESULTS / "runs"
+"""False in --validation-only mode: test is never collated, inferred or saved."""
 MAX_EPOCHS, PATIENCE, BATCH, WD, CLIP = 40, 5, 64, 1e-4, 1.0
 SEARCH_GRID = [{"dropout": d, "heads": h, "pooling": p, "lr": 2e-3, "dim": 64, "hidden": 64, "layers": 2}
                for d, h, p in itertools.product((0.1, 0.3), (2, 4), ("mean", "attention"))]
@@ -119,8 +123,8 @@ def train_graph(system: str, cfg: dict, seed: int, cache: dict) -> dict:
     train = training_view(data["train"], tuple(spec.get("exclude_train_conditions", [])))
     val = training_view(data["validation"])
     use_attr = spec.get("edge_attributes", True)
-    full = {s: collate(d.graphs, use_edge_attributes=use_attr) for s, d in
-            (("train", train), ("val", val), ("test", data["test"]))}
+    splits = (("train", train), ("val", val)) + ((("test", data["test"]),) if WITH_TEST else ())
+    full = {s: collate(d.graphs, use_edge_attributes=use_attr) for s, d in splits}
     n_kinds = len(LEGACY_KINDS if spec.get("taxonomy") == "legacy" else NODE_KINDS)
     set_seed(seed)
     model = EvidenceModel(spec["arch"], n_kinds=n_kinds, dim=cfg["dim"], hidden=cfg["hidden"], heads=cfg["heads"],
@@ -130,7 +134,9 @@ def train_graph(system: str, cfg: dict, seed: int, cache: dict) -> dict:
                       lambda: model(full["val"]), y_val, cfg["lr"], seed)
     with torch.no_grad():
         model.eval()
-        logits = {"val": model(full["val"]).numpy(), "test": model(full["test"]).numpy()}
+        logits = {"val": model(full["val"]).numpy()}
+        if WITH_TEST:
+            logits["test"] = model(full["test"]).numpy()
     return {"model": model, "info": info, "logits": logits, "n_train": len(train.labels)}
 
 
@@ -138,7 +144,8 @@ def train_flat(system: str, cfg: dict, seed: int, cache: dict) -> dict:
     data = dataset_for({}, cache)
     train, val, test = training_view(data["train"]), training_view(data["validation"]), data["test"]
     parts = FLAT_SYSTEMS[system]
-    X = {s: torch.tensor(flat_matrix(d, parts)) for s, d in (("train", train), ("val", val), ("test", test))}
+    X = {s: torch.tensor(flat_matrix(d, parts)) for s, d in
+         (("train", train), ("val", val)) + ((("test", test),) if WITH_TEST else ())}
     mu, sd = X["train"].mean(0), X["train"].std(0) + 1e-6  # standardization fitted on train only
     X = {k: (v - mu) / sd for k, v in X.items()}
     set_seed(seed)
@@ -147,7 +154,7 @@ def train_flat(system: str, cfg: dict, seed: int, cache: dict) -> dict:
                       lambda: model(X["val"]), torch.tensor(val.labels), cfg["lr"], seed)
     with torch.no_grad():
         model.eval()
-        logits = {"val": model(X["val"]).numpy(), "test": model(X["test"]).numpy()}
+        logits = {k: model(X[k]).numpy() for k in X if k != "train"}
     return {"model": model, "info": info, "logits": logits, "n_train": len(train.labels),
             "standardization": {"mu": mu.tolist(), "sd": sd.tolist()}}
 
@@ -156,7 +163,7 @@ def train_dbf(cfg: dict, seed: int, cache: dict, modalities=("text", "visual")) 
     data = dataset_for({}, cache)
     train, val, test = training_view(data["train"]), training_view(data["validation"]), data["test"]
     Xs = {}
-    for s, d in (("train", train), ("val", val), ("test", test)):
+    for s, d in (("train", train), ("val", val)) + ((("test", test),) if WITH_TEST else ()):
         Xs[s] = [torch.tensor(flat_matrix(d, (m,))) for m in modalities]
     stats = [(x.mean(0), x.std(0) + 1e-6) for x in Xs["train"]]
     Xs = {k: [(x - mu) / sd for x, (mu, sd) in zip(v, stats)] for k, v in Xs.items()}
@@ -173,7 +180,7 @@ def train_dbf(cfg: dict, seed: int, cache: dict, modalities=("text", "visual")) 
                       cfg["lr"], seed, extra_loss=loss_fn)
     with torch.no_grad():
         model.eval()
-        logits = {"val": model(Xs["val"])[0].numpy(), "test": model(Xs["test"])[0].numpy()}
+        logits = {k: model(Xs[k])[0].numpy() for k in Xs if k != "train"}
     return {"model": model, "info": info, "logits": logits, "n_train": len(train.labels)}
 
 
@@ -183,10 +190,10 @@ def forensic_available(cache: dict) -> bool:
 
 
 def save_run(system: str, seed: int, cfg: dict, out: dict, inputs: dict, wall: float) -> None:
-    run_dir = ART / "runs" / system / f"seed{seed}"
+    run_dir = RUNS_DIR / system / f"seed{seed}"
     run_dir.mkdir(parents=True, exist_ok=True)
     torch.save(out["model"].state_dict(), run_dir / "checkpoint.pt")
-    np.savez(run_dir / "logits.npz", val=out["logits"]["val"], test=out["logits"]["test"])
+    np.savez(run_dir / "logits.npz", **out["logits"])
     import sklearn
     from uafeg.benchmark import canonical_repository
     record = {
@@ -205,13 +212,13 @@ def save_run(system: str, seed: int, cfg: dict, out: dict, inputs: dict, wall: f
         "test_logits_note": "computed once at the end of this run; read only by experiments.thesis_evaluate",
     }
     (run_dir / "record.json").write_text(json.dumps(record, indent=1, sort_keys=True))
-    (RESULTS / "runs").mkdir(parents=True, exist_ok=True)
+    (SUMMARY_DIR).mkdir(parents=True, exist_ok=True)
     small = {k: record[k] for k in ("system", "seed", "config", "n_train", "git_commit_uafeg", "outputs_sha256",
                                     "wall_seconds")}
     small["best_val_nll"] = out["info"]["best_val_nll"]
     small["epochs_run"] = out["info"]["epochs_run"]
     small["packets_manifest_sha256"] = inputs["packets_manifest_sha256"]
-    (RESULTS / "runs" / f"{system}_seed{seed}.json").write_text(json.dumps(small, indent=1, sort_keys=True) + "\n")
+    (SUMMARY_DIR / f"{system}_seed{seed}.json").write_text(json.dumps(small, indent=1, sort_keys=True) + "\n")
 
 
 def run_one(system: str, cfg: dict, seed: int, cache: dict) -> dict:
@@ -263,19 +270,32 @@ def cmd_search(args) -> None:
     print(json.dumps({"pooling": pooling, "selected": selected}, indent=1))
 
 
+PRELIM_CONFIG = {"dropout": 0.1, "heads": 2, "pooling": "attention", "lr": 2e-3, "dim": 64, "hidden": 64, "layers": 2}
+
+
 def cmd_train(args) -> None:
-    selected = json.loads((RESULTS / "hparam_search.json").read_text())["selected"]
+    global WITH_TEST, RUNS_DIR, SUMMARY_DIR, MAX_EPOCHS, PATIENCE
+    if args.validation_only:
+        # Preliminary mode: fixed thesis-default config (no search), short epochs, NO test.
+        WITH_TEST = False
+        RUNS_DIR = ART / "runs_validation_prelim"
+        SUMMARY_DIR = RESULTS / "validation_prelim" / "runs"
+        MAX_EPOCHS, PATIENCE = args.max_epochs, 3
+        selected = {s: (PRELIM_CONFIG if s in GRAPH_SYSTEMS else {"dropout": 0.1, "lr": 2e-3, "hidden": 64})
+                    for s in list(GRAPH_SYSTEMS) + list(FLAT_SYSTEMS) + ["B7"]}
+    else:
+        selected = json.loads((RESULTS / "hparam_search.json").read_text())["selected"]
     inputs = verify_inputs()
     cache: dict = {}
     for system in args.systems:
         if system == "B3" and not forensic_available(cache):
             note = {"system": "B3", "status": "NOT_RUN", "reason": "forensic specialist NOT_RUN: no forensic evidence"}
-            (RESULTS / "runs").mkdir(parents=True, exist_ok=True)
-            (RESULTS / "runs" / "B3_NOT_RUN.json").write_text(json.dumps(note, indent=1) + "\n")
+            SUMMARY_DIR.mkdir(parents=True, exist_ok=True)
+            (SUMMARY_DIR / "B3_NOT_RUN.json").write_text(json.dumps(note, indent=1) + "\n")
             print(note)
             continue
         for seed in args.seeds:
-            if (ART / "runs" / system / f"seed{seed}" / "record.json").exists() and not args.force:
+            if (RUNS_DIR / system / f"seed{seed}" / "record.json").exists() and not args.force:
                 print("skip existing", system, seed)
                 continue
             t0 = time.time()
@@ -294,6 +314,8 @@ def main() -> int:
     t.add_argument("--systems", nargs="+", required=True)
     t.add_argument("--seeds", nargs="+", type=int, default=[0, 1, 2, 3, 4])
     t.add_argument("--force", action="store_true")
+    t.add_argument("--validation-only", action="store_true", help="preliminary: no test at all")
+    t.add_argument("--max-epochs", type=int, default=15)
     args = ap.parse_args()
     {"search": cmd_search, "train": cmd_train}[args.cmd](args)
     return 0

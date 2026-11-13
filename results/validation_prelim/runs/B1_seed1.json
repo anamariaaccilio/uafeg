@@ -1,0 +1,19 @@
+{
+ "best_val_nll": 0.7847523093223572,
+ "config": {
+  "dropout": 0.1,
+  "hidden": 64,
+  "lr": 0.002
+ },
+ "epochs_run": 7,
+ "git_commit_uafeg": "2bc7f8535782597a8c95eb4c427230bf2ad463f9",
+ "n_train": 6428,
+ "outputs_sha256": {
+  "checkpoint.pt": "b90ea56e3e734915d3ffbc41ada8667bb1938a17ae7463386b8237cf52c1ec58",
+  "logits.npz": "3c90be49ce74dd24aa097b4379dae798c5a725d58cc781dcf0f30b15fbe5c26d"
+ },
+ "packets_manifest_sha256": "928040e697eb3db028af002a24cc10bfc01f8ccd3a3fbbbc5f4348333c3f65da",
+ "seed": 1,
+ "system": "B1",
+ "wall_seconds": 5.3
+}
