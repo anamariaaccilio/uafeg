@@ -1,13 +1,16 @@
 {
   "benchmark_repository": "vehicle-claim-verification-baselines",
-  "benchmark_version": "0.2.0",
-  "git_commit": "48550aa24979a028cb3f919949cc6f06d8d8b0f0",
+  "benchmark_version": "0.3.0",
+  "git_commit": "11d63dad60f8ad2cd3d416d75ced52adb610bbbb",
   "schema_version": "0.3.0",
   "availability": {
     "manifest": "AVAILABLE",
     "splits": "AVAILABLE",
-    "frozen_evidence_packets": "AVAILABLE_WITH_SPECIALISTS_NULL"
+    "frozen_evidence_packets": "AVAILABLE_WITH_SPECIALISTS_NULL",
+    "real_evidence_packets": "artifacts/packets/v3 (outside git), verified by packets_manifest.json checksums"
   },
+  "ready_for_models": "YES",
+  "frozen_on": "2026-11-13",
   "contract_files_sha256": {
     "EXPERIMENTAL_PROTOCOL.md": "15e3399493abbf2ab8b8e204844eb5b01afa6d2961e2599a25d25790316fb5b7",
     "configs/baseline.yaml": "e762ca785bff18c2ffc9214a137d841f522718c4053f2fe58a01b7e81ed0959c",
@@ -15,7 +18,9 @@
     "configs/benchmark_conditions_v2.yaml": "dac7807ab0eceb2f1e777e7234206b0a39f9e5013505b44cff28e6e9f34da67c",
     "configs/benchmark_v1.yaml": "46a1d859d4816bfc9498ea511ce643ad2fe56724135a1a0b7615d2e1a06fb6f5",
     "configs/benchmark_v2.yaml": "55e553e1449abdcb804dc25dbd217df3e9b2f8b1aba8921f46d72310e28fc06c",
+    "configs/benchmark_v3.yaml": "9e6d73d4b4c5a4dda82c1c1d9c8237212bdd59fe9ee26025f798c9850bb4dfa1",
     "configs/labels.yaml": "cef27ed3931057d2f3a7dec7ec3f9e88c5adfdb72a6a646b8a48a6257e424496",
+    "data/hitl_full_receipt.json": "2b7254bf8872812c2b7e82f53ac8b4abd69f11e65523de1b929a357efcfaf9af",
     "data/hitl_pilot_receipt.json": "5c1cb66edd838a8f6778eda9d3bcb814d7ab3e7e5dae3f1965e30693955191c4",
     "data/manifests/benchmark_v1/dataset_audit.json": "d0b42588a5a3498e4b31af79065bba173c4739778412b93741675880a8ec8629",
     "data/manifests/benchmark_v1/evidence_packets.jsonl": "96117d4be37a555df90d8d18ae7482f8346bb325e6568d234d2de9790c982aba",
@@ -31,7 +36,21 @@
     "data/manifests/benchmark_v2/metadata.json": "d027a0c81d1b2960c894cad86ad05204815bd1537f191da286c5391d0873eb0d",
     "data/manifests/benchmark_v2/splits.json": "2b49d6a8428fc9e58e050bc1ec3b39692351bb32e50da8b1405e5b19cf609544",
     "data/manifests/benchmark_v2/validation.json": "cb36a8199ebf7a2de662894a9464d52e02580c231db3eb49620ad2f0c008f607",
+    "data/manifests/benchmark_v3/dataset_audit.json": "616f84920a04cd5159b3e980ef694afc40fad413d3bb66f0e79b2af7beff31d4",
+    "data/manifests/benchmark_v3/evidence_packets.jsonl": "4cf1338d8f68e3b2d9066ab5b8179038aa27c457fcbaf40f020f0970a50410b6",
+    "data/manifests/benchmark_v3/exclusions.json": "2888e344de0c2f8bbce6c46bd1370b308c28fb3370e8a549c642fc2210d46583",
+    "data/manifests/benchmark_v3/exclusions_criteria.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "data/manifests/benchmark_v3/freeze.json": "a87361b23483c64aab8ac51aadc36901cf65815cd489d2decea8fd8c1287f2c6",
+    "data/manifests/benchmark_v3/manifest.jsonl": "378e1cdd698cb417720637adcd7da2d85a060a884c73fa3f67755e066f465588",
+    "data/manifests/benchmark_v3/metadata.json": "ae00f4bb0084e16925d0802920f22a25d39a71fa9d30bbe8998f6e3e43366153",
+    "data/manifests/benchmark_v3/splits.json": "b15029098e71d4834d6ca0ea0360a34a43819593928f8728ef40efc7ef8873f8",
+    "data/manifests/benchmark_v3/validation.json": "aa317dd7b0f311e166026c4b4915071ce3fc96b8385a4281ea3c5cc0dc51aeb6",
+    "data/manifests/benchmark_v3/validity_criteria.json": "7fa4bcc646bd7a234dabfd3c9575e942ae6f6fc684d361d4c3367d10cc232274",
+    "data/qa/qa_v3_pixels.json": "149a001a63a10d7da54d4e133109974f6d5de49d9c6ea2a368562016ca1eb828",
+    "scripts/apply_v3_validity_criteria.py": "5fc3bc62ce6382271a9f0cc42707b9df8d4d32d3da068ffee6ee798ad26c1bee",
+    "src/data/benchmark_qa.py": "cea05fe70f35a884ce2a43364aa2ba0e37e276211c885ebcad48d6f57cbed27d",
     "src/data/benchmark_v2.py": "e8db40a48ced65a9607ffded6f958b7f2fea53876445b92517a2e6faca69a1d7",
+    "src/data/benchmark_v3.py": "67be931f5803472a0de0615a44a15b56dc86162e02a5998d4effc8081724eb95",
     "src/data/claim_benchmark.py": "7f4177e668a1422ce61ee932a4046a809f29b1c51720223c200ce54329d72325",
     "src/data/duplicate_audit.py": "ba5929b2a1fc47189db11e9a0662deebd36ef2c0fd5d42ecf896c1b5d34c625b",
     "src/data/hitl_supervisely.py": "a956b3174ebbf54aae39dce7bf3a12f429e231c9b494c923c920858b18503ca8",
@@ -42,13 +61,13 @@
     "src/evaluation/stress_slices.py": "c7b60d9fe62b9c9008a71ff865fec52206743be0e13ff592053a2b108e062a63",
     "src/fusion/rules.py": "a45bdccc51347fb3a719a082ef732053c6d4acfc18369dd66633d5b8168c1713",
     "src/schemas/claim.py": "398597b92bc52b432a606ce7b7b7842263e49a8a174f8c6405fe8c8e3e500c86",
-    "src/schemas/evidence.py": "87e4e92c2c7372cb3c6abf71e9087a2c3e2dd823b2f564e9003b324a3af15602",
-    "src/schemas/packet.py": "07b189b0a8be37c8a021ffd683e79d08984a8d2f501a896836750e51eae3bb58"
+    "src/schemas/evidence.py": "02681bcb47a45b1ccc6278e2d3b3e3aef72f01676ee28151bcf23ad4d293d038",
+    "src/schemas/packet.py": "856201004e559fec88bb30826b7dcaa6f05515e174c57315c6644b6e21d21a88"
   },
-  "manifest_identifier": "data/manifests/benchmark_v2/manifest.jsonl",
-  "manifest_sha256": "3e45880e3a0d5d949bded72b278d80d8366a0ede963c58631affc3258619f9fe",
-  "splits_identifier": "data/manifests/benchmark_v2/splits.json",
-  "splits_sha256": "2b49d6a8428fc9e58e050bc1ec3b39692351bb32e50da8b1405e5b19cf609544",
-  "evidence_packets_identifier": "data/manifests/benchmark_v2/evidence_packets.jsonl",
-  "evidence_packets_sha256": "5a030f28f1a21db0af9b23e5c160af0d07b4417e592d6e5da3fb449691883d43"
+  "manifest_identifier": "data/manifests/benchmark_v3/manifest.jsonl",
+  "manifest_sha256": "378e1cdd698cb417720637adcd7da2d85a060a884c73fa3f67755e066f465588",
+  "splits_identifier": "data/manifests/benchmark_v3/splits.json",
+  "splits_sha256": "b15029098e71d4834d6ca0ea0360a34a43819593928f8728ef40efc7ef8873f8",
+  "evidence_packets_identifier": "data/manifests/benchmark_v3/evidence_packets.jsonl",
+  "evidence_packets_sha256": "4cf1338d8f68e3b2d9066ab5b8179038aa27c457fcbaf40f020f0970a50410b6"
 }

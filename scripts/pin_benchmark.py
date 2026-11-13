@@ -15,12 +15,18 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+OFFICIAL_ARTIFACT_DIR = Path('data/manifests/benchmark_v3')
+"""v3 is the official frozen benchmark since 2026-11-13 (aprobado por la asesora);
+v2 stays historical and its files remain hashed in the contract."""
+V3_EXTRA = ('validity_criteria.json', 'exclusions_criteria.json', 'freeze.json')
+
+
 def generate_lock(*, require_clean=True):
     repository = Path(canonical.__file__).resolve().parents[2]
     status = subprocess.check_output(['git','-C',str(repository),'status','--porcelain'],text=True)
     if require_clean and status:
         raise ValueError('Canonical repository must be committed and clean before pinning')
-    artifact_dir = Path('data/manifests/benchmark_v2')
+    artifact_dir = OFFICIAL_ARTIFACT_DIR
     metadata_path = repository/artifact_dir/'metadata.json'
     metadata = json.loads(metadata_path.read_text())
     if metadata['schema_version'] != canonical.SCHEMA_VERSION:
@@ -31,8 +37,14 @@ def generate_lock(*, require_clean=True):
         'configs/benchmark_v2.yaml', 'configs/benchmark_conditions_v2.yaml',
         'src/data/benchmark_v2.py',
         'src/data/duplicate_audit.py', 'src/data/claim_benchmark.py',
+        'configs/benchmark_v3.yaml', 'src/data/benchmark_v3.py', 'src/data/benchmark_qa.py',
+        'data/hitl_full_receipt.json', 'data/qa/qa_v3_pixels.json',
+        'scripts/apply_v3_validity_criteria.py',
         str(artifact_dir/'metadata.json'),
-    }
+    } | {str(artifact_dir/name) for name in V3_EXTRA}
+    freeze = json.loads((repository/artifact_dir/'freeze.json').read_text())
+    if freeze.get('READY_FOR_MODELS') != 'YES':
+        raise ValueError('Official benchmark is not frozen READY_FOR_MODELS=YES')
     for name, expected in metadata['artifacts_sha256'].items():
         relative = artifact_dir/name
         if digest(repository/relative) != expected:
@@ -45,7 +57,10 @@ def generate_lock(*, require_clean=True):
         'benchmark_version': metadata['benchmark_version'],
         'git_commit': subprocess.check_output(['git','-C',str(repository),'rev-parse','HEAD'],text=True).strip(),
         'schema_version': canonical.SCHEMA_VERSION,
-        'availability': {'manifest':'AVAILABLE','splits':'AVAILABLE','frozen_evidence_packets':'AVAILABLE_WITH_SPECIALISTS_NULL'},
+        'availability': {'manifest':'AVAILABLE','splits':'AVAILABLE','frozen_evidence_packets':'AVAILABLE_WITH_SPECIALISTS_NULL',
+                         'real_evidence_packets':'artifacts/packets/v3 (outside git), verified by packets_manifest.json checksums'},
+        'ready_for_models': freeze['READY_FOR_MODELS'],
+        'frozen_on': freeze['frozen_on'],
         'contract_files_sha256': {name:digest(repository/name) for name in sorted(contract_paths)},
     }
     for key, name in [('manifest','manifest.jsonl'),('splits','splits.json'),('evidence_packets','evidence_packets.jsonl')]:
