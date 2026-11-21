@@ -161,7 +161,10 @@ def main():
             "- C3 y C5 comparten las mismas imágenes editadas; las manipulaciones son pequeñas.",
             "- Test no completamente ciego (se miró al diseñar la QA del benchmark).",
             "- Una sola corrida de TruFor y de YOLO (semilla 0); la varianza entre semillas solo cubre al clasificador final.",
-            "- Si G1 elige la regresión logística (convexa), sus 5 semillas coinciden y su desviación entre semillas es 0."]
+            "- Si G1 elige la regresión logística (convexa), sus 5 semillas coinciden y su desviación entre semillas es 0.",
+            "- El oráculo no separa la percepción forense de la visual; un análisis post hoc (results/posthoc/) muestra que "
+            "mejorar solo la visual no cierra la brecha con B5.",
+            "- La compuerta g es una fórmula fija (c·q·r·(1−u)), no aprendida; con especialistas débiles atenúa también señal útil (H2)."]
     replace_block(REPO_B / "README.md", "RESULTS", "\n".join(res))
     replace_block(A / "README.md", "SPECIALISTS", specialists_md(sp))
     (F / "tabla_externa.tex").write_text(external_tex(sp))

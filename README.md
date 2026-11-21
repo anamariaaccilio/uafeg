@@ -52,6 +52,46 @@ de SUSPICIOUS en test restringido a C3–C5 (positivos) frente a C8–C9; **H2**
 **H3** G1 vs A2 (G1 sin forense) en PR-AUC de SUSPICIOUS. Ablaciones: A1 = G0, A2 = sin forense,
 A3 = B6, A4 = aristas sin atributos continuos, A5 = sin C8 en train (C10 nunca está en train).
 
+## Resultados en una mirada
+
+> Resultado principal (oficial, test evaluado una sola vez): **UAFEG (G1) no supera a la fusión tardía
+> calibrada B5**. La PR-AUC de Suspicious es 0.851 frente a 0.878, así que H1 se rechaza. La compuerta empeora
+> un poco el Brier frente a G0, así que H2 también se rechaza. El forense sí aporta: H3 se acepta con +0.062.
+
+![Comparación general](presentacion/figuras/02_comparacion_general.png)
+
+![Hipótesis H1–H3](presentacion/figuras/03_hipotesis_forest.png)
+
+![Oráculo](presentacion/figuras/04_oraculo.png)
+
+![Percepción progresiva (post hoc)](presentacion/figuras/05_percepcion_progresiva.png)
+
+![Por condición](presentacion/figuras/07_heatmap_condiciones.png)
+
+![Compuerta g](presentacion/figuras/08_compuerta_g.png)
+
+Todas las figuras, en PNG 300 dpi y SVG, están en `presentacion/figuras/`. `presentacion/LEEME.md` explica cada
+una y de qué archivo salen sus números. Los mensajes para la defensa están en `presentacion/mensajes_clave.md`.
+Lo marcado como **post hoc** se hizo después de consultar test, está en `results/posthoc/` y no cambia H1–H3.
+
+## Aportes
+
+1. **El forense aporta de forma significativa**: +0.062 de PR-AUC de Suspicious (IC 95 % [+0.050, +0.073],
+   p de Holm < 0.0005) frente a UAFEG sin TruFor.
+2. **El agregador tiene un techo alto**: con percepción perfecta, G1 llega a 0.965. El límite está en los
+   especialistas, no en la forma de combinar la evidencia. Con percepción perfecta, G0 sin compuerta llega a 0.970.
+3. **La compuerta reconoce la evidencia poco confiable**: el peso medio de las detecciones visuales es 0.02, y en
+   fotos muy borrosas el del forense y el de la fuente caen casi a 0. Pero esa ponderación no mejora la decisión
+   (H2).
+4. **Explicabilidad, revisión humana y abstención**: hay un reporte por afirmación para cada reclamo de test, un
+   paquete de revisión de 50 casos con exportación a CSV, y el 18.4 % de test se deriva a revisión (objetivo 20 %).
+
+**Por qué gana B5 (sin esconderlo).** Los especialistas son débiles: YOLO tiene mAP50 de máscara 0.118 en
+validación, el relato acierta el tipo de daño exacto 0.50 y TruFor tiene AUROC 0.544 en inpainting. La compuerta
+atenúa casi por completo esa señal, mientras B5 la usa tal cual. Un análisis post hoc muestra que mejorar solo
+la parte visual no cierra la brecha: con el 100 % de anotaciones reales en la imagen, G1 llega a 0.859 y B5 está en
+0.881. El salto del oráculo aparece cuando mejoran a la vez la imagen y el forense.
+
 <!-- RESULTS:BEGIN -->
 ## Resultados principales (test, evaluado una sola vez)
 
@@ -136,6 +176,8 @@ Ensamble calibrado (T* en validación), IC 95 % por bootstrap agrupado por `sour
 - Test no completamente ciego (se miró al diseñar la QA del benchmark).
 - Una sola corrida de TruFor y de YOLO (semilla 0); la varianza entre semillas solo cubre al clasificador final.
 - Si G1 elige la regresión logística (convexa), sus 5 semillas coinciden y su desviación entre semillas es 0.
+- El oráculo no separa la percepción forense de la visual; un análisis post hoc (results/posthoc/) muestra que mejorar solo la visual no cierra la brecha con B5.
+- La compuerta g es una fórmula fija (c·q·r·(1−u)), no aprendida; con especialistas débiles atenúa también señal útil (H2).
 <!-- RESULTS:END -->
 
 ## Cómo reproducirlo
@@ -152,6 +194,14 @@ Lo pesado (YOLOv8n-seg, inferencia visual, TruFor, B8) se corrió en kernels pri
 GPU T4; los scripts exactos están en `../vehicle-claim-verification-baselines/scripts/kaggle/` y sus
 salidas (con SHA-256 verificados) en `artifacts/specialists/` del Repo A. `experiments.thesis_evaluate`
 se niega a correr dos veces (`results/test_access_log.json`).
+
+Material de presentación y análisis adicional (post hoc):
+
+```bash
+python -m experiments.posthoc_perception     # curva de percepción progresiva (~35 min en CPU)
+python -m experiments.presentation_figures   # figuras de presentacion/figuras/ (PNG 300 dpi + SVG)
+python -m experiments.add_descriptions       # campos "descripcion" en español en los JSON (sin cambiar números)
+```
 
 ## Organización
 
