@@ -1,0 +1,63 @@
+{
+ "tipo": "descriptivo sobre los grafos de test (los mismos que us\u00f3 la evaluaci\u00f3n oficial)",
+ "por_especialista": {
+  "claim": {
+   "n": 1462,
+   "media": 0.17895539619140682,
+   "mediana": 0.16880223155021667
+  },
+  "visual": {
+   "n": 4492,
+   "media": 0.024568480888690312,
+   "mediana": 0.011850751005113125
+  },
+  "forensic": {
+   "n": 1462,
+   "media": 0.22701741885582447,
+   "mediana": 0.15522770583629608
+  },
+  "source": {
+   "n": 1462,
+   "media": 0.7747920639863908,
+   "mediana": 0.8113734722137451
+  }
+ },
+ "C0_vs_C9": {
+  "C0": {
+   "claim": {
+    "n": 129,
+    "media": 0.19588034403647564
+   },
+   "visual": {
+    "n": 409,
+    "media": 0.024550726676525494
+   },
+   "forensic": {
+    "n": 129,
+    "media": 0.20499088518803646
+   },
+   "source": {
+    "n": 129,
+    "media": 0.8012641899345457
+   }
+  },
+  "C9": {
+   "claim": {
+    "n": 43,
+    "media": 0.1918450015228848
+   },
+   "visual": {
+    "n": 0,
+    "media": null
+   },
+   "forensic": {
+    "n": 43,
+    "media": 0.001824248448893754
+   },
+   "source": {
+    "n": 43,
+    "media": 0.007190698801085006
+   }
+  }
+ }
+}

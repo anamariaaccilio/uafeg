@@ -3,5 +3,10 @@
   "date": "2026-11-21",
   "packets_manifest_sha256": "7ecc8b4917b1f2046d4de7978998665a93c6d4a078d9893fb236ea89e48c1e7d",
   "forced": false
+ },
+ {
+  "date": "2026-11-21",
+  "posthoc": true,
+  "purpose": "AN\u00c1LISIS ADICIONAL (post hoc): curva de percepci\u00f3n progresiva (experiments.posthoc_perception) y figuras descriptivas de presentaci\u00f3n (experiments.presentation_figures 8, 10, 11, 12). No modifica results/evaluation.json ni H1\u2013H3."
  }
 ]

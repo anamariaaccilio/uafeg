@@ -94,12 +94,64 @@
   }
  },
  "date": "2026-11-20",
+ "descripciones": {
+  "clases": {
+   "INSUFFICIENT": "Insuficiente",
+   "SUPPORTED": "Respaldado",
+   "SUSPICIOUS": "Sospechoso"
+  },
+  "condiciones": {
+   "C0": "Caso original (sin cambios)",
+   "C1": "El relato niega un da\u00f1o real",
+   "C10": "Edici\u00f3n nunca vista (inversi\u00f3n de color)",
+   "C2": "Foto de otro veh\u00edculo (sustituci\u00f3n)",
+   "C3": "Foto editada (copiar y pegar)",
+   "C4": "Foto editada (inpainting)",
+   "C5": "Foto editada + relato que niega",
+   "C6": "Falta el relato",
+   "C7": "Falta la foto",
+   "C8": "Cambio benigno (JPEG, recorte)",
+   "C9": "Foto muy borrosa"
+  },
+  "metricas": {
+   "abstention_rate": "Fracci\u00f3n de casos derivados a revisi\u00f3n humana",
+   "aurc": "Riesgo promedio al ir respondiendo m\u00e1s casos (AURC, m\u00e1s bajo es mejor)",
+   "brier": "Error de las probabilidades (Brier, m\u00e1s bajo es mejor)",
+   "delta_M": "Ca\u00edda de acierto respecto del caso original (\u0394M)",
+   "ece": "Desajuste entre confianza y acierto (ECE, m\u00e1s bajo es mejor)",
+   "macro_f1": "Acierto equilibrado entre las tres clases (Macro-F1, m\u00e1s alto es mejor)",
+   "nll": "Sorpresa ante la respuesta correcta (NLL, m\u00e1s bajo es mejor)",
+   "pr_auc_suspicious": "Qu\u00e9 tan bien detecta los casos sospechosos (PR-AUC de Suspicious, m\u00e1s alto es mejor)"
+  },
+  "nota": "Campos solo descriptivos agregados el 2026-11-21; los n\u00fameros no cambian.",
+  "sistemas": {
+   "A2": "A2 \u00b7 UAFEG sin forense",
+   "A4": "A4 \u00b7 UAFEG con aristas sin atributos",
+   "A5": "A5 \u00b7 UAFEG sin controles benignos en entrenamiento",
+   "B0": "B0 \u00b7 Reglas fijas",
+   "B1": "B1 \u00b7 Solo texto",
+   "B2": "B2 \u00b7 Solo imagen (detector + calidad)",
+   "B3": "B3 \u00b7 Solo forense (TruFor)",
+   "B4": "B4 \u00b7 Todo concatenado + red neuronal",
+   "B5": "B5 \u00b7 Fusi\u00f3n tard\u00eda calibrada",
+   "B6": "B6 \u00b7 DeepSets sobre las evidencias",
+   "B7": "B7 \u00b7 Fusi\u00f3n con incertidumbre (DBF)",
+   "B8": "B8 \u00b7 Modelo multimodal grande (Qwen2-VL-2B)",
+   "G0": "G0 \u00b7 Agregador sin compuerta (g = 1)",
+   "G0_oracleNVF": "G0 con percepci\u00f3n perfecta",
+   "G1": "G1 \u00b7 UAFEG (agregador con compuerta g)",
+   "G1_oracleN": "G1 con relato perfecto",
+   "G1_oracleNVF": "G1 con percepci\u00f3n perfecta",
+   "G1_oracleVF": "G1 con imagen y forense perfectos"
+  }
+ },
  "hypotheses": {
   "H1": {
    "ci_high": -0.024591879530828236,
    "ci_low": -0.052995423286861396,
    "comparison": "G1 vs B5 (best non-graph system by validation PR-AUC on the stress subset)",
    "confidence": 0.95,
+   "descripcion": "UAFEG (G1) frente al mejor sistema sin grafo elegido en validaci\u00f3n, en casos de estr\u00e9s",
    "mcnemar_overall_correctness": {
     "b": 153,
     "c": 150,
@@ -159,6 +211,7 @@
    "ci_low": -0.01915654563321138,
    "comparison": "G1 vs G0, Brier (calibrated ensembles)",
    "confidence": 0.95,
+   "descripcion": "UAFEG con compuerta (G1) frente al mismo agregador sin compuerta (G0), en Brier",
    "mcnemar_overall_correctness": {
     "b": 87,
     "c": 128,
@@ -179,6 +232,7 @@
    "ci_low": 0.05048247131648948,
    "comparison": "UAFEG (G1) vs A2 (G1 without forensic nodes)",
    "confidence": 0.95,
+   "descripcion": "UAFEG con forense (G1) frente a UAFEG sin forense (A2)",
    "mcnemar_overall_correctness": {
     "b": 185,
     "c": 58,
@@ -215,6 +269,7 @@
    "T_star": 0.9975682047170722,
    "abstention_rate": 0.23734610123119015,
    "abstentions_in_C6_C7_C9_C10": 0.12151898734177215,
+   "descripcion": "A2 \u00b7 UAFEG sin forense",
    "ood_auroc_U_C10": 0.6801821864494852,
    "per_condition": {
     "C0": {
@@ -226,6 +281,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.0,
+     "descripcion": "Caso original (sin cambios)",
      "n": 129
     },
     "C1": {
@@ -237,6 +293,7 @@
       "SUSPICIOUS": 0.8449612403100775
      },
      "delta_M": -0.18604651162790697,
+     "descripcion": "El relato niega un da\u00f1o real",
      "n": 129
     },
     "C10": {
@@ -246,6 +303,7 @@
       "SUPPORTED": 0.627906976744186,
       "SUSPICIOUS": 0.0
      },
+     "descripcion": "Edici\u00f3n nunca vista (inversi\u00f3n de color)",
      "n": 129
     },
     "C2": {
@@ -257,6 +315,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.6589147286821705,
+     "descripcion": "Foto de otro veh\u00edculo (sustituci\u00f3n)",
      "n": 129
     },
     "C3": {
@@ -268,6 +327,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.6589147286821705,
+     "descripcion": "Foto editada (copiar y pegar)",
      "n": 129
     },
     "C4": {
@@ -279,6 +339,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.6589147286821705,
+     "descripcion": "Foto editada (inpainting)",
      "n": 129
     },
     "C5": {
@@ -290,6 +351,7 @@
       "SUSPICIOUS": 0.8449612403100775
      },
      "delta_M": -0.18604651162790697,
+     "descripcion": "Foto editada + relato que niega",
      "n": 129
     },
     "C6": {
@@ -301,6 +363,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.3410852713178295,
+     "descripcion": "Falta el relato",
      "n": 129
     },
     "C7": {
@@ -312,6 +375,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.3410852713178295,
+     "descripcion": "Falta la foto",
      "n": 129
     },
     "C8": {
@@ -323,6 +387,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.018087855297157618,
+     "descripcion": "Cambio benigno (JPEG, recorte)",
      "n": 387
     },
     "C9": {
@@ -334,6 +399,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.3410852713178295,
+     "descripcion": "Foto muy borrosa",
      "n": 43
     }
    },
@@ -486,6 +552,7 @@
    "T_star": 0.9980334280469646,
    "abstention_rate": 0.2024623803009576,
    "abstentions_in_C6_C7_C9_C10": 0.13702623906705538,
+   "descripcion": "A4 \u00b7 UAFEG con aristas sin atributos",
    "ood_auroc_U_C10": 0.6436017349070511,
    "per_condition": {
     "C0": {
@@ -497,6 +564,7 @@
       "SUSPICIOUS": 0.007751937984496124
      },
      "delta_M": 0.0,
+     "descripcion": "Caso original (sin cambios)",
      "n": 129
     },
     "C1": {
@@ -508,6 +576,7 @@
       "SUSPICIOUS": 0.8449612403100775
      },
      "delta_M": -0.21705426356589141,
+     "descripcion": "El relato niega un da\u00f1o real",
      "n": 129
     },
     "C10": {
@@ -517,6 +586,7 @@
       "SUPPORTED": 0.27906976744186046,
       "SUSPICIOUS": 0.35658914728682173
      },
+     "descripcion": "Edici\u00f3n nunca vista (inversi\u00f3n de color)",
      "n": 129
     },
     "C2": {
@@ -528,6 +598,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.627906976744186,
+     "descripcion": "Foto de otro veh\u00edculo (sustituci\u00f3n)",
      "n": 129
     },
     "C3": {
@@ -539,6 +610,7 @@
       "SUSPICIOUS": 0.6511627906976745
      },
      "delta_M": -0.023255813953488413,
+     "descripcion": "Foto editada (copiar y pegar)",
      "n": 129
     },
     "C4": {
@@ -550,6 +622,7 @@
       "SUSPICIOUS": 0.023255813953488372
      },
      "delta_M": 0.6046511627906976,
+     "descripcion": "Foto editada (inpainting)",
      "n": 129
     },
     "C5": {
@@ -561,6 +634,7 @@
       "SUSPICIOUS": 0.9534883720930233
      },
      "delta_M": -0.32558139534883723,
+     "descripcion": "Foto editada + relato que niega",
      "n": 129
     },
     "C6": {
@@ -572,6 +646,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.37209302325581395,
+     "descripcion": "Falta el relato",
      "n": 129
     },
     "C7": {
@@ -583,6 +658,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.37209302325581395,
+     "descripcion": "Falta la foto",
      "n": 129
     },
     "C8": {
@@ -594,6 +670,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.06201550387596899,
+     "descripcion": "Cambio benigno (JPEG, recorte)",
      "n": 387
     },
     "C9": {
@@ -605,6 +682,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.37209302325581395,
+     "descripcion": "Foto muy borrosa",
      "n": 43
     }
    },
@@ -757,6 +835,7 @@
    "T_star": 2.029287633947927,
    "abstention_rate": 0.19493844049247605,
    "abstentions_in_C6_C7_C9_C10": 0.06578947368421052,
+   "descripcion": "A5 \u00b7 UAFEG sin controles benignos en entrenamiento",
    "ood_auroc_U_C10": 0.5451648479835417,
    "per_condition": {
     "C0": {
@@ -768,6 +847,7 @@
       "SUSPICIOUS": 0.6589147286821705
      },
      "delta_M": 0.0,
+     "descripcion": "Caso original (sin cambios)",
      "n": 129
     },
     "C1": {
@@ -779,6 +859,7 @@
       "SUSPICIOUS": 0.9147286821705426
      },
      "delta_M": -0.9147286821705426,
+     "descripcion": "El relato niega un da\u00f1o real",
      "n": 129
     },
     "C10": {
@@ -788,6 +869,7 @@
       "SUPPORTED": 0.0,
       "SUSPICIOUS": 0.8527131782945736
      },
+     "descripcion": "Edici\u00f3n nunca vista (inversi\u00f3n de color)",
      "n": 129
     },
     "C2": {
@@ -799,6 +881,7 @@
       "SUSPICIOUS": 0.6356589147286822
      },
      "delta_M": -0.6356589147286822,
+     "descripcion": "Foto de otro veh\u00edculo (sustituci\u00f3n)",
      "n": 129
     },
     "C3": {
@@ -810,6 +893,7 @@
       "SUSPICIOUS": 0.9147286821705426
      },
      "delta_M": -0.9147286821705426,
+     "descripcion": "Foto editada (copiar y pegar)",
      "n": 129
     },
     "C4": {
@@ -821,6 +905,7 @@
       "SUSPICIOUS": 0.6744186046511628
      },
      "delta_M": -0.6744186046511628,
+     "descripcion": "Foto editada (inpainting)",
      "n": 129
     },
     "C5": {
@@ -832,6 +917,7 @@
       "SUSPICIOUS": 0.9922480620155039
      },
      "delta_M": -0.9922480620155039,
+     "descripcion": "Foto editada + relato que niega",
      "n": 129
     },
     "C6": {
@@ -843,6 +929,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -1.0,
+     "descripcion": "Falta el relato",
      "n": 129
     },
     "C7": {
@@ -854,6 +941,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -1.0,
+     "descripcion": "Falta la foto",
      "n": 129
     },
     "C8": {
@@ -865,6 +953,7 @@
       "SUSPICIOUS": 0.6692506459948321
      },
      "delta_M": 0.0,
+     "descripcion": "Cambio benigno (JPEG, recorte)",
      "n": 387
     },
     "C9": {
@@ -876,6 +965,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -1.0,
+     "descripcion": "Foto muy borrosa",
      "n": 43
     }
    },
@@ -1028,6 +1118,7 @@
    "T_star": 0.7487905611260505,
    "abstention_rate": 0.0,
    "abstentions_in_C6_C7_C9_C10": null,
+   "descripcion": "B0 \u00b7 Reglas fijas",
    "ood_auroc_U_C10": 0.6073871409028728,
    "per_condition": {
     "C0": {
@@ -1039,6 +1130,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": 0.0,
+     "descripcion": "Caso original (sin cambios)",
      "n": 129
     },
     "C1": {
@@ -1050,6 +1142,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": -1.0,
+     "descripcion": "El relato niega un da\u00f1o real",
      "n": 129
     },
     "C10": {
@@ -1059,6 +1152,7 @@
       "SUPPORTED": 0.0,
       "SUSPICIOUS": 1.0
      },
+     "descripcion": "Edici\u00f3n nunca vista (inversi\u00f3n de color)",
      "n": 129
     },
     "C2": {
@@ -1070,6 +1164,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": -1.0,
+     "descripcion": "Foto de otro veh\u00edculo (sustituci\u00f3n)",
      "n": 129
     },
     "C3": {
@@ -1081,6 +1176,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": -1.0,
+     "descripcion": "Foto editada (copiar y pegar)",
      "n": 129
     },
     "C4": {
@@ -1092,6 +1188,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": -1.0,
+     "descripcion": "Foto editada (inpainting)",
      "n": 129
     },
     "C5": {
@@ -1103,6 +1200,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": -1.0,
+     "descripcion": "Foto editada + relato que niega",
      "n": 129
     },
     "C6": {
@@ -1114,6 +1212,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -1.0,
+     "descripcion": "Falta el relato",
      "n": 129
     },
     "C7": {
@@ -1125,6 +1224,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -1.0,
+     "descripcion": "Falta la foto",
      "n": 129
     },
     "C8": {
@@ -1136,6 +1236,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": 0.0,
+     "descripcion": "Cambio benigno (JPEG, recorte)",
      "n": 387
     },
     "C9": {
@@ -1147,6 +1248,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -1.0,
+     "descripcion": "Foto muy borrosa",
      "n": 43
     }
    },
@@ -1259,6 +1361,7 @@
    "T_star": 1.003160648972195,
    "abstention_rate": 0.22845417236662108,
    "abstentions_in_C6_C7_C9_C10": 0.2359249329758713,
+   "descripcion": "B1 \u00b7 Solo texto",
    "ood_auroc_U_C10": 0.6160245601756116,
    "per_condition": {
     "C0": {
@@ -1270,6 +1373,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.0,
+     "descripcion": "Caso original (sin cambios)",
      "n": 129
     },
     "C1": {
@@ -1281,6 +1385,7 @@
       "SUSPICIOUS": 0.8372093023255814
      },
      "delta_M": -0.13953488372093026,
+     "descripcion": "El relato niega un da\u00f1o real",
      "n": 129
     },
     "C10": {
@@ -1290,6 +1395,7 @@
       "SUPPORTED": 0.6976744186046512,
       "SUSPICIOUS": 0.0
      },
+     "descripcion": "Edici\u00f3n nunca vista (inversi\u00f3n de color)",
      "n": 129
     },
     "C2": {
@@ -1301,6 +1407,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.6976744186046512,
+     "descripcion": "Foto de otro veh\u00edculo (sustituci\u00f3n)",
      "n": 129
     },
     "C3": {
@@ -1312,6 +1419,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.6976744186046512,
+     "descripcion": "Foto editada (copiar y pegar)",
      "n": 129
     },
     "C4": {
@@ -1323,6 +1431,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.6976744186046512,
+     "descripcion": "Foto editada (inpainting)",
      "n": 129
     },
     "C5": {
@@ -1334,6 +1443,7 @@
       "SUSPICIOUS": 0.8372093023255814
      },
      "delta_M": -0.13953488372093026,
+     "descripcion": "Foto editada + relato que niega",
      "n": 129
     },
     "C6": {
@@ -1345,6 +1455,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.3023255813953488,
+     "descripcion": "Falta el relato",
      "n": 129
     },
     "C7": {
@@ -1356,6 +1467,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.39534883720930236,
+     "descripcion": "Falta la foto",
      "n": 129
     },
     "C8": {
@@ -1367,6 +1479,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.0,
+     "descripcion": "Cambio benigno (JPEG, recorte)",
      "n": 387
     },
     "C9": {
@@ -1378,6 +1491,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.4651162790697675,
+     "descripcion": "Foto muy borrosa",
      "n": 43
     }
    },
@@ -1530,6 +1644,7 @@
    "T_star": 0.9658412924197227,
    "abstention_rate": 0.1511627906976744,
    "abstentions_in_C6_C7_C9_C10": 0.19262295081967212,
+   "descripcion": "B2 \u00b7 Solo imagen (detector + calidad)",
    "ood_auroc_U_C10": 0.5853084338115992,
    "per_condition": {
     "C0": {
@@ -1541,6 +1656,7 @@
       "SUSPICIOUS": 0.751937984496124
      },
      "delta_M": 0.0,
+     "descripcion": "Caso original (sin cambios)",
      "n": 129
     },
     "C1": {
@@ -1552,6 +1668,7 @@
       "SUSPICIOUS": 0.751937984496124
      },
      "delta_M": -0.689922480620155,
+     "descripcion": "El relato niega un da\u00f1o real",
      "n": 129
     },
     "C10": {
@@ -1561,6 +1678,7 @@
       "SUPPORTED": 0.06976744186046512,
       "SUSPICIOUS": 0.751937984496124
      },
+     "descripcion": "Edici\u00f3n nunca vista (inversi\u00f3n de color)",
      "n": 129
     },
     "C2": {
@@ -1572,6 +1690,7 @@
       "SUSPICIOUS": 0.7674418604651163
      },
      "delta_M": -0.7054263565891473,
+     "descripcion": "Foto de otro veh\u00edculo (sustituci\u00f3n)",
      "n": 129
     },
     "C3": {
@@ -1583,6 +1702,7 @@
       "SUSPICIOUS": 0.7364341085271318
      },
      "delta_M": -0.6744186046511628,
+     "descripcion": "Foto editada (copiar y pegar)",
      "n": 129
     },
     "C4": {
@@ -1594,6 +1714,7 @@
       "SUSPICIOUS": 0.7596899224806202
      },
      "delta_M": -0.6976744186046512,
+     "descripcion": "Foto editada (inpainting)",
      "n": 129
     },
     "C5": {
@@ -1605,6 +1726,7 @@
       "SUSPICIOUS": 0.7364341085271318
      },
      "delta_M": -0.6744186046511628,
+     "descripcion": "Foto editada + relato que niega",
      "n": 129
     },
     "C6": {
@@ -1616,6 +1738,7 @@
       "SUSPICIOUS": 0.751937984496124
      },
      "delta_M": -0.12403100775193798,
+     "descripcion": "Falta el relato",
      "n": 129
     },
     "C7": {
@@ -1627,6 +1750,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.937984496124031,
+     "descripcion": "Falta la foto",
      "n": 129
     },
     "C8": {
@@ -1638,6 +1762,7 @@
       "SUSPICIOUS": 0.6666666666666666
      },
      "delta_M": -0.12661498708010335,
+     "descripcion": "Cambio benigno (JPEG, recorte)",
      "n": 387
     },
     "C9": {
@@ -1649,6 +1774,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.937984496124031,
+     "descripcion": "Foto muy borrosa",
      "n": 43
     }
    },
@@ -1801,6 +1927,7 @@
    "T_star": 1.016629499201771,
    "abstention_rate": 0.20383036935704515,
    "abstentions_in_C6_C7_C9_C10": 0.25,
+   "descripcion": "B3 \u00b7 Solo forense (TruFor)",
    "ood_auroc_U_C10": 0.3784345539189175,
    "per_condition": {
     "C0": {
@@ -1812,6 +1939,7 @@
       "SUSPICIOUS": 0.16279069767441862
      },
      "delta_M": 0.0,
+     "descripcion": "Caso original (sin cambios)",
      "n": 129
     },
     "C1": {
@@ -1823,6 +1951,7 @@
       "SUSPICIOUS": 0.16279069767441862
      },
      "delta_M": 0.3953488372093023,
+     "descripcion": "El relato niega un da\u00f1o real",
      "n": 129
     },
     "C10": {
@@ -1832,6 +1961,7 @@
       "SUPPORTED": 0.24031007751937986,
       "SUSPICIOUS": 0.6511627906976745
      },
+     "descripcion": "Edici\u00f3n nunca vista (inversi\u00f3n de color)",
      "n": 129
     },
     "C2": {
@@ -1843,6 +1973,7 @@
       "SUSPICIOUS": 0.17829457364341086
      },
      "delta_M": 0.3798449612403101,
+     "descripcion": "Foto de otro veh\u00edculo (sustituci\u00f3n)",
      "n": 129
     },
     "C3": {
@@ -1854,6 +1985,7 @@
       "SUSPICIOUS": 0.8682170542635659
      },
      "delta_M": -0.31007751937984496,
+     "descripcion": "Foto editada (copiar y pegar)",
      "n": 129
     },
     "C4": {
@@ -1865,6 +1997,7 @@
       "SUSPICIOUS": 0.20155038759689922
      },
      "delta_M": 0.3565891472868217,
+     "descripcion": "Foto editada (inpainting)",
      "n": 129
     },
     "C5": {
@@ -1876,6 +2009,7 @@
       "SUSPICIOUS": 0.8682170542635659
      },
      "delta_M": -0.31007751937984496,
+     "descripcion": "Foto editada + relato que niega",
      "n": 129
     },
     "C6": {
@@ -1887,6 +2021,7 @@
       "SUSPICIOUS": 0.16279069767441862
      },
      "delta_M": 0.27906976744186046,
+     "descripcion": "Falta el relato",
      "n": 129
     },
     "C7": {
@@ -1898,6 +2033,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.4418604651162791,
+     "descripcion": "Falta la foto",
      "n": 129
     },
     "C8": {
@@ -1909,6 +2045,7 @@
       "SUSPICIOUS": 0.12919896640826872
      },
      "delta_M": -0.10077519379844957,
+     "descripcion": "Cambio benigno (JPEG, recorte)",
      "n": 387
     },
     "C9": {
@@ -1920,6 +2057,7 @@
       "SUSPICIOUS": 0.023255813953488372
      },
      "delta_M": -0.09302325581395354,
+     "descripcion": "Foto muy borrosa",
      "n": 43
     }
    },
@@ -2072,6 +2210,7 @@
    "T_star": 0.9309696899745877,
    "abstention_rate": 0.17510259917920656,
    "abstentions_in_C6_C7_C9_C10": 0.1111111111111111,
+   "descripcion": "B4 \u00b7 Todo concatenado + red neuronal",
    "ood_auroc_U_C10": 0.5983679572423886,
    "per_condition": {
     "C0": {
@@ -2083,6 +2222,7 @@
       "SUSPICIOUS": 0.015503875968992248
      },
      "delta_M": 0.0,
+     "descripcion": "Caso original (sin cambios)",
      "n": 129
     },
     "C1": {
@@ -2094,6 +2234,7 @@
       "SUSPICIOUS": 0.8449612403100775
      },
      "delta_M": -0.193798449612403,
+     "descripcion": "El relato niega un da\u00f1o real",
      "n": 129
     },
     "C10": {
@@ -2103,6 +2244,7 @@
       "SUPPORTED": 0.26356589147286824,
       "SUSPICIOUS": 0.4883720930232558
      },
+     "descripcion": "Edici\u00f3n nunca vista (inversi\u00f3n de color)",
      "n": 129
     },
     "C2": {
@@ -2114,6 +2256,7 @@
       "SUSPICIOUS": 0.015503875968992248
      },
      "delta_M": 0.6356589147286822,
+     "descripcion": "Foto de otro veh\u00edculo (sustituci\u00f3n)",
      "n": 129
     },
     "C3": {
@@ -2125,6 +2268,7 @@
       "SUSPICIOUS": 0.7751937984496124
      },
      "delta_M": -0.12403100775193798,
+     "descripcion": "Foto editada (copiar y pegar)",
      "n": 129
     },
     "C4": {
@@ -2136,6 +2280,7 @@
       "SUSPICIOUS": 0.031007751937984496
      },
      "delta_M": 0.6201550387596899,
+     "descripcion": "Foto editada (inpainting)",
      "n": 129
     },
     "C5": {
@@ -2147,6 +2292,7 @@
       "SUSPICIOUS": 0.9689922480620154
      },
      "delta_M": -0.317829457364341,
+     "descripcion": "Foto editada + relato que niega",
      "n": 129
     },
     "C6": {
@@ -2158,6 +2304,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.34883720930232553,
+     "descripcion": "Falta el relato",
      "n": 129
     },
     "C7": {
@@ -2169,6 +2316,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.34883720930232553,
+     "descripcion": "Falta la foto",
      "n": 129
     },
     "C8": {
@@ -2180,6 +2328,7 @@
       "SUSPICIOUS": 0.00516795865633075
      },
      "delta_M": -0.07493540051679581,
+     "descripcion": "Cambio benigno (JPEG, recorte)",
      "n": 387
     },
     "C9": {
@@ -2191,6 +2340,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.34883720930232553,
+     "descripcion": "Foto muy borrosa",
      "n": 43
     }
    },
@@ -2343,6 +2493,7 @@
    "T_star": 0.7991221048450634,
    "abstention_rate": 0.2024623803009576,
    "abstentions_in_C6_C7_C9_C10": 0.07210031347962383,
+   "descripcion": "B5 \u00b7 Fusi\u00f3n tard\u00eda calibrada",
    "ood_auroc_U_C10": 0.5709551532890063,
    "per_condition": {
     "C0": {
@@ -2354,6 +2505,7 @@
       "SUSPICIOUS": 0.20930232558139536
      },
      "delta_M": 0.0,
+     "descripcion": "Caso original (sin cambios)",
      "n": 129
     },
     "C1": {
@@ -2365,6 +2517,7 @@
       "SUSPICIOUS": 0.8682170542635659
      },
      "delta_M": -0.49612403100775193,
+     "descripcion": "El relato niega un da\u00f1o real",
      "n": 129
     },
     "C10": {
@@ -2374,6 +2527,7 @@
       "SUPPORTED": 0.13178294573643412,
       "SUSPICIOUS": 0.689922480620155
      },
+     "descripcion": "Edici\u00f3n nunca vista (inversi\u00f3n de color)",
      "n": 129
     },
     "C2": {
@@ -2385,6 +2539,7 @@
       "SUSPICIOUS": 0.16279069767441862
      },
      "delta_M": 0.20930232558139533,
+     "descripcion": "Foto de otro veh\u00edculo (sustituci\u00f3n)",
      "n": 129
     },
     "C3": {
@@ -2396,6 +2551,7 @@
       "SUSPICIOUS": 0.8604651162790697
      },
      "delta_M": -0.4883720930232558,
+     "descripcion": "Foto editada (copiar y pegar)",
      "n": 129
     },
     "C4": {
@@ -2407,6 +2563,7 @@
       "SUSPICIOUS": 0.2558139534883721
      },
      "delta_M": 0.11627906976744184,
+     "descripcion": "Foto editada (inpainting)",
      "n": 129
     },
     "C5": {
@@ -2418,6 +2575,7 @@
       "SUSPICIOUS": 0.9767441860465116
      },
      "delta_M": -0.6046511627906976,
+     "descripcion": "Foto editada + relato que niega",
      "n": 129
     },
     "C6": {
@@ -2429,6 +2587,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.627906976744186,
+     "descripcion": "Falta el relato",
      "n": 129
     },
     "C7": {
@@ -2440,6 +2599,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.627906976744186,
+     "descripcion": "Falta la foto",
      "n": 129
     },
     "C8": {
@@ -2451,6 +2611,7 @@
       "SUSPICIOUS": 0.12919896640826872
      },
      "delta_M": -0.20671834625322993,
+     "descripcion": "Cambio benigno (JPEG, recorte)",
      "n": 387
     },
     "C9": {
@@ -2462,6 +2623,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.627906976744186,
+     "descripcion": "Foto muy borrosa",
      "n": 43
     }
    },
@@ -2614,6 +2776,7 @@
    "T_star": 0.9983936961205309,
    "abstention_rate": 0.1429548563611491,
    "abstentions_in_C6_C7_C9_C10": 0.12552301255230125,
+   "descripcion": "B6 \u00b7 DeepSets sobre las evidencias",
    "ood_auroc_U_C10": 0.6192271392061421,
    "per_condition": {
     "C0": {
@@ -2625,6 +2788,7 @@
       "SUSPICIOUS": 0.015503875968992248
      },
      "delta_M": 0.0,
+     "descripcion": "Caso original (sin cambios)",
      "n": 129
     },
     "C1": {
@@ -2636,6 +2800,7 @@
       "SUSPICIOUS": 0.8449612403100775
      },
      "delta_M": -0.12403100775193798,
+     "descripcion": "El relato niega un da\u00f1o real",
      "n": 129
     },
     "C10": {
@@ -2645,6 +2810,7 @@
       "SUPPORTED": 0.2868217054263566,
       "SUSPICIOUS": 0.4806201550387597
      },
+     "descripcion": "Edici\u00f3n nunca vista (inversi\u00f3n de color)",
      "n": 129
     },
     "C2": {
@@ -2656,6 +2822,7 @@
       "SUSPICIOUS": 0.015503875968992248
      },
      "delta_M": 0.7054263565891472,
+     "descripcion": "Foto de otro veh\u00edculo (sustituci\u00f3n)",
      "n": 129
     },
     "C3": {
@@ -2667,6 +2834,7 @@
       "SUSPICIOUS": 0.7674418604651163
      },
      "delta_M": -0.04651162790697683,
+     "descripcion": "Foto editada (copiar y pegar)",
      "n": 129
     },
     "C4": {
@@ -2678,6 +2846,7 @@
       "SUSPICIOUS": 0.031007751937984496
      },
      "delta_M": 0.6899224806201549,
+     "descripcion": "Foto editada (inpainting)",
      "n": 129
     },
     "C5": {
@@ -2689,6 +2858,7 @@
       "SUSPICIOUS": 0.9689922480620154
      },
      "delta_M": -0.24806201550387597,
+     "descripcion": "Foto editada + relato que niega",
      "n": 129
     },
     "C6": {
@@ -2700,6 +2870,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.2790697674418605,
+     "descripcion": "Falta el relato",
      "n": 129
     },
     "C7": {
@@ -2711,6 +2882,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.2790697674418605,
+     "descripcion": "Falta la foto",
      "n": 129
     },
     "C8": {
@@ -2722,6 +2894,7 @@
       "SUSPICIOUS": 0.002583979328165375
      },
      "delta_M": -0.06459948320413444,
+     "descripcion": "Cambio benigno (JPEG, recorte)",
      "n": 387
     },
     "C9": {
@@ -2733,6 +2906,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.2790697674418605,
+     "descripcion": "Foto muy borrosa",
      "n": 43
     }
    },
@@ -2885,6 +3059,7 @@
    "T_star": 0.3133663056995867,
    "abstention_rate": 0.24008207934336526,
    "abstentions_in_C6_C7_C9_C10": 0.5,
+   "descripcion": "B7 \u00b7 Fusi\u00f3n con incertidumbre (DBF)",
    "ood_auroc_U_C10": 0.39655245548733287,
    "per_condition": {
     "C0": {
@@ -2896,6 +3071,7 @@
       "SUSPICIOUS": 0.3488372093023256
      },
      "delta_M": 0.0,
+     "descripcion": "Caso original (sin cambios)",
      "n": 129
     },
     "C1": {
@@ -2907,6 +3083,7 @@
       "SUSPICIOUS": 0.875968992248062
      },
      "delta_M": -0.4263565891472868,
+     "descripcion": "El relato niega un da\u00f1o real",
      "n": 129
     },
     "C10": {
@@ -2916,6 +3093,7 @@
       "SUPPORTED": 0.17054263565891473,
       "SUSPICIOUS": 0.7751937984496124
      },
+     "descripcion": "Edici\u00f3n nunca vista (inversi\u00f3n de color)",
      "n": 129
     },
     "C2": {
@@ -2927,6 +3105,7 @@
       "SUSPICIOUS": 0.3798449612403101
      },
      "delta_M": 0.06976744186046513,
+     "descripcion": "Foto de otro veh\u00edculo (sustituci\u00f3n)",
      "n": 129
     },
     "C3": {
@@ -2938,6 +3117,7 @@
       "SUSPICIOUS": 0.8992248062015504
      },
      "delta_M": -0.4496124031007752,
+     "descripcion": "Foto editada (copiar y pegar)",
      "n": 129
     },
     "C4": {
@@ -2949,6 +3129,7 @@
       "SUSPICIOUS": 0.4186046511627907
      },
      "delta_M": 0.031007751937984496,
+     "descripcion": "Foto editada (inpainting)",
      "n": 129
     },
     "C5": {
@@ -2960,6 +3141,7 @@
       "SUSPICIOUS": 0.9767441860465116
      },
      "delta_M": -0.5271317829457364,
+     "descripcion": "Foto editada + relato que niega",
      "n": 129
     },
     "C6": {
@@ -2971,6 +3153,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.5503875968992248,
+     "descripcion": "Falta el relato",
      "n": 129
     },
     "C7": {
@@ -2982,6 +3165,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.5503875968992248,
+     "descripcion": "Falta la foto",
      "n": 129
     },
     "C8": {
@@ -2993,6 +3177,7 @@
       "SUSPICIOUS": 0.27906976744186046
      },
      "delta_M": -0.046511627906976716,
+     "descripcion": "Cambio benigno (JPEG, recorte)",
      "n": 387
     },
     "C9": {
@@ -3004,6 +3189,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.5503875968992248,
+     "descripcion": "Foto muy borrosa",
      "n": 43
     }
    },
@@ -3156,6 +3342,7 @@
    "T_star": 1.0977131025301394,
    "abstention_rate": 0.2393980848153215,
    "abstentions_in_C6_C7_C9_C10": 0.13648293963254593,
+   "descripcion": "B8 \u00b7 Modelo multimodal grande (Qwen2-VL-2B)",
    "ood_auroc_U_C10": 0.5533224106300173,
    "per_condition": {
     "C0": {
@@ -3167,6 +3354,7 @@
       "SUSPICIOUS": 0.46511627906976744
      },
      "delta_M": 0.0,
+     "descripcion": "Caso original (sin cambios)",
      "n": 129
     },
     "C1": {
@@ -3178,6 +3366,7 @@
       "SUSPICIOUS": 0.031007751937984496
      },
      "delta_M": 0.23255813953488375,
+     "descripcion": "El relato niega un da\u00f1o real",
      "n": 129
     },
     "C10": {
@@ -3187,6 +3376,7 @@
       "SUPPORTED": 0.2713178294573643,
       "SUSPICIOUS": 0.4883720930232558
      },
+     "descripcion": "Edici\u00f3n nunca vista (inversi\u00f3n de color)",
      "n": 129
     },
     "C2": {
@@ -3198,6 +3388,7 @@
       "SUSPICIOUS": 0.4108527131782946
      },
      "delta_M": -0.14728682170542634,
+     "descripcion": "Foto de otro veh\u00edculo (sustituci\u00f3n)",
      "n": 129
     },
     "C3": {
@@ -3209,6 +3400,7 @@
       "SUSPICIOUS": 0.4728682170542636
      },
      "delta_M": -0.20930232558139533,
+     "descripcion": "Foto editada (copiar y pegar)",
      "n": 129
     },
     "C4": {
@@ -3220,6 +3412,7 @@
       "SUSPICIOUS": 0.46511627906976744
      },
      "delta_M": -0.2015503875968992,
+     "descripcion": "Foto editada (inpainting)",
      "n": 129
     },
     "C5": {
@@ -3231,6 +3424,7 @@
       "SUSPICIOUS": 0.023255813953488372
      },
      "delta_M": 0.24031007751937988,
+     "descripcion": "Foto editada + relato que niega",
      "n": 129
     },
     "C6": {
@@ -3242,6 +3436,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.7364341085271318,
+     "descripcion": "Falta el relato",
      "n": 129
     },
     "C7": {
@@ -3253,6 +3448,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.7286821705426356,
+     "descripcion": "Falta la foto",
      "n": 129
     },
     "C8": {
@@ -3264,6 +3460,7 @@
       "SUSPICIOUS": 0.49612403100775193
      },
      "delta_M": -0.00516795865633074,
+     "descripcion": "Cambio benigno (JPEG, recorte)",
      "n": 387
     },
     "C9": {
@@ -3275,6 +3472,7 @@
       "SUSPICIOUS": 0.6046511627906976
      },
      "delta_M": 0.24031007751937988,
+     "descripcion": "Foto muy borrosa",
      "n": 43
     }
    },
@@ -3387,6 +3585,7 @@
    "T_star": 0.9555196152637947,
    "abstention_rate": 0.16279069767441862,
    "abstentions_in_C6_C7_C9_C10": 0.09505703422053231,
+   "descripcion": "G0 \u00b7 Agregador sin compuerta (g = 1)",
    "ood_auroc_U_C10": 0.597121920699053,
    "per_condition": {
     "C0": {
@@ -3398,6 +3597,7 @@
       "SUSPICIOUS": 0.06201550387596899
      },
      "delta_M": 0.0,
+     "descripcion": "Caso original (sin cambios)",
      "n": 129
     },
     "C1": {
@@ -3409,6 +3609,7 @@
       "SUSPICIOUS": 0.8682170542635659
      },
      "delta_M": -0.21705426356589141,
+     "descripcion": "El relato niega un da\u00f1o real",
      "n": 129
     },
     "C10": {
@@ -3418,6 +3619,7 @@
       "SUPPORTED": 0.2713178294573643,
       "SUSPICIOUS": 0.5348837209302325
      },
+     "descripcion": "Edici\u00f3n nunca vista (inversi\u00f3n de color)",
      "n": 129
     },
     "C2": {
@@ -3429,6 +3631,7 @@
       "SUSPICIOUS": 0.03875968992248062
      },
      "delta_M": 0.6124031007751939,
+     "descripcion": "Foto de otro veh\u00edculo (sustituci\u00f3n)",
      "n": 129
     },
     "C3": {
@@ -3440,6 +3643,7 @@
       "SUSPICIOUS": 0.8062015503875969
      },
      "delta_M": -0.15503875968992242,
+     "descripcion": "Foto editada (copiar y pegar)",
      "n": 129
     },
     "C4": {
@@ -3451,6 +3655,7 @@
       "SUSPICIOUS": 0.07751937984496124
      },
      "delta_M": 0.5736434108527132,
+     "descripcion": "Foto editada (inpainting)",
      "n": 129
     },
     "C5": {
@@ -3462,6 +3667,7 @@
       "SUSPICIOUS": 0.9922480620155039
      },
      "delta_M": -0.3410852713178294,
+     "descripcion": "Foto editada + relato que niega",
      "n": 129
     },
     "C6": {
@@ -3473,6 +3679,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.34883720930232553,
+     "descripcion": "Falta el relato",
      "n": 129
     },
     "C7": {
@@ -3484,6 +3691,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.34883720930232553,
+     "descripcion": "Falta la foto",
      "n": 129
     },
     "C8": {
@@ -3495,6 +3703,7 @@
       "SUSPICIOUS": 0.046511627906976744
      },
      "delta_M": -0.06201550387596899,
+     "descripcion": "Cambio benigno (JPEG, recorte)",
      "n": 387
     },
     "C9": {
@@ -3506,6 +3715,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.34883720930232553,
+     "descripcion": "Foto muy borrosa",
      "n": 43
     }
    },
@@ -3658,6 +3868,7 @@
    "T_star": 0.9411667179996404,
    "abstention_rate": 0.1771545827633379,
    "abstentions_in_C6_C7_C9_C10": 0.2865013774104683,
+   "descripcion": "G0 con percepci\u00f3n perfecta",
    "ood_auroc_U_C10": 0.8804070032556018,
    "per_condition": {
     "C0": {
@@ -3669,6 +3880,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.0,
+     "descripcion": "Caso original (sin cambios)",
      "n": 129
     },
     "C1": {
@@ -3680,6 +3892,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": -0.4031007751937985,
+     "descripcion": "El relato niega un da\u00f1o real",
      "n": 129
     },
     "C10": {
@@ -3689,6 +3902,7 @@
       "SUPPORTED": 0.0,
       "SUSPICIOUS": 0.1937984496124031
      },
+     "descripcion": "Edici\u00f3n nunca vista (inversi\u00f3n de color)",
      "n": 129
     },
     "C2": {
@@ -3700,6 +3914,7 @@
       "SUSPICIOUS": 0.2558139534883721
      },
      "delta_M": 0.3410852713178294,
+     "descripcion": "Foto de otro veh\u00edculo (sustituci\u00f3n)",
      "n": 129
     },
     "C3": {
@@ -3711,6 +3926,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": -0.4031007751937985,
+     "descripcion": "Foto editada (copiar y pegar)",
      "n": 129
     },
     "C4": {
@@ -3722,6 +3938,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": -0.4031007751937985,
+     "descripcion": "Foto editada (inpainting)",
      "n": 129
     },
     "C5": {
@@ -3733,6 +3950,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": -0.4031007751937985,
+     "descripcion": "Foto editada + relato que niega",
      "n": 129
     },
     "C6": {
@@ -3744,6 +3962,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.4031007751937985,
+     "descripcion": "Falta el relato",
      "n": 129
     },
     "C7": {
@@ -3755,6 +3974,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.4031007751937985,
+     "descripcion": "Falta la foto",
      "n": 129
     },
     "C8": {
@@ -3766,6 +3986,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.007751937984496138,
+     "descripcion": "Cambio benigno (JPEG, recorte)",
      "n": 387
     },
     "C9": {
@@ -3777,6 +3998,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.4031007751937985,
+     "descripcion": "Foto muy borrosa",
      "n": 43
     }
    },
@@ -3929,6 +4151,7 @@
    "T_star": 0.9975317662820923,
    "abstention_rate": 0.18399452804377564,
    "abstentions_in_C6_C7_C9_C10": 0.14873417721518986,
+   "descripcion": "G1 \u00b7 UAFEG (agregador con compuerta g)",
    "ood_auroc_U_C10": 0.6461150171263746,
    "per_condition": {
     "C0": {
@@ -3940,6 +4163,7 @@
       "SUSPICIOUS": 0.007751937984496124
      },
      "delta_M": 0.0,
+     "descripcion": "Caso original (sin cambios)",
      "n": 129
     },
     "C1": {
@@ -3951,6 +4175,7 @@
       "SUSPICIOUS": 0.8449612403100775
      },
      "delta_M": -0.1705426356589147,
+     "descripcion": "El relato niega un da\u00f1o real",
      "n": 129
     },
     "C10": {
@@ -3960,6 +4185,7 @@
       "SUPPORTED": 0.27906976744186046,
       "SUSPICIOUS": 0.35658914728682173
      },
+     "descripcion": "Edici\u00f3n nunca vista (inversi\u00f3n de color)",
      "n": 129
     },
     "C2": {
@@ -3971,6 +4197,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.6744186046511628,
+     "descripcion": "Foto de otro veh\u00edculo (sustituci\u00f3n)",
      "n": 129
     },
     "C3": {
@@ -3982,6 +4209,7 @@
       "SUSPICIOUS": 0.6511627906976745
      },
      "delta_M": 0.023255813953488302,
+     "descripcion": "Foto editada (copiar y pegar)",
      "n": 129
     },
     "C4": {
@@ -3993,6 +4221,7 @@
       "SUSPICIOUS": 0.007751937984496124
      },
      "delta_M": 0.6666666666666666,
+     "descripcion": "Foto editada (inpainting)",
      "n": 129
     },
     "C5": {
@@ -4004,6 +4233,7 @@
       "SUSPICIOUS": 0.9534883720930233
      },
      "delta_M": -0.2790697674418605,
+     "descripcion": "Foto editada + relato que niega",
      "n": 129
     },
     "C6": {
@@ -4015,6 +4245,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.32558139534883723,
+     "descripcion": "Falta el relato",
      "n": 129
     },
     "C7": {
@@ -4026,6 +4257,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.32558139534883723,
+     "descripcion": "Falta la foto",
      "n": 129
     },
     "C8": {
@@ -4037,6 +4269,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.03359173126614989,
+     "descripcion": "Cambio benigno (JPEG, recorte)",
      "n": 387
     },
     "C9": {
@@ -4048,6 +4281,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.32558139534883723,
+     "descripcion": "Foto muy borrosa",
      "n": 43
     }
    },
@@ -4200,6 +4434,7 @@
    "T_star": 0.9959873734846832,
    "abstention_rate": 0.20998632010943913,
    "abstentions_in_C6_C7_C9_C10": 0.13764044943820225,
+   "descripcion": "G1 con relato perfecto",
    "ood_auroc_U_C10": 0.6638034337585765,
    "per_condition": {
     "C0": {
@@ -4211,6 +4446,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.0,
+     "descripcion": "Caso original (sin cambios)",
      "n": 129
     },
     "C1": {
@@ -4222,6 +4458,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": -0.37209302325581395,
+     "descripcion": "El relato niega un da\u00f1o real",
      "n": 129
     },
     "C10": {
@@ -4231,6 +4468,7 @@
       "SUPPORTED": 0.27906976744186046,
       "SUSPICIOUS": 0.34108527131782945
      },
+     "descripcion": "Edici\u00f3n nunca vista (inversi\u00f3n de color)",
      "n": 129
     },
     "C2": {
@@ -4242,6 +4480,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.627906976744186,
+     "descripcion": "Foto de otro veh\u00edculo (sustituci\u00f3n)",
      "n": 129
     },
     "C3": {
@@ -4253,6 +4492,7 @@
       "SUSPICIOUS": 0.6511627906976745
      },
      "delta_M": -0.023255813953488413,
+     "descripcion": "Foto editada (copiar y pegar)",
      "n": 129
     },
     "C4": {
@@ -4264,6 +4504,7 @@
       "SUSPICIOUS": 0.007751937984496124
      },
      "delta_M": 0.6201550387596899,
+     "descripcion": "Foto editada (inpainting)",
      "n": 129
     },
     "C5": {
@@ -4275,6 +4516,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": -0.37209302325581395,
+     "descripcion": "Foto editada + relato que niega",
      "n": 129
     },
     "C6": {
@@ -4286,6 +4528,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.37209302325581395,
+     "descripcion": "Falta el relato",
      "n": 129
     },
     "C7": {
@@ -4297,6 +4540,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.37209302325581395,
+     "descripcion": "Falta la foto",
      "n": 129
     },
     "C8": {
@@ -4308,6 +4552,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.03100775193798444,
+     "descripcion": "Cambio benigno (JPEG, recorte)",
      "n": 387
     },
     "C9": {
@@ -4319,6 +4564,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.37209302325581395,
+     "descripcion": "Foto muy borrosa",
      "n": 43
     }
    },
@@ -4471,6 +4717,7 @@
    "T_star": 1.0220630475817871,
    "abstention_rate": 0.1573187414500684,
    "abstentions_in_C6_C7_C9_C10": 0.0,
+   "descripcion": "G1 con percepci\u00f3n perfecta",
    "ood_auroc_U_C10": 0.34904399834568767,
    "per_condition": {
     "C0": {
@@ -4482,6 +4729,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.0,
+     "descripcion": "Caso original (sin cambios)",
      "n": 129
     },
     "C1": {
@@ -4493,6 +4741,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": -0.3023255813953488,
+     "descripcion": "El relato niega un da\u00f1o real",
      "n": 129
     },
     "C10": {
@@ -4502,6 +4751,7 @@
       "SUPPORTED": 0.0,
       "SUSPICIOUS": 1.0
      },
+     "descripcion": "Edici\u00f3n nunca vista (inversi\u00f3n de color)",
      "n": 129
     },
     "C2": {
@@ -4513,6 +4763,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.6976744186046512,
+     "descripcion": "Foto de otro veh\u00edculo (sustituci\u00f3n)",
      "n": 129
     },
     "C3": {
@@ -4524,6 +4775,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": -0.3023255813953488,
+     "descripcion": "Foto editada (copiar y pegar)",
      "n": 129
     },
     "C4": {
@@ -4535,6 +4787,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": -0.3023255813953488,
+     "descripcion": "Foto editada (inpainting)",
      "n": 129
     },
     "C5": {
@@ -4546,6 +4799,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": -0.3023255813953488,
+     "descripcion": "Foto editada + relato que niega",
      "n": 129
     },
     "C6": {
@@ -4557,6 +4811,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.3023255813953488,
+     "descripcion": "Falta el relato",
      "n": 129
     },
     "C7": {
@@ -4568,6 +4823,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.3023255813953488,
+     "descripcion": "Falta la foto",
      "n": 129
     },
     "C8": {
@@ -4579,6 +4835,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.012919896640826822,
+     "descripcion": "Cambio benigno (JPEG, recorte)",
      "n": 387
     },
     "C9": {
@@ -4590,6 +4847,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.3023255813953488,
+     "descripcion": "Foto muy borrosa",
      "n": 43
     }
    },
@@ -4742,6 +5000,7 @@
    "T_star": 1.0358094013973094,
    "abstention_rate": 0.1997264021887825,
    "abstentions_in_C6_C7_C9_C10": 0.0,
+   "descripcion": "G1 con imagen y forense perfectos",
    "ood_auroc_U_C10": 0.3748608150669678,
    "per_condition": {
     "C0": {
@@ -4753,6 +5012,7 @@
       "SUSPICIOUS": 0.007751937984496124
      },
      "delta_M": 0.0,
+     "descripcion": "Caso original (sin cambios)",
      "n": 129
     },
     "C1": {
@@ -4764,6 +5024,7 @@
       "SUSPICIOUS": 0.8449612403100775
      },
      "delta_M": -0.28682170542635654,
+     "descripcion": "El relato niega un da\u00f1o real",
      "n": 129
     },
     "C10": {
@@ -4773,6 +5034,7 @@
       "SUPPORTED": 0.0,
       "SUSPICIOUS": 1.0
      },
+     "descripcion": "Edici\u00f3n nunca vista (inversi\u00f3n de color)",
      "n": 129
     },
     "C2": {
@@ -4784,6 +5046,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": 0.5581395348837209,
+     "descripcion": "Foto de otro veh\u00edculo (sustituci\u00f3n)",
      "n": 129
     },
     "C3": {
@@ -4795,6 +5058,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": -0.4418604651162791,
+     "descripcion": "Foto editada (copiar y pegar)",
      "n": 129
     },
     "C4": {
@@ -4806,6 +5070,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": -0.4418604651162791,
+     "descripcion": "Foto editada (inpainting)",
      "n": 129
     },
     "C5": {
@@ -4817,6 +5082,7 @@
       "SUSPICIOUS": 1.0
      },
      "delta_M": -0.4418604651162791,
+     "descripcion": "Foto editada + relato que niega",
      "n": 129
     },
     "C6": {
@@ -4828,6 +5094,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.4418604651162791,
+     "descripcion": "Falta el relato",
      "n": 129
     },
     "C7": {
@@ -4839,6 +5106,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.4418604651162791,
+     "descripcion": "Falta la foto",
      "n": 129
     },
     "C8": {
@@ -4850,6 +5118,7 @@
       "SUSPICIOUS": 0.007751937984496124
      },
      "delta_M": -0.01033591731266148,
+     "descripcion": "Cambio benigno (JPEG, recorte)",
      "n": 387
     },
     "C9": {
@@ -4861,6 +5130,7 @@
       "SUSPICIOUS": 0.0
      },
      "delta_M": -0.4418604651162791,
+     "descripcion": "Foto muy borrosa",
      "n": 43
     }
    },

@@ -4,6 +4,7 @@
   "auroc_C3_vs_C0": 0.8885123966942148,
   "auroc_C4_vs_C0": 0.5436363636363636,
   "auroc_C5_vs_C0": 0.8885123966942148,
+  "descripcion": "Especialista forense (TruFor): AUROC para separar fotos editadas de la original",
   "n_images": {
    "C0": 110,
    "C3": 110,
@@ -40,6 +41,7 @@
  "narrative": {
   "damage_type_exact_acc": 0.4995571302037201,
   "damage_type_family_acc": 0.6891054030115146,
+  "descripcion": "Especialista del relato (mDeBERTa NLI): acierto en el tipo de da\u00f1o y en si afirma o niega",
   "n_validation_claims_with_assertion": 1129,
   "polarity_acc": 0.9645704162976085
  },
@@ -74,6 +76,7 @@
  "visual": {
   "base_weights_sha256": "a7cd8f929e1903d78a12a48efecab430209f18dc46cb96c3599a5980c63c423c",
   "best_sha256": "a4ebd22a597a2c87e1d916f99bd5545f877059a9793563284b3bfa25aba1e349",
+  "descripcion": "Especialista visual (YOLOv8n-seg v2): mAP50 de m\u00e1scara y caja en HITL y validaci\u00f3n externa CarDD",
   "external_cardd": {
    "box_map50_95_agnostic": 0.030348595086486657,
    "box_map50_95_mapped": 0.022474491207230184,
