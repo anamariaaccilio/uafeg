@@ -21,3 +21,10 @@ artifacts/
 .venv
 kaggle.json
 access_token
+
+# temporales (limpieza final)
+*.log
+.ipynb_checkpoints/
+*.tmp
+.cache/
+.env*

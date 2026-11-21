@@ -14,7 +14,7 @@
    "validation.jsonl": "a52e2352ae32389bc2b02ba64a46bdd3a69b99d030b1750d364bd287a12d66b2"
   }
  },
- "packets_dir": "/home/ana/Documentos/tesis 2/vehicle-claim-verification-baselines/artifacts/packets/posthoc_yolo11m",
+ "packets_dir": "<workspace>/vehicle-claim-verification-baselines/artifacts/packets/posthoc_yolo11m",
  "search": {
   "G1": [
    {

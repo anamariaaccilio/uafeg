@@ -1,10 +1,10 @@
-/home/ana/Documentos/tesis 2/uafeg/experiments/thesis_data.py:45: UserWarning: Informative only: canonical HEAD fecc43f16376 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
+<workspace>/uafeg/experiments/thesis_data.py:45: UserWarning: Informative only: canonical HEAD fecc43f16376 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
   lock = verify_benchmark(LOCK)
-/home/ana/Documentos/tesis 2/uafeg/experiments/thesis_data.py:45: UserWarning: Informative only: canonical HEAD fecc43f16376 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
+<workspace>/uafeg/experiments/thesis_data.py:45: UserWarning: Informative only: canonical HEAD fecc43f16376 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
   lock = verify_benchmark(LOCK)
-/home/ana/Documentos/tesis 2/uafeg/experiments/thesis_data.py:45: UserWarning: Informative only: canonical HEAD fecc43f16376 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
+<workspace>/uafeg/experiments/thesis_data.py:45: UserWarning: Informative only: canonical HEAD fecc43f16376 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
   lock = verify_benchmark(LOCK)
-/home/ana/Documentos/tesis 2/uafeg/experiments/thesis_data.py:45: UserWarning: Informative only: canonical HEAD fecc43f16376 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
+<workspace>/uafeg/experiments/thesis_data.py:45: UserWarning: Informative only: canonical HEAD fecc43f16376 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
   lock = verify_benchmark(LOCK)
 B1 0 0.7843 16 18s
 B1 1 0.7844 18 9s

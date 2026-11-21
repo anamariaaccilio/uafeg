@@ -2,7 +2,7 @@
 
 Última actualización: 2026-10-17 (pasada de CIERRE Y CONSISTENCIA). Fuente: código real +
 tests ejecutados + comparación línea por línea contra el `.tex` real de la tesis, localizado en
-esta pasada en `~/Descargas/UAFEG_Tesis_LaTeX_reescrita.zip` (leído, no modificado).
+esta pasada en el `.tex` de la tesis (archivo local de la autora) (leído, no modificado).
 
 Distinción obligatoria entre tres estados independientes: **Implementation** (¿existe código
 funcional?), **Tests** (¿hay tests automatizados reales?), **Scientific evaluation** (¿se

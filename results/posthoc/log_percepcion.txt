@@ -1,11 +1,11 @@
-/home/ana/Documentos/tesis 2/uafeg/experiments/thesis_data.py:45: UserWarning: Informative only: canonical HEAD f114d89de061 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
+<workspace>/uafeg/experiments/thesis_data.py:45: UserWarning: Informative only: canonical HEAD f114d89de061 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
   lock = verify_benchmark(LOCK)
 {"level": 0.0, "G1": 0.8509057285201517, "B5": 0.8778103351218306, "secs": 226.3}
 {"level": 0.25, "G1": 0.8496175435599582, "B5": 0.8806319640006297, "secs": 330.5}
 {"level": 0.5, "G1": 0.8522494969510799, "B5": 0.8796028869450618, "secs": 595.0}
-/home/ana/Documentos/tesis 2/uafeg/experiments/thesis_evaluate.py:102: RuntimeWarning: divide by zero encountered in log
+<workspace>/uafeg/experiments/thesis_evaluate.py:102: RuntimeWarning: divide by zero encountered in log
   cal[name] = {s: np.log(softmax(runs[k][s] / t)) for s in ("val", "test")}
 {"level": 0.75, "G1": 0.8568724067093099, "B5": 0.8797051530267532, "secs": 505.0}
-/home/ana/Documentos/tesis 2/uafeg/experiments/thesis_evaluate.py:102: RuntimeWarning: divide by zero encountered in log
+<workspace>/uafeg/experiments/thesis_evaluate.py:102: RuntimeWarning: divide by zero encountered in log
   cal[name] = {s: np.log(softmax(runs[k][s] / t)) for s in ("val", "test")}
 {"level": 1.0, "G1": 0.8591082754583161, "B5": 0.8805259122674784, "secs": 319.4}

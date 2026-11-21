@@ -215,6 +215,10 @@ python -m experiments.add_descriptions       # campos "descripcion" en español 
 - `experiments/thesis_tables.py`, `graph_stats.py`, `specialist_report.py`: tablas y figuras en `results/final/`.
 - `experiments/human_reports.py`: reportes humanos; `review/`: paquete de 50 casos listo para revisar.
 - `docs/decisiones_cierre.md`: cada decisión del cierre, una línea por decisión.
+- `experiments/posthoc_perception.py`, `posthoc_improved.py`: análisis adicional (post hoc) de percepción; `presentation_figures.py`, `labels_es.py`, `add_descriptions.py`: figuras y etiquetas en español.
+- `presentacion/`: figuras (PNG 300 dpi + SVG), guía de figuras (`LEEME.md`) y mensajes para la defensa.
+- `results/validation_prelim/`: corrida preliminar solo en validación (sin test), conservada como trazabilidad.
+- Entorno: Python 3.11; dependencias fijadas en `requirements.txt` (el congelado manual de pip del 2026-11-13 se eliminó por redundante).
 
 ## Citas
 
