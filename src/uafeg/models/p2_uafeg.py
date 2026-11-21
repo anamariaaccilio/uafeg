@@ -1,4 +1,8 @@
-"""P2: UAFEG completo. Reutiliza P1 (uafeg.models.p1_graph.GraphClassifier)
+"""FUERA DEL ALCANCE FINAL (decisión 2026-11-20): la capa GATv2 (propagación de mensajes
+aprendida) no se entrena ni se evalúa en la tesis. El sistema final usa el agregador
+interpretable de ``uafeg.aggregator`` (G0/G1). Se conserva este código como referencia.
+
+P2: UAFEG completo. Reutiliza P1 (uafeg.models.p1_graph.GraphClassifier)
 como arquitectura base — mismo encoder, misma atencion GATv2, mismo pooling
 y clasificador. La UNICA diferencia es el reliability gate g_j
 (uafeg.models.gate.node_gate), aplicado al mensaje de cada nodo de

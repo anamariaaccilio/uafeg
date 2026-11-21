@@ -1,0 +1,486 @@
+{
+ "all": {
+  "B1": [
+   {
+    "best_val_nll": 0.7845574021339417,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 64,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.784709632396698,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 128,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.784406840801239,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 64,
+     "lr": 0.002
+    }
+   },
+   {
+    "best_val_nll": 0.7845112085342407,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 128,
+     "lr": 0.002
+    }
+   },
+   {
+    "best_val_nll": 0.7844119668006897,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 64,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.7846436500549316,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 128,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.7843880653381348,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 64,
+     "lr": 0.002
+    }
+   },
+   {
+    "best_val_nll": 0.7843455076217651,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 128,
+     "lr": 0.002
+    }
+   }
+  ],
+  "B2": [
+   {
+    "best_val_nll": 0.8120629787445068,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 64,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.8127127289772034,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 128,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.8101494908332825,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 64,
+     "lr": 0.002
+    }
+   },
+   {
+    "best_val_nll": 0.8133353590965271,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 128,
+     "lr": 0.002
+    }
+   },
+   {
+    "best_val_nll": 0.8222324848175049,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 64,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.8191872239112854,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 128,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.8140787482261658,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 64,
+     "lr": 0.002
+    }
+   },
+   {
+    "best_val_nll": 0.8152569532394409,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 128,
+     "lr": 0.002
+    }
+   }
+  ],
+  "B3": [
+   {
+    "best_val_nll": 0.804230809211731,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 64,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.8034506440162659,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 128,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.8037870526313782,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 64,
+     "lr": 0.002
+    }
+   },
+   {
+    "best_val_nll": 0.801838755607605,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 128,
+     "lr": 0.002
+    }
+   },
+   {
+    "best_val_nll": 0.8026971220970154,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 64,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.8021501302719116,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 128,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.8026065826416016,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 64,
+     "lr": 0.002
+    }
+   },
+   {
+    "best_val_nll": 0.8027108311653137,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 128,
+     "lr": 0.002
+    }
+   }
+  ],
+  "B4": [
+   {
+    "best_val_nll": 0.3903791904449463,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 64,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.3898793160915375,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 128,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.38928648829460144,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 64,
+     "lr": 0.002
+    }
+   },
+   {
+    "best_val_nll": 0.3887152075767517,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 128,
+     "lr": 0.002
+    }
+   },
+   {
+    "best_val_nll": 0.38590916991233826,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 64,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.3873681128025055,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 128,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.3853708505630493,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 64,
+     "lr": 0.002
+    }
+   },
+   {
+    "best_val_nll": 0.38753950595855713,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 128,
+     "lr": 0.002
+    }
+   }
+  ],
+  "B6": [
+   {
+    "best_val_nll": 0.3860120475292206,
+    "config": {
+     "dim": 64,
+     "dropout": 0.1,
+     "heads": 2,
+     "hidden": 64,
+     "layers": 2,
+     "lr": 0.002,
+     "pooling": "mean"
+    },
+    "epochs": 16
+   },
+   {
+    "best_val_nll": 0.709995448589325,
+    "config": {
+     "dim": 64,
+     "dropout": 0.1,
+     "heads": 2,
+     "hidden": 64,
+     "layers": 2,
+     "lr": 0.002,
+     "pooling": "attention"
+    },
+    "epochs": 37
+   },
+   {
+    "best_val_nll": 0.3860120475292206,
+    "config": {
+     "dim": 64,
+     "dropout": 0.1,
+     "heads": 4,
+     "hidden": 64,
+     "layers": 2,
+     "lr": 0.002,
+     "pooling": "mean"
+    },
+    "epochs": 16
+   },
+   {
+    "best_val_nll": 0.709995448589325,
+    "config": {
+     "dim": 64,
+     "dropout": 0.1,
+     "heads": 4,
+     "hidden": 64,
+     "layers": 2,
+     "lr": 0.002,
+     "pooling": "attention"
+    },
+    "epochs": 37
+   },
+   {
+    "best_val_nll": 0.38566353917121887,
+    "config": {
+     "dim": 64,
+     "dropout": 0.3,
+     "heads": 2,
+     "hidden": 64,
+     "layers": 2,
+     "lr": 0.002,
+     "pooling": "mean"
+    },
+    "epochs": 24
+   },
+   {
+    "best_val_nll": 0.8261188268661499,
+    "config": {
+     "dim": 64,
+     "dropout": 0.3,
+     "heads": 2,
+     "hidden": 64,
+     "layers": 2,
+     "lr": 0.002,
+     "pooling": "attention"
+    },
+    "epochs": 16
+   },
+   {
+    "best_val_nll": 0.38566353917121887,
+    "config": {
+     "dim": 64,
+     "dropout": 0.3,
+     "heads": 4,
+     "hidden": 64,
+     "layers": 2,
+     "lr": 0.002,
+     "pooling": "mean"
+    },
+    "epochs": 24
+   },
+   {
+    "best_val_nll": 0.8261188268661499,
+    "config": {
+     "dim": 64,
+     "dropout": 0.3,
+     "heads": 4,
+     "hidden": 64,
+     "layers": 2,
+     "lr": 0.002,
+     "pooling": "attention"
+    },
+    "epochs": 16
+   }
+  ],
+  "B7": [
+   {
+    "best_val_nll": 0.7658347487449646,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 64,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.769691526889801,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 128,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.7645755410194397,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 64,
+     "lr": 0.002
+    }
+   },
+   {
+    "best_val_nll": 0.770738422870636,
+    "config": {
+     "dropout": 0.1,
+     "hidden": 128,
+     "lr": 0.002
+    }
+   },
+   {
+    "best_val_nll": 0.7643225789070129,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 64,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.7691105008125305,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 128,
+     "lr": 0.001
+    }
+   },
+   {
+    "best_val_nll": 0.7657762765884399,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 64,
+     "lr": 0.002
+    }
+   },
+   {
+    "best_val_nll": 0.7690517902374268,
+    "config": {
+     "dropout": 0.3,
+     "hidden": 128,
+     "lr": 0.002
+    }
+   }
+  ]
+ },
+ "budget": {
+  "flat_systems": 8,
+  "graph_systems": 8
+ },
+ "criterion": "minimum validation NLL, seed 0 (8 configs per system)",
+ "pooling_scores": {
+  "attention": 0.709995448589325,
+  "mean": 0.38566353917121887
+ },
+ "pooling_selected": "mean",
+ "selected": {
+  "B1": {
+   "dropout": 0.3,
+   "hidden": 128,
+   "lr": 0.002
+  },
+  "B2": {
+   "dropout": 0.1,
+   "hidden": 64,
+   "lr": 0.002
+  },
+  "B3": {
+   "dropout": 0.1,
+   "hidden": 128,
+   "lr": 0.002
+  },
+  "B4": {
+   "dropout": 0.3,
+   "hidden": 64,
+   "lr": 0.002
+  },
+  "B6": {
+   "dim": 64,
+   "dropout": 0.3,
+   "heads": 2,
+   "hidden": 64,
+   "layers": 2,
+   "lr": 0.002,
+   "pooling": "mean"
+  },
+  "B7": {
+   "dropout": 0.3,
+   "hidden": 64,
+   "lr": 0.001
+  }
+ }
+}

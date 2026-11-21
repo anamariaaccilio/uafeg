@@ -1,0 +1,16 @@
+{
+ "best_val_nll": 0.4446161389350891,
+ "config": {
+  "C": 10.0,
+  "model": "logreg"
+ },
+ "git_commit_uafeg": "bba85ab11fd06655b6be809f135d9090cae94da3",
+ "n_train": 6428,
+ "outputs_sha256": {
+  "logits.npz": "e86f2d69eadf128671c548b24b5418fcff8bd5993ca6db561e9deefb016d40e6"
+ },
+ "packets_manifest_sha256": "7ecc8b4917b1f2046d4de7978998665a93c6d4a078d9893fb236ea89e48c1e7d",
+ "seed": 0,
+ "system": "A2",
+ "wall_seconds": 0.2
+}

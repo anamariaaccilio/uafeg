@@ -1,4 +1,8 @@
-"""P1: EvidenceGraph -> relational GATv2 -> pooling -> clasificador de 3
+"""FUERA DEL ALCANCE FINAL (decisión 2026-11-20): la capa GATv2 (propagación de mensajes
+aprendida) no se entrena ni se evalúa en la tesis. El sistema final usa el agregador
+interpretable de ``uafeg.aggregator`` (G0/G1). Se conserva este código como referencia.
+
+P1: EvidenceGraph -> relational GATv2 -> pooling -> clasificador de 3
 clases. SIN reliability gate (ver uafeg.models.p2_uafeg para la version con
 compuerta, que reutiliza GraphClassifier como base).
 

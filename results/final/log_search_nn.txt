@@ -1,0 +1,95 @@
+/home/ana/Documentos/tesis 2/uafeg/experiments/thesis_data.py:45: UserWarning: Informative only: canonical HEAD fecc43f16376 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
+  lock = verify_benchmark(LOCK)
+/home/ana/Documentos/tesis 2/uafeg/experiments/thesis_data.py:45: UserWarning: Informative only: canonical HEAD fecc43f16376 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
+  lock = verify_benchmark(LOCK)
+/home/ana/Documentos/tesis 2/uafeg/experiments/thesis_data.py:45: UserWarning: Informative only: canonical HEAD fecc43f16376 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
+  lock = verify_benchmark(LOCK)
+/home/ana/Documentos/tesis 2/uafeg/experiments/thesis_data.py:45: UserWarning: Informative only: canonical HEAD fecc43f16376 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
+  lock = verify_benchmark(LOCK)
+B6 0 {'dropout': 0.1, 'heads': 2, 'pooling': 'mean', 'lr': 0.002, 'dim': 64, 'hidden': 64, 'layers': 2} 0.386 26s
+B6 1 {'dropout': 0.1, 'heads': 2, 'pooling': 'attention', 'lr': 0.002, 'dim': 64, 'hidden': 64, 'layers': 2} 0.71 66s
+B6 2 {'dropout': 0.1, 'heads': 4, 'pooling': 'mean', 'lr': 0.002, 'dim': 64, 'hidden': 64, 'layers': 2} 0.386 29s
+B6 3 {'dropout': 0.1, 'heads': 4, 'pooling': 'attention', 'lr': 0.002, 'dim': 64, 'hidden': 64, 'layers': 2} 0.71 51s
+B6 4 {'dropout': 0.3, 'heads': 2, 'pooling': 'mean', 'lr': 0.002, 'dim': 64, 'hidden': 64, 'layers': 2} 0.3857 40s
+B6 5 {'dropout': 0.3, 'heads': 2, 'pooling': 'attention', 'lr': 0.002, 'dim': 64, 'hidden': 64, 'layers': 2} 0.8261 35s
+B6 6 {'dropout': 0.3, 'heads': 4, 'pooling': 'mean', 'lr': 0.002, 'dim': 64, 'hidden': 64, 'layers': 2} 0.3857 36s
+B6 7 {'dropout': 0.3, 'heads': 4, 'pooling': 'attention', 'lr': 0.002, 'dim': 64, 'hidden': 64, 'layers': 2} 0.8261 31s
+B1 {'dropout': 0.1, 'lr': 0.001, 'hidden': 64} 0.7846
+B1 {'dropout': 0.1, 'lr': 0.001, 'hidden': 128} 0.7847
+B1 {'dropout': 0.1, 'lr': 0.002, 'hidden': 64} 0.7844
+B1 {'dropout': 0.1, 'lr': 0.002, 'hidden': 128} 0.7845
+B1 {'dropout': 0.3, 'lr': 0.001, 'hidden': 64} 0.7844
+B1 {'dropout': 0.3, 'lr': 0.001, 'hidden': 128} 0.7846
+B1 {'dropout': 0.3, 'lr': 0.002, 'hidden': 64} 0.7844
+B1 {'dropout': 0.3, 'lr': 0.002, 'hidden': 128} 0.7843
+B2 {'dropout': 0.1, 'lr': 0.001, 'hidden': 64} 0.8121
+B2 {'dropout': 0.1, 'lr': 0.001, 'hidden': 128} 0.8127
+B2 {'dropout': 0.1, 'lr': 0.002, 'hidden': 64} 0.8101
+B2 {'dropout': 0.1, 'lr': 0.002, 'hidden': 128} 0.8133
+B2 {'dropout': 0.3, 'lr': 0.001, 'hidden': 64} 0.8222
+B2 {'dropout': 0.3, 'lr': 0.001, 'hidden': 128} 0.8192
+B2 {'dropout': 0.3, 'lr': 0.002, 'hidden': 64} 0.8141
+B2 {'dropout': 0.3, 'lr': 0.002, 'hidden': 128} 0.8153
+B3 {'dropout': 0.1, 'lr': 0.001, 'hidden': 64} 0.8042
+B3 {'dropout': 0.1, 'lr': 0.001, 'hidden': 128} 0.8035
+B3 {'dropout': 0.1, 'lr': 0.002, 'hidden': 64} 0.8038
+B3 {'dropout': 0.1, 'lr': 0.002, 'hidden': 128} 0.8018
+B3 {'dropout': 0.3, 'lr': 0.001, 'hidden': 64} 0.8027
+B3 {'dropout': 0.3, 'lr': 0.001, 'hidden': 128} 0.8022
+B3 {'dropout': 0.3, 'lr': 0.002, 'hidden': 64} 0.8026
+B3 {'dropout': 0.3, 'lr': 0.002, 'hidden': 128} 0.8027
+B4 {'dropout': 0.1, 'lr': 0.001, 'hidden': 64} 0.3904
+B4 {'dropout': 0.1, 'lr': 0.001, 'hidden': 128} 0.3899
+B4 {'dropout': 0.1, 'lr': 0.002, 'hidden': 64} 0.3893
+B4 {'dropout': 0.1, 'lr': 0.002, 'hidden': 128} 0.3887
+B4 {'dropout': 0.3, 'lr': 0.001, 'hidden': 64} 0.3859
+B4 {'dropout': 0.3, 'lr': 0.001, 'hidden': 128} 0.3874
+B4 {'dropout': 0.3, 'lr': 0.002, 'hidden': 64} 0.3854
+B4 {'dropout': 0.3, 'lr': 0.002, 'hidden': 128} 0.3875
+B7 {'dropout': 0.1, 'lr': 0.001, 'hidden': 64} 0.7658
+B7 {'dropout': 0.1, 'lr': 0.001, 'hidden': 128} 0.7697
+B7 {'dropout': 0.1, 'lr': 0.002, 'hidden': 64} 0.7646
+B7 {'dropout': 0.1, 'lr': 0.002, 'hidden': 128} 0.7707
+B7 {'dropout': 0.3, 'lr': 0.001, 'hidden': 64} 0.7643
+B7 {'dropout': 0.3, 'lr': 0.001, 'hidden': 128} 0.7691
+B7 {'dropout': 0.3, 'lr': 0.002, 'hidden': 64} 0.7658
+B7 {'dropout': 0.3, 'lr': 0.002, 'hidden': 128} 0.7691
+{
+ "pooling": "mean",
+ "selected": {
+  "B6": {
+   "dropout": 0.3,
+   "heads": 2,
+   "pooling": "mean",
+   "lr": 0.002,
+   "dim": 64,
+   "hidden": 64,
+   "layers": 2
+  },
+  "B1": {
+   "dropout": 0.3,
+   "lr": 0.002,
+   "hidden": 128
+  },
+  "B2": {
+   "dropout": 0.1,
+   "lr": 0.002,
+   "hidden": 64
+  },
+  "B3": {
+   "dropout": 0.1,
+   "lr": 0.002,
+   "hidden": 128
+  },
+  "B4": {
+   "dropout": 0.3,
+   "lr": 0.002,
+   "hidden": 64
+  },
+  "B7": {
+   "dropout": 0.3,
+   "lr": 0.001,
+   "hidden": 64
+  }
+ }
+}

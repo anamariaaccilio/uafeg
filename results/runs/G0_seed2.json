@@ -1,0 +1,18 @@
+{
+ "best_val_nll": 0.39395057581899523,
+ "config": {
+  "learning_rate": 0.1,
+  "max_depth": 3,
+  "model": "gboost",
+  "subsample": 0.8
+ },
+ "git_commit_uafeg": "bba85ab11fd06655b6be809f135d9090cae94da3",
+ "n_train": 6428,
+ "outputs_sha256": {
+  "logits.npz": "673b012b789a13137cad96036a2f44199fad1bec232974f7a8ef91b6a7ed4b87"
+ },
+ "packets_manifest_sha256": "7ecc8b4917b1f2046d4de7978998665a93c6d4a078d9893fb236ea89e48c1e7d",
+ "seed": 2,
+ "system": "G0",
+ "wall_seconds": 39.5
+}

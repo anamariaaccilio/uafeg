@@ -1,0 +1,363 @@
+{
+ "all": {
+  "A2": [
+   {
+    "best_val_nll": 0.45294082164764404,
+    "config": {
+     "C": 0.1,
+     "model": "logreg"
+    }
+   },
+   {
+    "best_val_nll": 0.44582420587539673,
+    "config": {
+     "C": 1.0,
+     "model": "logreg"
+    }
+   },
+   {
+    "best_val_nll": 0.4446161389350891,
+    "config": {
+     "C": 10.0,
+     "model": "logreg"
+    }
+   },
+   {
+    "best_val_nll": 0.4480658939178662,
+    "config": {
+     "learning_rate": 0.05,
+     "max_depth": 2,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   },
+   {
+    "best_val_nll": 0.450560718046858,
+    "config": {
+     "learning_rate": 0.05,
+     "max_depth": 3,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   },
+   {
+    "best_val_nll": 0.4488940999725016,
+    "config": {
+     "learning_rate": 0.1,
+     "max_depth": 2,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   },
+   {
+    "best_val_nll": 0.45147359928636743,
+    "config": {
+     "learning_rate": 0.1,
+     "max_depth": 3,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   }
+  ],
+  "A4": [
+   {
+    "best_val_nll": 0.4029001295566559,
+    "config": {
+     "C": 0.1,
+     "model": "logreg"
+    }
+   },
+   {
+    "best_val_nll": 0.39651259779930115,
+    "config": {
+     "C": 1.0,
+     "model": "logreg"
+    }
+   },
+   {
+    "best_val_nll": 0.39552873373031616,
+    "config": {
+     "C": 10.0,
+     "model": "logreg"
+    }
+   },
+   {
+    "best_val_nll": 0.39753212506135144,
+    "config": {
+     "learning_rate": 0.05,
+     "max_depth": 2,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   },
+   {
+    "best_val_nll": 0.3998909170865438,
+    "config": {
+     "learning_rate": 0.05,
+     "max_depth": 3,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   },
+   {
+    "best_val_nll": 0.3986321059960997,
+    "config": {
+     "learning_rate": 0.1,
+     "max_depth": 2,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   },
+   {
+    "best_val_nll": 0.4002628777385164,
+    "config": {
+     "learning_rate": 0.1,
+     "max_depth": 3,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   }
+  ],
+  "A5": [
+   {
+    "best_val_nll": 0.5441758632659912,
+    "config": {
+     "C": 0.1,
+     "model": "logreg"
+    }
+   },
+   {
+    "best_val_nll": 0.5294488668441772,
+    "config": {
+     "C": 1.0,
+     "model": "logreg"
+    }
+   },
+   {
+    "best_val_nll": 0.5264127850532532,
+    "config": {
+     "C": 10.0,
+     "model": "logreg"
+    }
+   },
+   {
+    "best_val_nll": 0.5537099078287696,
+    "config": {
+     "learning_rate": 0.05,
+     "max_depth": 2,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   },
+   {
+    "best_val_nll": 0.5558741982630415,
+    "config": {
+     "learning_rate": 0.05,
+     "max_depth": 3,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   },
+   {
+    "best_val_nll": 0.5551132848516026,
+    "config": {
+     "learning_rate": 0.1,
+     "max_depth": 2,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   },
+   {
+    "best_val_nll": 0.5559896601821113,
+    "config": {
+     "learning_rate": 0.1,
+     "max_depth": 3,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   }
+  ],
+  "G0": [
+   {
+    "best_val_nll": 0.4018698036670685,
+    "config": {
+     "C": 0.1,
+     "model": "logreg"
+    }
+   },
+   {
+    "best_val_nll": 0.39769643545150757,
+    "config": {
+     "C": 1.0,
+     "model": "logreg"
+    }
+   },
+   {
+    "best_val_nll": 0.3982505202293396,
+    "config": {
+     "C": 10.0,
+     "model": "logreg"
+    }
+   },
+   {
+    "best_val_nll": 0.39477083179446326,
+    "config": {
+     "learning_rate": 0.05,
+     "max_depth": 2,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   },
+   {
+    "best_val_nll": 0.39448088100017314,
+    "config": {
+     "learning_rate": 0.05,
+     "max_depth": 3,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   },
+   {
+    "best_val_nll": 0.3956365685038779,
+    "config": {
+     "learning_rate": 0.1,
+     "max_depth": 2,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   },
+   {
+    "best_val_nll": 0.39429656332810403,
+    "config": {
+     "learning_rate": 0.1,
+     "max_depth": 3,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   }
+  ],
+  "G1": [
+   {
+    "best_val_nll": 0.4028797745704651,
+    "config": {
+     "C": 0.1,
+     "model": "logreg"
+    }
+   },
+   {
+    "best_val_nll": 0.39645734429359436,
+    "config": {
+     "C": 1.0,
+     "model": "logreg"
+    }
+   },
+   {
+    "best_val_nll": 0.39543354511260986,
+    "config": {
+     "C": 10.0,
+     "model": "logreg"
+    }
+   },
+   {
+    "best_val_nll": 0.39664701868740676,
+    "config": {
+     "learning_rate": 0.05,
+     "max_depth": 2,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   },
+   {
+    "best_val_nll": 0.4008017632361408,
+    "config": {
+     "learning_rate": 0.05,
+     "max_depth": 3,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   },
+   {
+    "best_val_nll": 0.3975897781350157,
+    "config": {
+     "learning_rate": 0.1,
+     "max_depth": 2,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   },
+   {
+    "best_val_nll": 0.4013981144177925,
+    "config": {
+     "learning_rate": 0.1,
+     "max_depth": 3,
+     "model": "gboost",
+     "subsample": 0.8
+    }
+   }
+  ]
+ },
+ "budget_configs_per_system": 7,
+ "criterion": "minimum validation NLL (seed 0)",
+ "grid": [
+  {
+   "C": 0.1,
+   "model": "logreg"
+  },
+  {
+   "C": 1.0,
+   "model": "logreg"
+  },
+  {
+   "C": 10.0,
+   "model": "logreg"
+  },
+  {
+   "learning_rate": 0.05,
+   "max_depth": 2,
+   "model": "gboost",
+   "subsample": 0.8
+  },
+  {
+   "learning_rate": 0.05,
+   "max_depth": 3,
+   "model": "gboost",
+   "subsample": 0.8
+  },
+  {
+   "learning_rate": 0.1,
+   "max_depth": 2,
+   "model": "gboost",
+   "subsample": 0.8
+  },
+  {
+   "learning_rate": 0.1,
+   "max_depth": 3,
+   "model": "gboost",
+   "subsample": 0.8
+  }
+ ],
+ "selected": {
+  "A2": {
+   "C": 10.0,
+   "model": "logreg"
+  },
+  "A4": {
+   "C": 10.0,
+   "model": "logreg"
+  },
+  "A5": {
+   "C": 10.0,
+   "model": "logreg"
+  },
+  "G0": {
+   "learning_rate": 0.1,
+   "max_depth": 3,
+   "model": "gboost",
+   "subsample": 0.8
+  },
+  "G1": {
+   "C": 10.0,
+   "model": "logreg"
+  }
+ }
+}
