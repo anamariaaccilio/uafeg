@@ -45,6 +45,11 @@ def main():
                 f"$p$ {fmt_p(h['p_value_approx'], h['n_resamples']).replace('<', '$<$')}, "
                 f"$p_{{\\mathrm{{Holm}}}}$ {fmt_p(h['p_holm'], h['n_resamples']).replace('<', '$<$')})")
     n, vis, fo = sp["narrative"], sp["visual"], sp["forensic"]
+    from experiments.thesis_data import load_split
+    tmeta = load_split("test").meta
+    amb = [x["condition"] for x in tmeta if x["ambiguous"]]
+    n_amb_test = len(amb)
+    amb_by_cond = ", ".join(f"{k}: {amb.count(k)}" for k in sorted(set(amb), key=lambda t: int(t[1:])))
     from collections import Counter
     errs = json.loads((REPO_B / "review/errores/errores.json").read_text())
     err_conds = ", ".join(f"{k}: {v}" for k, v in sorted(Counter(e["condition"] for e in errs).items(), key=lambda t: int(t[0][1:])))
@@ -95,7 +100,7 @@ para C3--C5 en conjunto (C5 usa las mismas imágenes que C3). Ver Tablas~\ref{{t
 
 \section{{Grafos de evidencia}}
 
-Los grafos tienen en promedio {gs['per_split']['test']['nodes_mean']:.2f} nodos y {gs['per_split']['test']['edges_mean']:.2f}
+Sobre train, validación y test juntos salvo que se indique, los grafos tienen en promedio {gs['per_split']['test']['nodes_mean']:.2f} nodos y {gs['per_split']['test']['edges_mean']:.2f}
 aristas por reclamo en test ({gs['per_split']['train']['nodes_mean']:.2f} y {gs['per_split']['train']['edges_mean']:.2f} en
 entrenamiento). En C0 el {gs['per_condition']['C0']['pct_support']:.1f}\,\% de las aristas afirmación--daño son de apoyo y el
 {gs['per_condition']['C0']['pct_contradiction']:.1f}\,\% de contradicción; en C1 y C5 la contradicción sube a
@@ -124,8 +129,7 @@ Con bootstrap pareado agrupado por \texttt{{source\_image\_id}} ({H['H1']['n_gro
 y Holm ($m=3$, $\alpha=0{{,}}05$) (Tabla~\ref{{tab:hipotesis}}):
 
 \begin{{itemize}}
-\item \textbf{{H1}} (G1 frente al mejor sistema sin grafo, elegido en validación: {best}; PR-AUC de SUSPICIOUS en C3--C5 frente a
-C8--C9, {H['H1']['n_stress_test']} reclamos): diferencia G1$-${best} = {hp('H1')}. G1 obtiene {H['H1']['point_G1']:.3f} y {best}
+\item \textbf{{H1}} (G1 frente al mejor sistema sin grafo, elegido en validación: {best}; PR-AUC de SUSPICIOUS sobre el subconjunto de estrés C3, C4, C5, C8 y C9 de test, {H['H1']['n_stress_test']} reclamos): diferencia G1$-${best} = {hp('H1')}. G1 obtiene {H['H1']['point_G1']:.3f} y {best}
 {H['H1']['point_best_nongraph']:.3f}. Se rechaza la igualdad, pero a favor de {best}: \textbf{{H1 no se sostiene}}. McNemar sobre
 la exactitud global: $b={mc['H1']['b']}$, $c={mc['H1']['c']}$, $p={mc['H1']['p_value']:.3f}$.
 \item \textbf{{H2}} (G1 frente a G0 en Brier): Brier(G0)$-$Brier(G1) = {hp('H2')}; G1 {H['H2']['point_G1']:.4f}, G0
@@ -142,12 +146,12 @@ Los valores $p$ reportados como ``$<$ 0.0005'' corresponden a 0 de 2\,000 répli
 La exactitud de la decisión final (con abstención contada como INSUFFICIENT) de G1 es {acc('G1','C0'):.3f} en C0,
 {acc('G1','C1'):.3f} en C1, {acc('G1','C2'):.3f} en C2, {acc('G1','C3'):.3f} en C3, {acc('G1','C4'):.3f} en C4,
 {acc('G1','C5'):.3f} en C5 y {acc('G1','C8'):.3f} en C8 (Tabla~\ref{{tab:delta_m}}). C2 (sustitución) y C4 (inpainting) son
-las condiciones más difíciles para todos los sistemas: $\Delta M_{{C2}}$ = {dm('G1','C2'):+.3f} y $\Delta M_{{C4}}$ = {dm('G1','C4'):+.3f}
+las condiciones más difíciles para los sistemas aprendidos principales (B4, B5, B6, G0, G1): $\Delta M_{{C2}}$ = {dm('G1','C2'):+.3f} y $\Delta M_{{C4}}$ = {dm('G1','C4'):+.3f}
 para G1; {dm(best,'C2'):+.3f} y {dm(best,'C4'):+.3f} para {best}. En C8 (transformaciones benignas) G1 acierta
 {acc('G1','C8'):.3f} frente a {acc(best,'C8'):.3f} de {best} (fracción decidida SUSPICIOUS en C8: G1
 {S['G1']['per_condition']['C8']['decision_distribution']['SUSPICIOUS']:.3f}, {best}
 {S[best]['per_condition']['C8']['decision_distribution']['SUSPICIOUS']:.3f}).
-Todos los sistemas calibrados tienen ECE baja (G1 {m('G1','ece'):.3f}). Los umbrales fijados en validación para una cobertura
+Tras la calibración, B1--B6, G0, G1, A2 y A4 tienen ECE $\leq$ 0.02 (G1 {m('G1','ece'):.3f}); B7 ({m('B7','ece'):.3f}), B8 ({m('B8','ece'):.3f}) y A5 ({m('A5','ece'):.3f}) quedan peor calibrados. Los umbrales fijados en validación para una cobertura
 de 0.80 dejaron $\tau_c=$ {S['G1']['tau_c']:.3f} (la cobertura de evidencia no discriminó en validación) y $\tau_U=$
 {S['G1']['tau_U']:.3f}; G1 se abstiene en {S['G1']['abstention_rate']:.3f} de los reclamos etiquetados de test, y solo
 {S['G1']['abstentions_in_C6_C7_C9_C10']:.3f} de sus abstenciones caen en C6, C7, C9 o C10: las abstenciones no se concentran
@@ -159,8 +163,8 @@ es {ood['G1']:.3f} para G1, {ood['G0']:.3f} para G0, {ood['B6']:.3f} para B6 y {
 Sin forense (A2) la PR-AUC cae a {m('A2','pr_auc_suspicious'):.3f}. Quitar los atributos continuos de las aristas (A4) deja
 {m('A4','pr_auc_suspicious'):.3f} (G1: {m('G1','pr_auc_suspicious'):.3f}). Entrenar sin C8 (A5) mantiene la PR-AUC
 ({m('A5','pr_auc_suspicious'):.3f}) pero hunde el Macro-F1 a {m('A5','macro_f1'):.3f} y la calibración (ECE {m('A5','ece'):.3f}).
-Sin los 552 reclamos AMBIGUOS (sensibilidad C2--C5), G1 obtiene PR-AUC {m('G1','pr_auc_suspicious','test_without_ambiguous'):.3f}
-y G0 {m('G0','pr_auc_suspicious','test_without_ambiguous'):.3f}: la conclusión no cambia (Tabla~\ref{{tab:sensibilidad}}).
+Sin los {n_amb_test} reclamos AMBIGUOS de test ({amb_by_cond}; 552 en todo el benchmark), G1 obtiene PR-AUC {m('G1','pr_auc_suspicious','test_without_ambiguous'):.3f}
+y G0 {m('G0','pr_auc_suspicious','test_without_ambiguous'):.3f}: el orden entre G0 y G1 no cambia (Tabla~\ref{{tab:sensibilidad}}).
 Con percepción oráculo la PR-AUC de G1 sube a {m('G1_oracleN','pr_auc_suspicious'):.3f} (narrativa),
 {m('G1_oracleVF','pr_auc_suspicious'):.3f} (visual+forense) y {m('G1_oracleNVF','pr_auc_suspicious'):.3f} (ambas); G0 con ambas
 llega a {m('G0_oracleNVF','pr_auc_suspicious'):.3f}. El cuello de botella es la percepción visual y forense, no el agregador.
@@ -208,7 +212,7 @@ narrativo tipo exacto {n['damage_type_exact_acc']:.3f}, familia {n['damage_type_
 
 **Lectura.** El grafo con compuerta no supera a una fusión simple; la compuerta atenúa casi toda la evidencia visual
 (g medio {gk['visual']['C0']['mean']:.3f}) porque el detector es débil. Con percepción oráculo G1 llega a PR-AUC
-{m('G1_oracleNVF','pr_auc_suspicious'):.3f}: el límite está en los especialistas. C2 y C4 son casi invisibles para todos.
+{m('G1_oracleNVF','pr_auc_suspicious'):.3f}: el límite está en los especialistas. C2 y C4 son las condiciones más difíciles para los sistemas aprendidos principales (B4, B5, B6, G0, G1).
 
 **Limitaciones.** Reclamos controlados sobre imágenes reales (no expedientes de aseguradora); detector visual débil y sin
 transferencia a CarDD; test no totalmente ciego; C3 y C5 comparten imágenes; una sola corrida de YOLO/TruFor; G1 eligió

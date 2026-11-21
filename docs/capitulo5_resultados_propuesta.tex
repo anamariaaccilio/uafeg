@@ -32,7 +32,7 @@ para C3--C5 en conjunto (C5 usa las mismas imágenes que C3). Ver Tablas~\ref{ta
 
 \section{Grafos de evidencia}
 
-Los grafos tienen en promedio 5.58 nodos y 13.26
+Sobre train, validación y test juntos salvo que se indique, los grafos tienen en promedio 5.58 nodos y 13.26
 aristas por reclamo en test (6.50 y 16.90 en
 entrenamiento). En C0 el 80.0\,\% de las aristas afirmación--daño son de apoyo y el
 0.0\,\% de contradicción; en C1 y C5 la contradicción sube a
@@ -61,8 +61,7 @@ Con bootstrap pareado agrupado por \texttt{source\_image\_id} (129 imágenes fue
 y Holm ($m=3$, $\alpha=0{,}05$) (Tabla~\ref{tab:hipotesis}):
 
 \begin{itemize}
-\item \textbf{H1} (G1 frente al mejor sistema sin grafo, elegido en validación: B5; PR-AUC de SUSPICIOUS en C3--C5 frente a
-C8--C9, 817 reclamos): diferencia G1$-$B5 = -0.0388 (IC 95\,\% [-0.0530, -0.0246]; $p$ $<$ 0.0005 (0 de 2000 réplicas), $p_{\mathrm{Holm}}$ $<$ 0.0005 (0 de 2000 réplicas)). G1 obtiene 0.854 y B5
+\item \textbf{H1} (G1 frente al mejor sistema sin grafo, elegido en validación: B5; PR-AUC de SUSPICIOUS sobre el subconjunto de estrés C3, C4, C5, C8 y C9 de test, 817 reclamos): diferencia G1$-$B5 = -0.0388 (IC 95\,\% [-0.0530, -0.0246]; $p$ $<$ 0.0005 (0 de 2000 réplicas), $p_{\mathrm{Holm}}$ $<$ 0.0005 (0 de 2000 réplicas)). G1 obtiene 0.854 y B5
 0.893. Se rechaza la igualdad, pero a favor de B5: \textbf{H1 no se sostiene}. McNemar sobre
 la exactitud global: $b=153$, $c=150$, $p=0.909$.
 \item \textbf{H2} (G1 frente a G0 en Brier): Brier(G0)$-$Brier(G1) = -0.0104 (IC 95\,\% [-0.0192, -0.0018]; $p$ 0.0160, $p_{\mathrm{Holm}}$ 0.0160); G1 0.2758, G0
@@ -79,12 +78,12 @@ Los valores $p$ reportados como ``$<$ 0.0005'' corresponden a 0 de 2\,000 répli
 La exactitud de la decisión final (con abstención contada como INSUFFICIENT) de G1 es 0.674 en C0,
 0.845 en C1, 0.000 en C2, 0.651 en C3, 0.008 en C4,
 0.953 en C5 y 0.708 en C8 (Tabla~\ref{tab:delta_m}). C2 (sustitución) y C4 (inpainting) son
-las condiciones más difíciles para todos los sistemas: $\Delta M_{C2}$ = +0.674 y $\Delta M_{C4}$ = +0.667
+las condiciones más difíciles para los sistemas aprendidos principales (B4, B5, B6, G0, G1): $\Delta M_{C2}$ = +0.674 y $\Delta M_{C4}$ = +0.667
 para G1; +0.209 y +0.116 para B5. En C8 (transformaciones benignas) G1 acierta
 0.708 frente a 0.579 de B5 (fracción decidida SUSPICIOUS en C8: G1
 0.000, B5
 0.129).
-Todos los sistemas calibrados tienen ECE baja (G1 0.015). Los umbrales fijados en validación para una cobertura
+Tras la calibración, B1--B6, G0, G1, A2 y A4 tienen ECE $\leq$ 0.02 (G1 0.015); B7 (0.099), B8 (0.072) y A5 (0.135) quedan peor calibrados. Los umbrales fijados en validación para una cobertura
 de 0.80 dejaron $\tau_c=$ 0.000 (la cobertura de evidencia no discriminó en validación) y $\tau_U=$
 0.679; G1 se abstiene en 0.184 de los reclamos etiquetados de test, y solo
 0.149 de sus abstenciones caen en C6, C7, C9 o C10: las abstenciones no se concentran
@@ -96,8 +95,8 @@ es 0.646 para G1, 0.597 para G0, 0.619 para B6 y 0.571 para B5.
 Sin forense (A2) la PR-AUC cae a 0.789. Quitar los atributos continuos de las aristas (A4) deja
 0.851 (G1: 0.851). Entrenar sin C8 (A5) mantiene la PR-AUC
 (0.850) pero hunde el Macro-F1 a 0.460 y la calibración (ECE 0.135).
-Sin los 552 reclamos AMBIGUOS (sensibilidad C2--C5), G1 obtiene PR-AUC 0.869
-y G0 0.888: la conclusión no cambia (Tabla~\ref{tab:sensibilidad}).
+Sin los 80 reclamos AMBIGUOS de test (C2: 72, C4: 8; 552 en todo el benchmark), G1 obtiene PR-AUC 0.869
+y G0 0.888: el orden entre G0 y G1 no cambia (Tabla~\ref{tab:sensibilidad}).
 Con percepción oráculo la PR-AUC de G1 sube a 0.866 (narrativa),
 0.943 (visual+forense) y 0.965 (ambas); G0 con ambas
 llega a 0.970. El cuello de botella es la percepción visual y forense, no el agregador.

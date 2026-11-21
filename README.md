@@ -100,7 +100,7 @@ Ensamble calibrado (T* en validación), IC 95 % por bootstrap agrupado por `sour
 | G0_oracleNVF (G0 oráculo ambos) | 0.970 [0.964, 0.976] | 0.778 [0.748, 0.807] | 0.103 [0.093, 0.114] | 0.172 [0.158, 0.187] | 0.009 [0.006, 0.023] | 0.012 [0.010, 0.015] | 0.177 |
 
 
-### Sensibilidad C2 (sin los 552 reclamos AMBIGUOS de C2–C5)
+### Sensibilidad C2 (sin los reclamos AMBIGUOS de test: 80 de los 552 del benchmark; C2: 72, C4: 8)
 
 | Sistema | PR-AUC SUS ↑ | Macro-F1 ↑ | Brier ↓ | NLL ↓ | ECE ↓ | AURC ↓ | abstención |
 |---|---|---|---|---|---|---|---|

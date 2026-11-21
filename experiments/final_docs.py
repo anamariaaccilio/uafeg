@@ -151,7 +151,7 @@ def main():
            "### Hipótesis (Holm, α = 0.05)", ""]
     res += [f"- **{k}**: {t}" for k, t, _ in hl]
     res += ["", "### Ablaciones", "", md_table(ev, ABL), "", "### Oráculo", "", md_table(ev, ORA), "",
-            "### Sensibilidad C2 (sin los 552 reclamos AMBIGUOS de C2–C5)", "",
+            "### Sensibilidad C2 (sin los reclamos AMBIGUOS de test: 80 de los 552 del benchmark; C2: 72, C4: 8)", "",
             md_table(ev, ["B6", "G0", "G1", best_ng], key="test_without_ambiguous"),
             "", specialists_md(sp), "",
             "## Limitaciones", "",
