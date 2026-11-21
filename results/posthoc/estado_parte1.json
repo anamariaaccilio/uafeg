@@ -1,0 +1,22 @@
+{
+ "tipo": "ANÁLISIS ADICIONAL (post hoc)",
+ "parte_1_1": {
+  "status": "NOT_RUN",
+  "motivo": "kernels GPU de Kaggle en cola (QUEUED) más de 2 h; un kernel CPU de prueba corrió al instante",
+  "kernels": [
+   "anamaria203/uafeg-yolo-train-v8m",
+   "anamaria203/uafeg-yolo-train-11m"
+  ],
+  "enviados_utc": "2026-11-21T09:41Z",
+  "corte_utc": "2026-11-21T11:45Z",
+  "umbral_validacion_mask_map50": 0.1177
+ },
+ "parte_1_2": {
+  "status": "NOT_RUN",
+  "motivo": "depende de 1.1"
+ },
+ "parte_1_3": {
+  "status": "MEASURED",
+  "archivo": "results/posthoc/percepcion_progresiva.json"
+ }
+}

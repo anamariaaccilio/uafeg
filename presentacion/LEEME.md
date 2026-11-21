@@ -14,8 +14,8 @@ Respaldado/Sospechoso). Por eso cada color va siempre acompañado de una etiquet
 | `02_comparacion_general` | G1 (0.851) queda por debajo de la fusión tardía B5 (0.878) en detectar casos sospechosos. | Resultados: visión general | `results/evaluation.json` |
 | `03_hipotesis_forest` | H1 y H2 se rechazan (gana el rival); H3 se acepta (el forense aporta). | Resultados: hipótesis | `results/evaluation.json` (`hypotheses`) |
 | `04_oraculo` | Con percepción perfecta G1 sube de 0.851 a 0.965: el agregador funciona y el límite está en los especialistas. | Discusión: techo del método | `results/evaluation.json` (sistemas `*_oracle*`) |
-| `05_percepcion_progresiva` | Ver mensaje en el subtítulo de la figura (sale del análisis post hoc). | Discusión: ¿y si mejora el detector? | `results/posthoc/percepcion_progresiva.json` |
-| `06_oficial_vs_mejorada` | Solo existe si algún YOLO nuevo superó a v2 en validación (ver `PARA_ANA.md`). | Discusión | `results/posthoc/percepcion_mejorada.json` |
+| `05_percepcion_progresiva` | Aun con el 100 % de las fotos con anotación real, G1 pasa solo de 0.851 a 0.859 y sigue debajo de B5 (0.881): el detector visual solo no explica la brecha (post hoc). | Discusión: ¿y si mejora el detector? | `results/posthoc/percepcion_progresiva.json` |
+| `06_oficial_vs_mejorada` | **No se generó**: los YOLO medianos no llegaron a correr (GPU de Kaggle en cola), así que no hay percepción mejorada que comparar. | — | `results/posthoc/estado_parte1.json` |
 | `07_heatmap_condiciones` | La foto de otro vehículo (C2) y el inpainting (C4) son lo más difícil para los sistemas de fusión. | Resultados: por condición | `results/evaluation.json` (`per_condition`) |
 | `08_compuerta_g` | La compuerta da muy poco peso a las detecciones visuales y apaga el forense y la fuente en fotos borrosas. | Propuesta: la compuerta en acción | `presentacion/datos/compuerta_g_test.json` |
 | `09_aporte_forense` | TruFor sube la PR-AUC de Suspicious en +0.062, sobre todo en copiar y pegar (C3, C5). | Resultados: H3 | `results/evaluation.json` |

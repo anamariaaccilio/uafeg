@@ -198,7 +198,7 @@ se niega a correr dos veces (`results/test_access_log.json`).
 Material de presentación y análisis adicional (post hoc):
 
 ```bash
-python -m experiments.posthoc_perception     # curva de percepción progresiva (~35 min en CPU)
+python -m experiments.posthoc_perception     # curva de percepción progresiva (~33 min en CPU)
 python -m experiments.presentation_figures   # figuras de presentacion/figuras/ (PNG 300 dpi + SVG)
 python -m experiments.add_descriptions       # campos "descripcion" en español en los JSON (sin cambiar números)
 ```
