@@ -42,7 +42,7 @@ SUMMARY_DIR = RESULTS / "runs"
 MAX_EPOCHS, PATIENCE, BATCH, WD, CLIP = 40, 5, 64, 1e-4, 1.0
 SEARCH_GRID = [{"dropout": d, "heads": h, "pooling": p, "lr": 2e-3, "dim": 64, "hidden": 64, "layers": 2}
                for d, h, p in itertools.product((0.1, 0.3), (2, 4), ("mean", "attention"))]
-FLAT_GRID = [{"dropout": d, "lr": 2e-3, "hidden": 64} for d in (0.1, 0.3)]
+FLAT_GRID = [{"dropout": d, "lr": lr, "hidden": h} for d, lr, h in itertools.product((0.1, 0.3), (1e-3, 2e-3), (64, 128))]
 
 # system -> how to build it. Aliases are documented, never silently re-run.
 GRAPH_SYSTEMS = {
@@ -243,7 +243,7 @@ def cmd_search(args) -> None:
             results.setdefault(system, []).append({"config": cfg, "best_val_nll": out["info"]["best_val_nll"],
                                                    "epochs": out["info"]["epochs_run"]})
             print(system, i, cfg, round(out["info"]["best_val_nll"], 4), f"{time.time() - t0:.0f}s", flush=True)
-    for system in ("B1", "B2", "B4", "B7"):
+    for system in ("B1", "B2", "B3", "B4", "B7"):
         for cfg in FLAT_GRID:
             out = run_one(system, cfg, 0, cache)
             results.setdefault(system, []).append({"config": cfg, "best_val_nll": out["info"]["best_val_nll"]})
@@ -256,10 +256,9 @@ def cmd_search(args) -> None:
     for s in ("B6",):
         cands = [r for r in results[s] if r["config"]["pooling"] == pooling]
         selected[s] = min(cands, key=lambda r: r["best_val_nll"])["config"]
-    for s in ("B1", "B2", "B4", "B7"):
+    for s in ("B1", "B2", "B3", "B4", "B7"):
         selected[s] = min(results[s], key=lambda r: r["best_val_nll"])["config"]
-    selected["B3"] = selected["B1"]
-    summary = {"criterion": "minimum validation NLL, seed 0 (B6: 8 configs; flat: 2 configs)",
+    summary = {"criterion": "minimum validation NLL, seed 0 (8 configs per system)",
                "budget": {"graph_systems": len(SEARCH_GRID), "flat_systems": len(FLAT_GRID)},
                "pooling_scores": pooling_score, "pooling_selected": pooling, "selected": selected,
                "all": results}

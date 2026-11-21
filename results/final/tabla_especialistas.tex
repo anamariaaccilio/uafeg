@@ -1,0 +1,23 @@
+\begin{table}[H]\centering\footnotesize
+\begin{tabular}{llr}
+\toprule
+\textbf{Especialista} & \textbf{Métrica} & \textbf{Valor} \\ \midrule
+Narrativo (mDeBERTa NLI) & tipo de daño exacto (val, n=1129) & 0.500 \\
+ & tipo de daño por familia de la ontología & 0.689 \\
+ & polaridad (negación) & 0.965 \\
+Visual (YOLOv8n-seg) & mAP50 / mAP50-95 máscara, val HITL & 0.117 / 0.061 \\
+ & mAP50 / mAP50-95 caja, val HITL & 0.137 / 0.076 \\
+Visual (YOLOv8n-seg) & mAP50 / mAP50-95 máscara, test HITL & 0.089 / 0.037 \\
+ & mAP50 / mAP50-95 caja, test HITL & 0.114 / 0.062 \\
+ & CarDD test, caja, clases mapeadas (n=374) & 0.025 / 0.011 \\
+ & CarDD test, caja, daño agnóstico & 0.033 / 0.014 \\
+ & CarDD test, máscara & NOT\_RUN (solo cajas) \\
+Forense (TruFor) & AUROC C3 vs C0 (val) & 0.889 \\
+Forense (TruFor) & AUROC C4 vs C0 (val) & 0.544 \\
+Forense (TruFor) & AUROC C5 vs C0 (val) & 0.889 \\
+ & AUROC C3--C5 vs C0 (val) & 0.774 \\
+\bottomrule
+\end{tabular}
+\caption{Especialistas medidos sobre archivos reales. Fuente: \texttt{results/final/specialists.json}.}
+\label{tab:especialistas}
+\end{table}

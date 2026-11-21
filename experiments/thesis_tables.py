@@ -14,14 +14,15 @@ import numpy as np
 from experiments.thesis_data import ART, REPO_B
 
 RESULTS = REPO_B / "results"
-TABLES = RESULTS / "tables"
-FIGS = RESULTS / "figures"
+TABLES = RESULTS / "final"
+FIGS = RESULTS / "final"
 NAMES = {"B0": "Reglas explícitas", "B1": "Solo texto", "B2": "Solo daño visual", "B3": "Solo forense",
          "B4": "Concatenación + MLP", "B5": "Fusión tardía calibrada", "B7": "DBF", "B8": "MLLM congelado",
-         "B6": "DeepSets", "P1": "Grafo sin compuerta", "P2": r"\modelo{}",
-         "A1": "A1 sin compuerta ($g_j=1$)", "A2": "A2 sin forense", "A3": "A3 DeepSets", "A4": "A4 sin atributos de arista",
-         "A5": "A5 sin controles benignos en train", "P2_legacy": "P2, taxonomía previa",
-         "P2_oracleN": "Oráculo narrativa", "P2_oracleVF": "Oráculo visual+forense", "P2_oracleNVF": "Oráculo ambos"}
+         "B6": "DeepSets", "G0": "Agregador sobre el grafo, sin compuerta ($g=1$)", "G1": r"\modelo{} (agregador con compuerta $g$)",
+         "A1": "A1 sin compuerta ($g_j=1$)", "A2": "A2 sin forense", "A3": "A3 DeepSets", "A4": "A4 aristas sin atributos continuos",
+         "A5": "A5 sin C8/C10 en train",
+         "G1_oracleN": "Oráculo narrativa", "G1_oracleVF": "Oráculo visual+forense", "G1_oracleNVF": "Oráculo ambos",
+         "G0_oracleNVF": "G0, oráculo ambos"}
 COLS = [("pr_auc_suspicious", "PR-AUC", 3), ("macro_f1", "Macro-F1", 3), ("brier", "Brier", 3),
         ("ece", "ECE", 3), ("aurc", "AURC", 3)]
 
@@ -33,7 +34,7 @@ def cell(m, digits, with_ci=True):
     return s
 
 
-def table(rows, ev, caption, label, key="test", shaded=("B6", "P1", "P2"), notes=""):
+def table(rows, ev, caption, label, key="test", shaded=("B6", "G0", "G1"), notes=""):
     lines = [r"\begin{table}[H]", r"\centering", r"\footnotesize", r"\renewcommand{\arraystretch}{1.2}",
              r"\begin{tabularx}{\textwidth}{lX" + "c" * len(COLS) + "}", r"\toprule",
              r"\textbf{ID} & \textbf{Sistema} & " + " & ".join(rf"\textbf{{{c[1]}}}" for c in COLS) + r" \\",
@@ -60,8 +61,10 @@ def table(rows, ev, caption, label, key="test", shaded=("B6", "P1", "P2"), notes
     return "\n".join(lines) + "\n"
 
 
-def condition_table(ev, systems=("B6", "P1", "P2")):
-    conds = [c for c in ev["systems"]["P2"]["per_condition"] if c != "C10"]
+def condition_table(ev, systems=("B6", "G0", "G1")):
+    best = ev["hypotheses"]["H1"]["comparison"].split(" vs ")[1].split(" ")[0]
+    systems = tuple(dict.fromkeys(systems + (best,)))
+    conds = [c for c in ev["systems"]["G1"]["per_condition"] if c != "C10"]
     head = r"\begin{table}[H]\centering\footnotesize" + "\n" + r"\begin{tabular}{l" + "r" * len(conds) + "}\n\\toprule\n"
     head += "Sistema & " + " & ".join(conds) + r" \\" + "\n\\midrule\n"
     body = ""
@@ -105,7 +108,7 @@ def figures(ev):
     lab = y >= 0
     FIGS.mkdir(parents=True, exist_ok=True)
     fig, ax = plt.subplots(figsize=(5, 3.6))
-    for s in ("P2", "P1", "B6", ev["hypotheses"]["H1"]["comparison"].split(" vs ")[1].split(" ")[0]):
+    for s in ("G1", "G0", "B6", ev["hypotheses"]["H1"]["comparison"].split(" vs ")[1].split(" ")[0]):
         if f"{s}_probs" not in arr:
             continue
         p, U = arr[f"{s}_probs"][lab], arr[f"{s}_U"][lab]
@@ -115,7 +118,7 @@ def figures(ev):
     fig.tight_layout(); fig.savefig(FIGS / "riesgo_cobertura.pdf"); plt.close(fig)
 
     fig, ax = plt.subplots(figsize=(4.2, 4))
-    for s in ("P2", "P1"):
+    for s in ("G1", "G0", "B6"):
         p = arr[f"{s}_probs"][lab]
         conf, correct = p.max(1), p.argmax(1) == y[lab]
         bins = np.linspace(0, 1, 11)
@@ -126,10 +129,10 @@ def figures(ev):
     ax.plot([0, 1], [0, 1], "k--", lw=1); ax.set_xlabel("Confianza"); ax.set_ylabel("Exactitud")
     ax.legend(); ax.grid(alpha=.3); fig.tight_layout(); fig.savefig(FIGS / "calibracion.pdf"); plt.close(fig)
 
-    conds = [c for c in ev["systems"]["P2"]["per_condition"] if c != "C10"]
+    conds = [c for c in ev["systems"]["G1"]["per_condition"] if c != "C10"]
     fig, ax = plt.subplots(figsize=(6.5, 3.2))
     width = 0.27
-    for i, s in enumerate(("B6", "P1", "P2")):
+    for i, s in enumerate(("B6", "G0", "G1")):
         d = [ev["systems"][s]["per_condition"][c]["delta_M"] for c in conds]
         ax.bar(np.arange(len(conds)) + (i - 1) * width, d, width, label=s)
     ax.axhline(0, color="k", lw=.8); ax.set_xticks(range(len(conds))); ax.set_xticklabels(conds)
@@ -139,22 +142,24 @@ def figures(ev):
 
 def main() -> int:
     ev = json.loads((RESULTS / "evaluation.json").read_text())
-    ev["aliases"] = {"A1": "P1", "A3": "B6", **({"A2": "P2"} if ev["hypotheses"]["H3"].get("status") == "NOT_EVALUATED" else {})}
+    ev["aliases"] = {"A1": "G0", "A3": "B6", "G1_oracle_none": "G1"}
     TABLES.mkdir(parents=True, exist_ok=True)
-    main_rows = ["B0", "B1", "B2", "B3", "--", "B4", "B5", "B7", "B8", "--", "B6", "P1", "P2"]
+    main_rows = ["B0", "B1", "B2", "B3", "--", "B4", "B5", "B7", "B8", "--", "B6", "G0", "G1"]
     (TABLES / "tab_main.tex").write_text(table(
         main_rows, ev, r"Resultados principales en test (escala reducida). Media $\pm$ desviación entre 5 semillas "
         r"(por semilla, cada una calibrada con su $T^\ast$) y, debajo, IC 95\% del bootstrap agrupado por "
-        r"\texttt{source\_image\_id} (2\,000 réplicas) sobre el ensamble $M=5$ calibrado.", "tab:plantilla_main"))
+        r"\texttt{source\_image\_id} (2\,000 réplicas) sobre el ensamble calibrado. Sin GATv2: G0/G1 son el agregador "
+        r"interpretable sobre el grafo.", "tab:resultados_main"))
     (TABLES / "tab_ablaciones.tex").write_text(table(
-        ["P2", "--", "A1", "A2", "A3", "A4", "A5", "--", "P2_legacy"], ev,
-        "Ablaciones A1--A5 y taxonomía previa, mismo protocolo que la tabla principal.", "tab:ablaciones", shaded=("P2",)))
+        ["G1", "--", "A1", "A2", "A3", "A4", "A5"], ev,
+        "Ablaciones A1--A5 de G1, mismo protocolo que la tabla principal.", "tab:ablaciones", shaded=("G1",)))
     (TABLES / "tab_oraculo.tex").write_text(table(
-        ["P2", "P2_oracleN", "P2_oracleVF", "P2_oracleNVF"], ev,
+        ["G1", "G1_oracleN", "G1_oracleVF", "G1_oracleNVF", "--", "G0", "G0_oracleNVF"], ev,
         "Protocolo oráculo (diagnóstico): percepción predicha u oráculo para la narrativa y para visual+forense.",
-        "tab:oraculo", shaded=("P2",)))
+        "tab:oraculo", shaded=("G1",)))
     (TABLES / "tab_sensibilidad.tex").write_text(table(
-        ["B6", "P1", "P2"], ev, "Análisis de sensibilidad: test sin los casos AMBIGUOS (criterios C2--C5).",
+        ["B6", "G0", "G1"], ev, "Análisis de sensibilidad C2: test sin los casos AMBIGUOS (criterios C2--C5). "
+        "Compárese con la tabla principal (con ambiguos).",
         "tab:sensibilidad", key="test_without_ambiguous"))
     (TABLES / "tab_delta_m.tex").write_text(condition_table(ev))
     (TABLES / "tab_hipotesis.tex").write_text(hypotheses_table(ev))

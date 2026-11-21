@@ -1,0 +1,156 @@
+{
+ "forensic": {
+  "auroc_C3C4C5_vs_C0": 0.7735537190082645,
+  "auroc_C3_vs_C0": 0.8885123966942148,
+  "auroc_C4_vs_C0": 0.5436363636363636,
+  "auroc_C5_vs_C0": 0.8885123966942148,
+  "n_images": {
+   "C0": 110,
+   "C3": 110,
+   "C4": 110,
+   "C5": 110
+  },
+  "provenance": {
+   "checkpoint_sha256": "ac1d90e329a72e0d66e8665e123a19e94bfae3209c3ef8a4f9ca3b91578c7844",
+   "git_commit": "86852e18add43fd1d8d0dbe82eb8bfd0d818f952",
+   "hardware": "Tesla T4",
+   "license": "GRIP-UNINA non-profit research licence",
+   "load": "torch.load(weights_only=True) with allow-listed numpy scalars",
+   "manifest_sha256": "378e1cdd698cb417720637adcd7da2d85a060a884c73fa3f67755e066f465588",
+   "map_side": 64,
+   "method": "TruFor (Guillaro et al., CVPR 2023), pretrained trufor_ph3, inference only",
+   "n_images_index": 5240,
+   "n_rows": 5240,
+   "output_sha256": "c6814b5b6a31fe91c9a3bbad64e3de5acd1fc9c94ff22904b1399173befba87c",
+   "produced_by": "Kaggle kernel anamaria203/uafeg-trufor (scripts/kaggle/k_trufor/trufor_infer.py)",
+   "resolution": "native (no resize)",
+   "seed": 0,
+   "sha_mismatch_skipped": 0,
+   "specialist": "forensic",
+   "versions": {
+    "numpy": "2.1.3",
+    "python": "3.13.16",
+    "torch": "2.11.0+cu130"
+   },
+   "wall_seconds": 3599.2,
+   "weights_zip_sha256": "953f1f7eda0dd2c5ece322ae9c185ba1079c1265aa5fdf319ef5a20604d206d8"
+  },
+  "status": "MEASURED"
+ },
+ "narrative": {
+  "damage_type_exact_acc": 0.4995571302037201,
+  "damage_type_family_acc": 0.6891054030115146,
+  "n_validation_claims_with_assertion": 1129,
+  "polarity_acc": 0.9645704162976085
+ },
+ "reliability": {
+  "forensic": {
+   "n_validation_images": null,
+   "normalization": null,
+   "status": "NOT_RUN: artifacts/specialists/forensic.jsonl (TruFor) not available; forensic stays null",
+   "validation_auroc_score_local_edit": null
+  },
+  "narrative_r": {
+   "broken_part": 0.5306122448979592,
+   "corrosion": 0.5,
+   "crack": 0.0064516129032258064,
+   "dent": 0.6926605504587156,
+   "flaking": 0.5,
+   "missing_part": 0.6753246753246753,
+   "paint_chip": 0.5353535353535354,
+   "scratch": 0.013513513513513514
+  },
+  "visual_r": null
+ },
+ "visual": {
+  "base_weights_sha256": "a7cd8f929e1903d78a12a48efecab430209f18dc46cb96c3599a5980c63c423c",
+  "best_sha256": "3124225d47366179e297fa2599c2f685a56909a0b04f6c43f0a992e10c46ef4e",
+  "external_cardd": {
+   "box_map50_95_agnostic": 0.0138083276017547,
+   "box_map50_95_mapped": 0.010697270952433901,
+   "box_map50_agnostic": 0.0334041500162979,
+   "box_map50_mapped": 0.025483759524117224,
+   "cardd_names": [
+    "dent",
+    "scratch",
+    "crack",
+    "glass shatter",
+    "lamp broken",
+    "tire flat"
+   ],
+   "class_map_to_hitl": {
+    "crack": "crack",
+    "dent": "dent",
+    "glass shatter": "broken_part",
+    "lamp broken": "broken_part",
+    "scratch": "scratch",
+    "tire flat": null
+   },
+   "dataset": "gabrielfcarvalho/cardd-with-yolo-annotations-images-labels (test split)",
+   "images_sha256_of_sha256s": "a732d9fc13edf7d0c7934075ac1014593fe610fc8fbd65ccdd51225ef2250fe6",
+   "label_type": "bounding boxes only (mask mAP not computable)",
+   "license": "CC BY-NC 4.0 (declared on Kaggle)",
+   "n_gt_agnostic": 785,
+   "n_gt_mapped": 753,
+   "n_images": 374,
+   "status": "MEASURED"
+  },
+  "finished": "2026-11-21T03:05:19Z",
+  "hitl_eval": {
+   "test": {
+    "box_map50": 0.11415117480786321,
+    "box_map50_95": 0.06163190084052885,
+    "mask_map50": 0.08926527961854033,
+    "mask_map50_95": 0.037392735970396926,
+    "n_images": 129,
+    "per_class_mask_map50_95": {
+     "broken_part": 0.07270358622629515,
+     "corrosion": 0.0006134629345487777,
+     "crack": 0.014362952234852455,
+     "dent": 0.030006973980953054,
+     "flaking": 0.0017377772417696159,
+     "missing_part": 0.16119051025767392,
+     "paint_chip": 0.008605269332797297,
+     "scratch": 0.009921355554285116
+    }
+   },
+   "val": {
+    "box_map50": 0.1366127203098415,
+    "box_map50_95": 0.0761313593479589,
+    "mask_map50": 0.11733867369791505,
+    "mask_map50_95": 0.06084984871881396,
+    "n_images": 110,
+    "per_class_mask_map50_95": {
+     "broken_part": 0.05765708155383057,
+     "corrosion": 0.00012488093043264503,
+     "crack": 0.10608551693404633,
+     "dent": 0.02069966268687654,
+     "flaking": 0.010322350281579126,
+     "missing_part": 0.27767193396554146,
+     "paint_chip": 0.006756253051865281,
+     "scratch": 0.0074811103463397295
+    }
+   }
+  },
+  "hitl_images": 807,
+  "hitl_sha_mismatch": 0,
+  "started": "2026-11-21T02:44:22Z",
+  "train_config": {
+   "batch": 16,
+   "deterministic": true,
+   "epochs": 100,
+   "imgsz": 640,
+   "optimizer": "auto",
+   "patience": 20,
+   "pretrained": true,
+   "seed": 0,
+   "workers": 2
+  },
+  "versions": {
+   "gpu": "Tesla T4",
+   "python": "3.13.16",
+   "torch": "2.11.0+cu130",
+   "ultralytics": "8.4.155"
+  }
+ }
+}
