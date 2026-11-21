@@ -236,7 +236,7 @@ def cmd_search(args) -> None:
     cache: dict = {}
     verify_inputs()
     results = {}
-    for system in ("B6", "P1", "P2"):
+    for system in ("B6",):  # GATv2 systems (P1/P2) are out of the final scope (2026-11-20)
         for i, cfg in enumerate(SEARCH_GRID):
             t0 = time.time()
             out = train_graph(system, cfg, seed=0, cache=cache)
@@ -250,18 +250,16 @@ def cmd_search(args) -> None:
             print(system, cfg, round(out["info"]["best_val_nll"], 4), flush=True)
     # pooling chosen jointly (same for B6, P1, P2): lowest mean of per-system best val NLL
     pooling_score = {p: np.mean([min(r["best_val_nll"] for r in results[s] if r["config"]["pooling"] == p)
-                                 for s in ("B6", "P1", "P2")]) for p in ("mean", "attention")}
+                                 for s in ("B6",)]) for p in ("mean", "attention")}
     pooling = min(pooling_score, key=pooling_score.get)
     selected = {}
-    for s in ("B6", "P1", "P2"):
+    for s in ("B6",):
         cands = [r for r in results[s] if r["config"]["pooling"] == pooling]
         selected[s] = min(cands, key=lambda r: r["best_val_nll"])["config"]
     for s in ("B1", "B2", "B4", "B7"):
         selected[s] = min(results[s], key=lambda r: r["best_val_nll"])["config"]
     selected["B3"] = selected["B1"]
-    for s in ("A2", "A4", "A5", "P2_legacy", "P2_oracleN", "P2_oracleVF", "P2_oracleNVF"):
-        selected[s] = selected["P2"]
-    summary = {"criterion": "minimum validation NLL, seed 0; pooling chosen jointly for B6/P1/P2",
+    summary = {"criterion": "minimum validation NLL, seed 0 (B6: 8 configs; flat: 2 configs)",
                "budget": {"graph_systems": len(SEARCH_GRID), "flat_systems": len(FLAT_GRID)},
                "pooling_scores": pooling_score, "pooling_selected": pooling, "selected": selected,
                "all": results}

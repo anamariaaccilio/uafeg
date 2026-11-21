@@ -19,3 +19,5 @@ dist/
 data/raw/
 artifacts/
 .venv
+kaggle.json
+access_token

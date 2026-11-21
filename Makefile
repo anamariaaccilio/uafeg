@@ -7,9 +7,8 @@ A := ../vehicle-claim-verification-baselines
 PY := env -u PYTHONPATH OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 $(abspath .venv/bin/python)
 PACKETS := $(A)/artifacts/packets/v3/packets_manifest.json
 SEEDS := 0 1 2 3 4
-MAIN := B1 B2 B3 B4 B7 B6 P1 P2
-ABL := A2 A4 A5 P2_legacy
-ORACLE := P2_oracleN P2_oracleVF P2_oracleNVF
+MAIN := B1 B2 B3 B4 B7 B6
+AGG := G1 G0 A2 A4 A5 G1_oracleN G1_oracleVF G1_oracleNVF G0_oracleNVF
 
 .PHONY: all smoke test verify-lock specialists packets search train evaluate hypotheses tables require-%
 
@@ -39,10 +38,12 @@ search: verify-lock require-packets
 	test -f results/hparam_search.json || $(PY) -m experiments.thesis_train search
 
 train: search
-	$(PY) -m experiments.thesis_train train --systems $(MAIN) $(ABL) $(ORACLE) --seeds $(SEEDS)
+	$(PY) -m experiments.thesis_train train --systems $(MAIN) --seeds $(SEEDS)
+	test -f results/hparam_search_aggregator.json || $(PY) -m experiments.thesis_aggregator search
+	$(PY) -m experiments.thesis_aggregator train --systems $(AGG) --seeds $(SEEDS)
 
 require-runs:
-	@ls artifacts/thesis/runs/P2/seed4/record.json >/dev/null 2>&1 || { echo "FALTAN corridas entrenadas: corre 'make train'"; exit 1; }
+	@ls artifacts/thesis/runs/G1/seed4/record.json >/dev/null 2>&1 || { echo "FALTAN corridas entrenadas: corre 'make train'"; exit 1; }
 
 # calibración (T*), umbrales (tau_U, tau_c), test una sola vez, bootstrap y H1-H3 en un paso
 evaluate: verify-lock require-runs

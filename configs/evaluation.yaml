@@ -12,11 +12,12 @@ hypotheses:
   H1:
     # Decidido por Ana (2026-11-13), según la tesis: métrica = PR-AUC de SUSPICIOUS sobre el
     # conjunto de estrés = test restringido a C3, C4, C5 (positivos, SUSPICIOUS) y C8, C9
-    # (negativos). Comparación: P2 vs el mejor sistema sin grafo entre B1-B5, B7 y B6,
+    # (negativos). Diseño final sin GATv2 (2026-11-20): P2 -> G1 (agregador con compuerta),
+    # P1 -> G0 (g = 1). Comparación: G1 vs el mejor sistema sin grafo entre B1-B5, B7, B6 y B8,
     # elegido por PR-AUC SUSPICIOUS en VALIDACIÓN sobre ese mismo subconjunto. C10 aparte
     # (OOD). ΔM_s = M(C0) - M(s) por condición es análisis secundario, fuera de Holm.
     metric: pr_auc_suspicious
     stress_conditions: [C3, C4, C5, C8, C9]
-    nongraph_candidates: [B1, B2, B3, B4, B5, B7, B6]
-  H2: {metric: brier, comparison: "P2 vs P1"}
-  H3: {metric: pr_auc_suspicious, comparison: "P2 vs A2"}
+    nongraph_candidates: [B1, B2, B3, B4, B5, B7, B6, B8]   # B8 solo si corrió
+  H2: {metric: brier, comparison: "G1 vs G0"}
+  H3: {metric: pr_auc_suspicious, comparison: "G1 vs A2 (G1 sin forense)"}

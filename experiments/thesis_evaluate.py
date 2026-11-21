@@ -32,7 +32,7 @@ RESULTS = REPO_B / "results"
 CONFIG = REPO_B / "configs/evaluation.yaml"
 SUS = CLASS_ORDER.index("SUSPICIOUS")
 INS = CLASS_ORDER.index("INSUFFICIENT")
-NONGRAPH = ("B0", "B1", "B2", "B3", "B4", "B5", "B7")
+NONGRAPH = ("B0", "B1", "B2", "B3", "B4", "B5", "B7", "B6", "B8")
 
 
 def softmax(z):
@@ -233,8 +233,8 @@ def main() -> int:
     systems = {}
     b0_runs, b0_table = b0_logits(data)
     systems["B0"] = b0_runs
-    for s in ("B1", "B2", "B3", "B4", "B7", "B6", "P1", "P2", "A2", "A4", "A5",
-              "P2_legacy", "P2_oracleN", "P2_oracleVF", "P2_oracleNVF"):
+    for s in ("B1", "B2", "B3", "B4", "B7", "B6", "B8", "G0", "G1", "A2", "A4", "A5",
+              "G1_oracleN", "G1_oracleVF", "G1_oracleNVF", "G0_oracleNVF"):
         runs = load_logits(s)
         if runs:
             systems[s] = runs
@@ -243,8 +243,6 @@ def main() -> int:
 
     evaluated = {}
     for name, runs in systems.items():
-        if name.startswith("P2_oracle") or name == "P2_legacy":
-            pass
         res = evaluate_system(name, runs, data, cfg, val_mask, y_val, labelled, y_test)
         evaluated[name] = res
 
@@ -293,20 +291,22 @@ def main() -> int:
     def prauc_fn(name):
         p = evaluated[name]["probs"][st_idx]
         return lambda idx: pr_auc_suspicious([CLASS_ORDER[i] for i in y_st[idx]], p[idx])
-    h1 = paired_grouped_bootstrap_diff(groups_all_arr[st_idx], prauc_fn("P2"), prauc_fn(best_ng), n_resamples=n_boot)
-    h1.update({"comparison": f"P2 vs {best_ng} (best non-graph system by validation PR-AUC on the stress subset)",
-               "statistic": f"PR-AUC SUSPICIOUS on test restricted to {stress}; diff = P2 - best (>0 favours P2)",
+    h1 = paired_grouped_bootstrap_diff(groups_all_arr[st_idx], prauc_fn("G1"), prauc_fn(best_ng), n_resamples=n_boot)
+    h1.update({"comparison": f"G1 vs {best_ng} (best non-graph system by validation PR-AUC on the stress subset)",
+               "statistic": f"PR-AUC SUSPICIOUS on test restricted to {stress}; diff = G1 - best (>0 favours G1)",
+               "point_G1": prauc_fn("G1")(np.arange(len(st_idx))), "point_best_nongraph": prauc_fn(best_ng)(np.arange(len(st_idx))),
                "validation_stress_pr_auc": val_scores, "n_stress_test": int(len(st_idx)),
                "secondary_delta_M": {n: {c: r.get("delta_M") for c, r in report["systems"][n]["per_condition"].items()}
-                                     for n in ("P2", best_ng)}})
+                                     for n in ("G1", best_ng)}})
     lab_idx = np.flatnonzero(labelled)
 
     def brier_fn(name):
         p = evaluated[name]["probs"]
         return lambda idx: float(np.mean(np.sum((p[lab_idx][idx] - np.eye(3)[y_test[idx]]) ** 2, 1)))
     y_all = test.labels
-    h2 = paired_grouped_bootstrap_diff(groups_all_arr[labelled], brier_fn("P1"), brier_fn("P2"), n_resamples=n_boot)
-    h2.update({"comparison": "P2 vs P1, Brier (calibrated ensembles)", "statistic": "Brier(P1) - Brier(P2) (>0 favours P2)"})
+    h2 = paired_grouped_bootstrap_diff(groups_all_arr[labelled], brier_fn("G0"), brier_fn("G1"), n_resamples=n_boot)
+    h2.update({"comparison": "G1 vs G0, Brier (calibrated ensembles)", "statistic": "Brier(G0) - Brier(G1) (>0 favours G1)",
+               "point_G1": brier_fn("G1")(np.arange(int(labelled.sum()))), "point_G0": brier_fn("G0")(np.arange(int(labelled.sum())))})
     if "A2" in evaluated:
         lab = np.flatnonzero(labelled)
         y_lab = test.labels[lab]
@@ -314,16 +314,19 @@ def main() -> int:
         def full_prauc(name):
             p = evaluated[name]["probs"][lab]
             return lambda idx: pr_auc_suspicious([CLASS_ORDER[i] for i in y_lab[idx]], p[idx])
-        h3 = paired_grouped_bootstrap_diff(groups_all_arr[lab], full_prauc("P2"), full_prauc("A2"), n_resamples=n_boot)
-        h3.update({"status": "EVALUATED", "comparison": "UAFEG (P2) vs A2 (P2 without forensic nodes)",
-                   "statistic": "PR-AUC SUSPICIOUS on the full labelled test set; diff = P2 - A2 (>0 favours P2)"})
+        h3 = paired_grouped_bootstrap_diff(groups_all_arr[lab], full_prauc("G1"), full_prauc("A2"), n_resamples=n_boot)
+        h3.update({"status": "EVALUATED", "comparison": "UAFEG (G1) vs A2 (G1 without forensic nodes)",
+                   "statistic": "PR-AUC SUSPICIOUS on the full labelled test set; diff = G1 - A2 (>0 favours G1)",
+                   "point_G1": full_prauc("G1")(np.arange(len(lab))), "point_A2": full_prauc("A2")(np.arange(len(lab)))})
     else:
         h3 = {"status": "NOT_EVALUATED", "p_value_approx": 1.0,
               "reason": "forensic specialist NOT_RUN: A2 (P2 without forensic nodes) is identical to P2, so "
                         "H3 (UAFEG vs A2, PR-AUC SUSPICIOUS) cannot be tested; p=1 is used in Holm (conservative)."}
-    correct = {n: (evaluated[n]["pred"] == y_all) for n in ("P2", "P1", best_ng)}
-    h1["mcnemar_overall_correctness"] = mcnemar(correct["P2"][labelled], correct[best_ng][labelled])
-    h2["mcnemar_overall_correctness"] = mcnemar(correct["P2"][labelled], correct["P1"][labelled])
+    correct = {n: (evaluated[n]["pred"] == y_all) for n in ("G1", "G0", best_ng) + (("A2",) if "A2" in evaluated else ())}
+    h1["mcnemar_overall_correctness"] = mcnemar(correct["G1"][labelled], correct[best_ng][labelled])
+    h2["mcnemar_overall_correctness"] = mcnemar(correct["G1"][labelled], correct["G0"][labelled])
+    if "A2" in evaluated:
+        h3["mcnemar_overall_correctness"] = mcnemar(correct["G1"][labelled], correct["A2"][labelled])
     pvals = [h1["p_value_approx"], h2["p_value_approx"], h3["p_value_approx"]]
     adj = holm_correction(pvals)
     for h, a in zip((h1, h2, h3), adj):
@@ -337,7 +340,10 @@ def main() -> int:
     (RESULTS / "evaluation.json").write_text(json.dumps(report, indent=1, sort_keys=True, default=float) + "\n")
     np.savez(ART / "eval_arrays.npz", **{f"{n}_{k}": evaluated[n][k] for n in evaluated
                                          for k in ("probs", "U", "pred", "abstain")},
-             labels=test.labels, conditions=np.array(conds))
+             labels=test.labels, conditions=np.array(conds), claim_ids=np.array([m["claim_id"] for m in test.meta]),
+             val_labels=val.labels, val_conditions=np.array([m["condition"] for m in val.meta]),
+             **{f"{n}_val_probs": evaluated[n]["val_probs"] for n in evaluated},
+             **{f"{n}_thresholds": np.array([evaluated[n]["tau_U"], evaluated[n]["tau_c"], evaluated[n]["T_star"]]) for n in evaluated})
     print(json.dumps({"H1": {k: h1[k] for k in ("point_diff", "p_value_approx", "p_holm")},
                       "H2": {k: h2[k] for k in ("point_diff", "p_value_approx", "p_holm")},
                       "H3": h3["status"]}, indent=1))
