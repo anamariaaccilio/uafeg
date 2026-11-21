@@ -1,0 +1,83 @@
+{
+ "claim_id": "clm_a1db696a7d3693d32f3e74ab",
+ "condition": "C10",
+ "expected_label": "OOD",
+ "source_image_id": "hitl:Car damages 208",
+ "system": "G1",
+ "narrative_text": "Sobre el estado visible, es correcto afirmar que el vehículo presenta abolladuras.",
+ "assertions": [
+  {
+   "text": "Sobre el estado visible, es correcto afirmar que el vehículo presenta abolladuras.",
+   "damage_type": "dent",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.012384547130668005
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.686 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.4402091112148681,
+   "SUSPICIOUS": 0.5597897851629126,
+   "INSUFFICIENT": 1.1036222194318518e-06
+  },
+  "U": 0.6859957428115002,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.04710281520442372,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.67, g_f=0.07"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.171,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.6927,
+     0.0124
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.8714,
+    "c_q_r_u": [
+     1.0,
+     0.8714,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "forensic",
+    "g": 0.0705,
+    "c_q_r_u": [
+     1.0,
+     0.8714,
+     0.9703,
+     0.9166
+    ]
+   }
+  ],
+  "edges": []
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

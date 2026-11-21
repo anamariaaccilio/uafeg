@@ -1,0 +1,13 @@
+\begin{table}[H]\centering\footnotesize
+\begin{tabularx}{\textwidth}{lXccccc}
+\toprule
+\textbf{H} & \textbf{Contraste (efecto $>0$ favorece a G1)} & \textbf{Efecto} & \textbf{IC 95\%} & $p$ & $p_{\mathrm{Holm}}$ & \textbf{Veredicto} \\
+\midrule
+H1 & G1 vs B5 (mejor sin grafo en validación); PR-AUC SUSPICIOUS en C3--C5 vs C8--C9; G1 $-$ B5 & -0.0388 & [-0.0530, -0.0246] & $<$0.0005 & $<$0.0005 & rechazada \\
+H2 & G1 vs G0; Brier; Brier(G0) $-$ Brier(G1) & -0.0104 & [-0.0192, -0.0018] & 0.0160 & 0.0160 & rechazada \\
+H3 & G1 vs A2 (sin forense); PR-AUC SUSPICIOUS; G1 $-$ A2 & +0.0618 & [+0.0505, +0.0734] & $<$0.0005 & $<$0.0005 & aceptada \\
+\bottomrule
+\end{tabularx}
+\caption[Contraste de hipótesis]{Contraste de H1--H3 con bootstrap pareado agrupado por \texttt{source\_image\_id} (2\,000 réplicas) y corrección de Holm ($\alpha=0{,}05$, $m=3$). $p<0.0005$: ninguna de las 2\,000 réplicas tuvo el signo contrario.}
+\label{tab:hipotesis}
+\end{table}

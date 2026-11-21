@@ -18,7 +18,7 @@ TABLES = RESULTS / "final"
 FIGS = RESULTS / "final"
 NAMES = {"B0": "Reglas explícitas", "B1": "Solo texto", "B2": "Solo daño visual", "B3": "Solo forense",
          "B4": "Concatenación + MLP", "B5": "Fusión tardía calibrada", "B7": "DBF", "B8": "MLLM congelado",
-         "B6": "DeepSets", "G0": "Agregador sobre el grafo, sin compuerta ($g=1$)", "G1": r"\modelo{} (agregador con compuerta $g$)",
+         "B6": "DeepSets", "G0": "Agregador, $g=1$", "G1": r"\modelo{} (agregador con $g$)",
          "A1": "A1 sin compuerta ($g_j=1$)", "A2": "A2 sin forense", "A3": "A3 DeepSets", "A4": "A4 aristas sin atributos continuos",
          "A5": "A5 sin C8/C10 en train",
          "G1_oracleN": "Oráculo narrativa", "G1_oracleVF": "Oráculo visual+forense", "G1_oracleNVF": "Oráculo ambos",
@@ -27,16 +27,10 @@ COLS = [("pr_auc_suspicious", "PR-AUC", 3), ("macro_f1", "Macro-F1", 3), ("brier
         ("ece", "ECE", 3), ("aurc", "AURC", 3)]
 
 
-def cell(m, digits, with_ci=True):
-    s = f"{m['seed_mean']:.{digits}f} $\\pm$ {m['seed_sd']:.{digits}f}"
-    if with_ci:
-        s += f" \\newline {{\\tiny [{m['ci_low']:.{digits}f}, {m['ci_high']:.{digits}f}]}}"
-    return s
-
-
 def table(rows, ev, caption, label, key="test", shaded=("B6", "G0", "G1"), notes=""):
-    lines = [r"\begin{table}[H]", r"\centering", r"\footnotesize", r"\renewcommand{\arraystretch}{1.2}",
-             r"\begin{tabularx}{\textwidth}{lX" + "c" * len(COLS) + "}", r"\toprule",
+    """Two lines per system: seed mean ± sd (each seed calibrated), then ensemble value and its 95 % CI."""
+    lines = [r"\begin{table}[H]", r"\centering", r"\footnotesize", r"\renewcommand{\arraystretch}{1.1}",
+             r"\resizebox{\textwidth}{!}{%", r"\begin{tabular}{ll" + "c" * len(COLS) + "}", r"\toprule",
              r"\textbf{ID} & \textbf{Sistema} & " + " & ".join(rf"\textbf{{{c[1]}}}" for c in COLS) + r" \\",
              r"\midrule"]
     for sid in rows:
@@ -47,14 +41,17 @@ def table(rows, ev, caption, label, key="test", shaded=("B6", "G0", "G1"), notes
         source = alias or sid
         prefix = r"\rowcolor{black!6} " if sid in shaded else ""
         label_id = sid.replace("_", r"\_")
+        name = NAMES.get(sid, sid) + (f" (= {alias})" if alias else "")
         if source in ev["systems"]:
             m = ev["systems"][source][key]
-            vals = " & ".join(cell(m[c[0]], c[2]) for c in COLS)
-            lines.append(f"{prefix}{label_id} & {NAMES.get(sid, sid)}{' (= ' + alias + ')' if alias else ''} & {vals} \\\\")
+            l1 = " & ".join(f"{m[c[0]]['seed_mean']:.{c[2]}f} $\\pm$ {m[c[0]]['seed_sd']:.{c[2]}f}" for c in COLS)
+            l2 = " & ".join(f"{{\\scriptsize {m[c[0]]['ensemble']:.{c[2]}f} [{m[c[0]]['ci_low']:.{c[2]}f}, {m[c[0]]['ci_high']:.{c[2]}f}]}}" for c in COLS)
+            lines.append(f"{prefix}{label_id} & {name} & {l1} \\\\")
+            lines.append(f"{prefix} & & {l2} \\\\")
         else:
             reason = ev.get("not_run", {}).get(sid, "NOT_RUN")
-            lines.append(f"{prefix}{label_id} & {NAMES.get(sid, sid)} & \\multicolumn{{{len(COLS)}}}{{c}}{{\\textit{{NOT\\_RUN}}: {reason}}} \\\\")
-    lines += [r"\bottomrule", r"\end{tabularx}",
+            lines.append(f"{prefix}{label_id} & {name} & \\multicolumn{{{len(COLS)}}}{{c}}{{\\textit{{NOT\\_RUN}}: {reason}}} \\\\")
+    lines += [r"\bottomrule", r"\end{tabular}}",
               rf"\caption{{{caption}}}", rf"\label{{{label}}}", r"\end{table}"]
     if notes:
         lines.insert(-1, notes)
@@ -81,21 +78,31 @@ def condition_table(ev, systems=("B6", "G0", "G1")):
 
 def hypotheses_table(ev):
     h = ev["hypotheses"]
-    lines = [r"\begin{table}[H]\centering\footnotesize", r"\begin{tabularx}{\textwidth}{lXcccc}", r"\toprule",
-             r"\textbf{H} & \textbf{Contraste} & \textbf{Efecto} & \textbf{IC 95\%} & $p$ & $p_{\mathrm{Holm}}$ \\", r"\midrule"]
+    best = h["H1"]["comparison"].split(" vs ")[1].split(" ")[0]
+    text = {"H1": f"G1 vs {best} (mejor sin grafo en validación); PR-AUC SUSPICIOUS en C3--C5 vs C8--C9; G1 $-$ {best}",
+            "H2": "G1 vs G0; Brier; Brier(G0) $-$ Brier(G1)",
+            "H3": "G1 vs A2 (sin forense); PR-AUC SUSPICIOUS; G1 $-$ A2"}
+
+    def pf(p, n):
+        return f"$<${1 / n:.4f}" if p == 0 else f"{p:.4f}"
+    lines = [r"\begin{table}[H]\centering\footnotesize", r"\begin{tabularx}{\textwidth}{lXccccc}", r"\toprule",
+             r"\textbf{H} & \textbf{Contraste (efecto $>0$ favorece a G1)} & \textbf{Efecto} & \textbf{IC 95\%} & $p$ & "
+             r"$p_{\mathrm{Holm}}$ & \textbf{Veredicto} \\", r"\midrule"]
     for k in ("H1", "H2", "H3"):
         x = h[k]
         if x.get("status") == "NOT_EVALUATED":
-            lines.append(f"{k} & {x['reason'][:120]}... & -- & -- & -- & {x['p_holm']:.3f} \\\\")
-        else:
-            lines.append(f"{k} & {x['comparison']}; {x['statistic']} & {x['point_diff']:+.4f} & "
-                         f"[{x['ci_low']:+.4f}, {x['ci_high']:+.4f}] & {x['p_value_approx']:.3f} & {x['p_holm']:.3f} \\\\")
+            lines.append(f"{k} & NOT\\_EVALUATED & -- & -- & -- & -- & -- \\\\")
+            continue
+        verdict = ("aceptada" if x["point_diff"] > 0 else "rechazada") if x["reject_H0_at_0.05"] else "no sostenida"
+        n = x["n_resamples"]
+        lines.append(f"{k} & {text[k]} & {x['point_diff']:+.4f} & [{x['ci_low']:+.4f}, {x['ci_high']:+.4f}] & "
+                     f"{pf(x['p_value_approx'], n)} & {pf(x['p_holm'], n)} & {verdict} \\\\")
     lines += [r"\bottomrule", r"\end{tabularx}",
               r"\caption[Contraste de hipótesis]{Contraste de H1--H3 con bootstrap pareado agrupado por "
-              r"\texttt{source\_image\_id} y corrección de Holm ($\alpha=0{,}05$, $m=3$).}",
+              r"\texttt{source\_image\_id} (2\,000 réplicas) y corrección de Holm ($\alpha=0{,}05$, $m=3$). "
+              r"$p<0.0005$: ninguna de las 2\,000 réplicas tuvo el signo contrario.}",
               r"\label{tab:hipotesis}", r"\end{table}"]
-    return "\n".join(l.replace("_", r"\_") if "texttt" not in l and "label" not in l and "$" not in l else l
-                     for l in lines) + "\n"
+    return "\n".join(lines) + "\n"
 
 
 def figures(ev):
@@ -146,8 +153,8 @@ def main() -> int:
     TABLES.mkdir(parents=True, exist_ok=True)
     main_rows = ["B0", "B1", "B2", "B3", "--", "B4", "B5", "B7", "B8", "--", "B6", "G0", "G1"]
     (TABLES / "tab_main.tex").write_text(table(
-        main_rows, ev, r"Resultados principales en test (escala reducida). Media $\pm$ desviación entre 5 semillas "
-        r"(por semilla, cada una calibrada con su $T^\ast$) y, debajo, IC 95\% del bootstrap agrupado por "
+        main_rows, ev, r"Resultados principales en test (evaluado una sola vez). Primera línea: media $\pm$ desviación entre 5 semillas "
+        r"(cada una calibrada con su $T^\ast$); segunda línea: ensamble calibrado e IC 95\% del bootstrap agrupado por "
         r"\texttt{source\_image\_id} (2\,000 réplicas) sobre el ensamble calibrado. Sin GATv2: G0/G1 son el agregador "
         r"interpretable sobre el grafo.", "tab:resultados_main"))
     (TABLES / "tab_ablaciones.tex").write_text(table(

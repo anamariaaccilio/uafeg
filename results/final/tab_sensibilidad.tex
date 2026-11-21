@@ -1,0 +1,20 @@
+\begin{table}[H]
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.1}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llccccc}
+\toprule
+\textbf{ID} & \textbf{Sistema} & \textbf{PR-AUC} & \textbf{Macro-F1} & \textbf{Brier} & \textbf{ECE} & \textbf{AURC} \\
+\midrule
+\rowcolor{black!6} B6 & DeepSets & 0.869 $\pm$ 0.001 & 0.705 $\pm$ 0.007 & 0.264 $\pm$ 0.001 & 0.010 $\pm$ 0.004 & 0.069 $\pm$ 0.001 \\
+\rowcolor{black!6}  & & {\scriptsize 0.882 [0.871, 0.893]} & {\scriptsize 0.750 [0.726, 0.775]} & {\scriptsize 0.234 [0.223, 0.244]} & {\scriptsize 0.032 [0.022, 0.044]} & {\scriptsize 0.051 [0.045, 0.057]} \\
+\rowcolor{black!6} G0 & Agregador, $g=1$ & 0.871 $\pm$ 0.002 & 0.698 $\pm$ 0.003 & 0.266 $\pm$ 0.003 & 0.021 $\pm$ 0.004 & 0.071 $\pm$ 0.002 \\
+\rowcolor{black!6}  & & {\scriptsize 0.888 [0.877, 0.899]} & {\scriptsize 0.735 [0.712, 0.764]} & {\scriptsize 0.235 [0.223, 0.247]} & {\scriptsize 0.023 [0.015, 0.039]} & {\scriptsize 0.053 [0.045, 0.060]} \\
+\rowcolor{black!6} G1 & \modelo{} (agregador con $g$) & 0.851 $\pm$ 0.000 & 0.671 $\pm$ 0.000 & 0.276 $\pm$ 0.000 & 0.015 $\pm$ 0.000 & 0.080 $\pm$ 0.000 \\
+\rowcolor{black!6}  & & {\scriptsize 0.869 [0.854, 0.881]} & {\scriptsize 0.709 [0.677, 0.737]} & {\scriptsize 0.247 [0.237, 0.259]} & {\scriptsize 0.043 [0.035, 0.054]} & {\scriptsize 0.057 [0.050, 0.066]} \\
+\bottomrule
+\end{tabular}}
+\caption{Análisis de sensibilidad C2: test sin los casos AMBIGUOS (criterios C2--C5). Compárese con la tabla principal (con ambiguos).}
+\label{tab:sensibilidad}
+\end{table}

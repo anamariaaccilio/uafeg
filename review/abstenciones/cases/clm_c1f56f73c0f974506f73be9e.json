@@ -1,0 +1,83 @@
+{
+ "claim_id": "clm_c1f56f73c0f974506f73be9e",
+ "condition": "C4",
+ "expected_label": "SUSPICIOUS",
+ "source_image_id": "hitl:Car damages 981",
+ "system": "G1",
+ "narrative_text": "En la imagen, el vehículo no está libre de piezas faltantes. La observación se refiere al vehículo.",
+ "assertions": [
+  {
+   "text": "En la imagen, el vehículo no está libre de piezas faltantes.",
+   "damage_type": "missing_part",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.008613424860190549
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.683 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5701304826863686,
+   "SUSPICIOUS": 0.4298507176229278,
+   "INSUFFICIENT": 1.8799690703711915e-05
+  },
+  "U": 0.6834856013763051,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.02286241247518328,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.12, g_f=0.19"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.2334,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.9416,
+     0.0086
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.7438,
+    "c_q_r_u": [
+     1.0,
+     0.7438,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "forensic",
+    "g": 0.1863,
+    "c_q_r_u": [
+     1.0,
+     0.7438,
+     0.5411,
+     0.5372
+    ]
+   }
+  ],
+  "edges": []
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

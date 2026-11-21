@@ -1,0 +1,240 @@
+{
+ "claim_id": "clm_acf11f6980fc759845523bf6",
+ "condition": "C2",
+ "expected_label": "SUSPICIOUS",
+ "source_image_id": "hitl:Car damages 1323",
+ "system": "G1",
+ "narrative_text": "En la imagen, no es correcto afirmar que el vehículo no presenta abolladuras.",
+ "assertions": [
+  {
+   "text": "En la imagen, no es correcto afirmar que el vehículo no presenta abolladuras.",
+   "damage_type": "broken_part",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.030676145482312237
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.681 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5777945842828415,
+   "SUSPICIOUS": 0.42220539084845643,
+   "INSUFFICIENT": 2.4868702082056453e-08
+  },
+  "U": 0.6809943100668766,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.12006523156536371,
+   "type": "afirmación apoya daño visual",
+   "detail": "«En la imagen, no es correcto afirmar que el vehículo no presenta abolladuras.» apoya la detección 'dent' (g=0.12, p=0.99)"
+  },
+  {
+   "weight": 0.03342278179300949,
+   "type": "afirmación apoya daño visual",
+   "detail": "«En la imagen, no es correcto afirmar que el vehículo no presenta abolladuras.» apoya la detección 'missing_part' (g=0.03, p=0.98)"
+  },
+  {
+   "weight": 0.013172730474779381,
+   "type": "afirmación apoya daño visual",
+   "detail": "«En la imagen, no es correcto afirmar que el vehículo no presenta abolladuras.» apoya la detección 'broken_part' (g=0.01, p=0.99)"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.1649,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.6803,
+     0.0307
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.7254,
+    "c_q_r_u": [
+     1.0,
+     0.7254,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.1214,
+    "c_q_r_u": [
+     1.0,
+     0.9723,
+     0.3162,
+     0.6051
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "visual",
+    "g": 0.0,
+    "c_q_r_u": [
+     1.0,
+     0.5659,
+     0.0909,
+     0.9999
+    ]
+   },
+   {
+    "id": 4,
+    "kind": "visual",
+    "g": 0.0042,
+    "c_q_r_u": [
+     1.0,
+     0.8644,
+     0.3162,
+     0.9847
+    ]
+   },
+   {
+    "id": 5,
+    "kind": "visual",
+    "g": 0.0132,
+    "c_q_r_u": [
+     1.0,
+     0.6842,
+     0.4202,
+     0.9539
+    ]
+   },
+   {
+    "id": 6,
+    "kind": "visual",
+    "g": 0.0341,
+    "c_q_r_u": [
+     1.0,
+     0.8608,
+     0.5441,
+     0.9273
+    ]
+   },
+   {
+    "id": 7,
+    "kind": "forensic",
+    "g": 0.0314,
+    "c_q_r_u": [
+     1.0,
+     0.7254,
+     0.3272,
+     0.8678
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "support",
+    "weight": 0.1201,
+    "a_ij": [
+     0.9888,
+     0.0003,
+     0.0109,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 3,
+    "relation": "unknown",
+    "weight": 0.0,
+    "a_ij": [
+     0.0011,
+     0.0012,
+     0.9978,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 4,
+    "relation": "support",
+    "weight": 0.0041,
+    "a_ij": [
+     0.9888,
+     0.0003,
+     0.0109,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 5,
+    "relation": "support",
+    "weight": 0.0132,
+    "a_ij": [
+     0.9947,
+     0.0001,
+     0.0052,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 6,
+    "relation": "support",
+    "weight": 0.0334,
+    "a_ij": [
+     0.9811,
+     0.0004,
+     0.0185,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 2,
+    "dst": 4,
+    "relation": "overlap",
+    "weight": 0.0003,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0808
+    ]
+   },
+   {
+    "src": 5,
+    "dst": 7,
+    "relation": "overlap",
+    "weight": 0.004,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.1284
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

@@ -1,0 +1,455 @@
+{
+ "claim_id": "clm_4592f9fb3d88d98ab52b0d60",
+ "condition": "C8",
+ "expected_label": "SUPPORTED",
+ "source_image_id": "hitl:Car damages 897",
+ "system": "G1",
+ "narrative_text": "En esta descripción, el vehículo no está libre de pequeños desconchados de pintura. Se describe el estado visible.",
+ "assertions": [
+  {
+   "text": "En esta descripción, el vehículo no está libre de pequeños desconchados de pintura.",
+   "damage_type": "broken_part",
+   "polarity": "affirmed",
+   "coverage": 0.5,
+   "u": 0.00944821107281508
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.686 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5610179044212125,
+   "SUSPICIOUS": 0.4389820954941723,
+   "INSUFFICIENT": 8.461522203024742e-11
+  },
+  "U": 0.6856822194216124,
+  "coverage_bar": 0.75,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.11040524772934615,
+   "type": "afirmación apoya daño visual",
+   "detail": "«En esta descripción, el vehículo no está libre de pequeños desconchados de pintura.» apoya la detección 'broken_part' (g=0.11, p=1.00)"
+  },
+  {
+   "weight": 0.04293822849832475,
+   "type": "afirmación apoya daño visual",
+   "detail": "«En esta descripción, el vehículo no está libre de pequeños desconchados de pintura.» apoya la detección 'broken_part' (g=0.04, p=1.00)"
+  },
+  {
+   "weight": 0.03899406002276562,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.13, g_f=0.31"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.3369,
+    "c_q_r_u": [
+     0.5,
+     1.0,
+     0.6803,
+     0.0094
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.7891,
+    "c_q_r_u": [
+     1.0,
+     0.7891,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.1106,
+    "c_q_r_u": [
+     1.0,
+     0.8798,
+     0.4202,
+     0.7009
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "visual",
+    "g": 0.043,
+    "c_q_r_u": [
+     1.0,
+     0.75,
+     0.4202,
+     0.8636
+    ]
+   },
+   {
+    "id": 4,
+    "kind": "visual",
+    "g": 0.0002,
+    "c_q_r_u": [
+     1.0,
+     0.5859,
+     0.3162,
+     0.9992
+    ]
+   },
+   {
+    "id": 5,
+    "kind": "visual",
+    "g": 0.0,
+    "c_q_r_u": [
+     1.0,
+     0.7563,
+     0.3162,
+     1.0
+    ]
+   },
+   {
+    "id": 6,
+    "kind": "visual",
+    "g": 0.0093,
+    "c_q_r_u": [
+     1.0,
+     0.8322,
+     0.4202,
+     0.9733
+    ]
+   },
+   {
+    "id": 7,
+    "kind": "visual",
+    "g": 0.014,
+    "c_q_r_u": [
+     1.0,
+     0.6631,
+     0.3162,
+     0.9333
+    ]
+   },
+   {
+    "id": 8,
+    "kind": "visual",
+    "g": 0.0229,
+    "c_q_r_u": [
+     1.0,
+     0.4738,
+     0.4202,
+     0.8848
+    ]
+   },
+   {
+    "id": 9,
+    "kind": "visual",
+    "g": 0.0331,
+    "c_q_r_u": [
+     1.0,
+     0.5706,
+     0.3162,
+     0.8167
+    ]
+   },
+   {
+    "id": 10,
+    "kind": "forensic",
+    "g": 0.3086,
+    "c_q_r_u": [
+     1.0,
+     0.7891,
+     0.864,
+     0.5473
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "support",
+    "weight": 0.1104,
+    "a_ij": [
+     0.9987,
+     0.0001,
+     0.0012,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 3,
+    "relation": "support",
+    "weight": 0.0429,
+    "a_ij": [
+     0.9987,
+     0.0001,
+     0.0012,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 4,
+    "relation": "support",
+    "weight": 0.0002,
+    "a_ij": [
+     0.9981,
+     0.0001,
+     0.0017,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 5,
+    "relation": "support",
+    "weight": 0.0,
+    "a_ij": [
+     0.9981,
+     0.0001,
+     0.0017,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 6,
+    "relation": "support",
+    "weight": 0.0093,
+    "a_ij": [
+     0.9987,
+     0.0001,
+     0.0012,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 7,
+    "relation": "support",
+    "weight": 0.014,
+    "a_ij": [
+     0.9981,
+     0.0001,
+     0.0017,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 8,
+    "relation": "support",
+    "weight": 0.0229,
+    "a_ij": [
+     0.9987,
+     0.0001,
+     0.0012,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 9,
+    "relation": "support",
+    "weight": 0.033,
+    "a_ij": [
+     0.9981,
+     0.0001,
+     0.0017,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 2,
+    "dst": 3,
+    "relation": "overlap",
+    "weight": 0.0011,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0263
+    ]
+   },
+   {
+    "src": 2,
+    "dst": 6,
+    "relation": "overlap",
+    "weight": 0.0002,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.017
+    ]
+   },
+   {
+    "src": 2,
+    "dst": 8,
+    "relation": "overlap",
+    "weight": 0.0016,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0702
+    ]
+   },
+   {
+    "src": 2,
+    "dst": 10,
+    "relation": "overlap",
+    "weight": 0.0061,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0198
+    ]
+   },
+   {
+    "src": 4,
+    "dst": 6,
+    "relation": "overlap",
+    "weight": 0.0001,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0127
+    ]
+   },
+   {
+    "src": 4,
+    "dst": 7,
+    "relation": "overlap",
+    "weight": 0.0002,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0143
+    ]
+   },
+   {
+    "src": 4,
+    "dst": 9,
+    "relation": "overlap",
+    "weight": 0.022,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.6643
+    ]
+   },
+   {
+    "src": 5,
+    "dst": 6,
+    "relation": "overlap",
+    "weight": 0.0018,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.1935
+    ]
+   },
+   {
+    "src": 5,
+    "dst": 7,
+    "relation": "overlap",
+    "weight": 0.012,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.86
+    ]
+   },
+   {
+    "src": 5,
+    "dst": 9,
+    "relation": "overlap",
+    "weight": 0.0004,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.011
+    ]
+   },
+   {
+    "src": 6,
+    "dst": 7,
+    "relation": "overlap",
+    "weight": 0.0032,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.2258
+    ]
+   },
+   {
+    "src": 6,
+    "dst": 9,
+    "relation": "overlap",
+    "weight": 0.0007,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0199
+    ]
+   },
+   {
+    "src": 7,
+    "dst": 9,
+    "relation": "overlap",
+    "weight": 0.0007,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0219
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

@@ -1,0 +1,118 @@
+{
+ "claim_id": "clm_4d141c55fdf22af05c48487c",
+ "condition": "C8",
+ "expected_label": "SUPPORTED",
+ "source_image_id": "hitl:Car damages 1278",
+ "system": "G1",
+ "narrative_text": "El vehículo presenta pequeños desconchados de pintura. La observación se refiere al vehículo.",
+ "assertions": [
+  {
+   "text": "El vehículo presenta pequeños desconchados de pintura.",
+   "damage_type": "paint_chip",
+   "polarity": "affirmed",
+   "coverage": 0.5,
+   "u": 0.009637991540202217
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.684 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5691759169861268,
+   "SUSPICIOUS": 0.4308232002012444,
+   "INSUFFICIENT": 8.828126287257019e-07
+  },
+  "U": 0.6835582431362535,
+  "coverage_bar": 0.75,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.022815402597886614,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.08, g_f=0.28"
+  },
+  {
+   "weight": 0.007439271505963057,
+   "type": "afirmación apoya daño visual",
+   "detail": "«El vehículo presenta pequeños desconchados de pintura.» apoya la detección 'broken_part' (g=0.01, p=1.00)"
+  },
+  {
+   "weight": 7.303398484364151e-07,
+   "type": "afirmación contradice daño visual",
+   "detail": "«El vehículo presenta pequeños desconchados de pintura.» contradice la detección 'broken_part' (g=0.01, p=0.00)"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.4902,
+    "c_q_r_u": [
+     0.5,
+     1.0,
+     0.9899,
+     0.0096
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.6856,
+    "c_q_r_u": [
+     1.0,
+     0.6856,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.0075,
+    "c_q_r_u": [
+     1.0,
+     0.8571,
+     0.4202,
+     0.9793
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "forensic",
+    "g": 0.2761,
+    "c_q_r_u": [
+     1.0,
+     0.6856,
+     0.6841,
+     0.4114
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "support",
+    "weight": 0.0074,
+    "a_ij": [
+     0.9982,
+     0.0001,
+     0.0017,
+     0.0,
+     0.0
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

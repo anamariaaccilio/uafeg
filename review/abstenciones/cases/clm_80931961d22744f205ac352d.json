@@ -1,0 +1,142 @@
+{
+ "claim_id": "clm_80931961d22744f205ac352d",
+ "condition": "C3",
+ "expected_label": "SUSPICIOUS",
+ "source_image_id": "hitl:Car damages 189",
+ "system": "G1",
+ "narrative_text": "El vehículo no está libre de pequeños desconchados de pintura. Se describe el estado visible.",
+ "assertions": [
+  {
+   "text": "El vehículo no está libre de pequeños desconchados de pintura.",
+   "damage_type": "broken_part",
+   "polarity": "affirmed",
+   "coverage": 0.5,
+   "u": 0.008557836279199009
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.693 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5126584631439565,
+   "SUSPICIOUS": 0.4873414042032329,
+   "INSUFFICIENT": 1.326528107143127e-07
+  },
+  "U": 0.6928288108693414,
+  "coverage_bar": 0.75,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.0401187106437213,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.16, g_f=0.25"
+  },
+  {
+   "weight": 0.018886719407286496,
+   "type": "afirmación apoya daño visual",
+   "detail": "«El vehículo no está libre de pequeños desconchados de pintura.» apoya la detección 'broken_part' (g=0.02, p=1.00)"
+  },
+  {
+   "weight": 0.017387551371105016,
+   "type": "afirmación apoya daño visual",
+   "detail": "«El vehículo no está libre de pequeños desconchados de pintura.» apoya la detección 'dent' (g=0.02, p=1.00)"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.3372,
+    "c_q_r_u": [
+     0.5,
+     1.0,
+     0.6803,
+     0.0086
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.8968,
+    "c_q_r_u": [
+     1.0,
+     0.8968,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.0189,
+    "c_q_r_u": [
+     1.0,
+     0.92,
+     0.4202,
+     0.9511
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "visual",
+    "g": 0.0174,
+    "c_q_r_u": [
+     1.0,
+     0.3104,
+     0.3162,
+     0.8226
+    ]
+   },
+   {
+    "id": 4,
+    "kind": "forensic",
+    "g": 0.2486,
+    "c_q_r_u": [
+     1.0,
+     0.8968,
+     0.7649,
+     0.6376
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "support",
+    "weight": 0.0189,
+    "a_ij": [
+     0.9988,
+     0.0001,
+     0.0011,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 3,
+    "relation": "support",
+    "weight": 0.0174,
+    "a_ij": [
+     0.9985,
+     0.0001,
+     0.0014,
+     0.5,
+     0.0
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

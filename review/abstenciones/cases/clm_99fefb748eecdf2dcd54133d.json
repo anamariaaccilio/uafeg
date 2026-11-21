@@ -1,0 +1,251 @@
+{
+ "claim_id": "clm_99fefb748eecdf2dcd54133d",
+ "condition": "C2",
+ "expected_label": "SUSPICIOUS",
+ "source_image_id": "hitl:Car damages 900",
+ "system": "G1",
+ "narrative_text": "Respecto al daño mostrado, el vehículo no está libre de piezas faltantes. Esta descripción corresponde al daño observado.",
+ "assertions": [
+  {
+   "text": "Respecto al daño mostrado, el vehículo no está libre de piezas faltantes.",
+   "damage_type": "broken_part",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.007327101296325022
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.683 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5697527879822043,
+   "SUSPICIOUS": 0.4302421308301047,
+   "INSUFFICIENT": 5.081187690944845e-06
+  },
+  "U": 0.6834472011114836,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.011254339224348708,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.16, g_f=0.07"
+  },
+  {
+   "weight": 0.004143388570158231,
+   "type": "forense sobre región visual",
+   "detail": "TruFor marca la región de 'corrosion' (g_f·p_edit·IoU=0.00)"
+  },
+  {
+   "weight": 0.0027918221140503883,
+   "type": "afirmación apoya daño visual",
+   "detail": "«Respecto al daño mostrado, el vehículo no está libre de piezas faltantes.» apoya la detección 'scratch' (g=0.03, p=0.10)"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.1688,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.6803,
+     0.0073
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.9768,
+    "c_q_r_u": [
+     1.0,
+     0.9768,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.0007,
+    "c_q_r_u": [
+     1.0,
+     0.7196,
+     0.3333,
+     0.997
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "visual",
+    "g": 0.0049,
+    "c_q_r_u": [
+     1.0,
+     0.7576,
+     0.0909,
+     0.9285
+    ]
+   },
+   {
+    "id": 4,
+    "kind": "visual",
+    "g": 0.0071,
+    "c_q_r_u": [
+     1.0,
+     0.2707,
+     0.3333,
+     0.9215
+    ]
+   },
+   {
+    "id": 5,
+    "kind": "visual",
+    "g": 0.0025,
+    "c_q_r_u": [
+     1.0,
+     0.0861,
+     0.3333,
+     0.9128
+    ]
+   },
+   {
+    "id": 6,
+    "kind": "visual",
+    "g": 0.0168,
+    "c_q_r_u": [
+     1.0,
+     0.3834,
+     0.3333,
+     0.8682
+    ]
+   },
+   {
+    "id": 7,
+    "kind": "visual",
+    "g": 0.0274,
+    "c_q_r_u": [
+     1.0,
+     0.4522,
+     0.3333,
+     0.8179
+    ]
+   },
+   {
+    "id": 8,
+    "kind": "forensic",
+    "g": 0.0706,
+    "c_q_r_u": [
+     1.0,
+     0.9768,
+     0.1969,
+     0.6327
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "unknown",
+    "weight": 0.0007,
+    "a_ij": [
+     0.1017,
+     0.0003,
+     0.898,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 3,
+    "relation": "unknown",
+    "weight": 0.0049,
+    "a_ij": [
+     0.0007,
+     0.0004,
+     0.9989,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 4,
+    "relation": "unknown",
+    "weight": 0.0064,
+    "a_ij": [
+     0.1017,
+     0.0003,
+     0.898,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 5,
+    "relation": "unknown",
+    "weight": 0.0022,
+    "a_ij": [
+     0.1017,
+     0.0003,
+     0.898,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 6,
+    "relation": "unknown",
+    "weight": 0.0151,
+    "a_ij": [
+     0.1017,
+     0.0003,
+     0.898,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 7,
+    "relation": "unknown",
+    "weight": 0.0246,
+    "a_ij": [
+     0.1017,
+     0.0003,
+     0.898,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 3,
+    "dst": 8,
+    "relation": "overlap",
+    "weight": 0.026,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.3682
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

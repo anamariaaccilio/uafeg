@@ -1,0 +1,179 @@
+{
+ "claim_id": "clm_9dd271c06ea750246e2c0d1d",
+ "condition": "C8",
+ "expected_label": "SUPPORTED",
+ "source_image_id": "hitl:Car damages 424",
+ "system": "G1",
+ "narrative_text": "Respecto al daño mostrado, es correcto afirmar que el vehículo presenta rayones.",
+ "assertions": [
+  {
+   "text": "Respecto al daño mostrado, es correcto afirmar que el vehículo presenta rayones.",
+   "damage_type": "crack",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.010572604792642864
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.689 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.545497453663583,
+   "SUSPICIOUS": 0.454502127054206,
+   "INSUFFICIENT": 4.1928221093444913e-07
+  },
+  "U": 0.6890076573710883,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.046889876265835184,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.15, g_f=0.31"
+  },
+  {
+   "weight": 0.00010045544494688511,
+   "type": "afirmación apoya daño visual",
+   "detail": "«Respecto al daño mostrado, es correcto afirmar que el vehículo presenta rayones.» apoya la detección 'missing_part' (g=0.13, p=0.00)"
+  },
+  {
+   "weight": 7.781231227517129e-05,
+   "type": "afirmación contradice daño visual",
+   "detail": "«Respecto al daño mostrado, es correcto afirmar que el vehículo presenta rayones.» contradice la detección 'missing_part' (g=0.13, p=0.00)"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.0782,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.3161,
+     0.0106
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.9106,
+    "c_q_r_u": [
+     1.0,
+     0.9106,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.1251,
+    "c_q_r_u": [
+     1.0,
+     0.6857,
+     0.5441,
+     0.6647
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "visual",
+    "g": 0.0359,
+    "c_q_r_u": [
+     1.0,
+     0.4028,
+     0.5441,
+     0.8363
+    ]
+   },
+   {
+    "id": 4,
+    "kind": "visual",
+    "g": 0.0063,
+    "c_q_r_u": [
+     1.0,
+     0.4074,
+     0.0909,
+     0.8292
+    ]
+   },
+   {
+    "id": 5,
+    "kind": "forensic",
+    "g": 0.3098,
+    "c_q_r_u": [
+     1.0,
+     0.9106,
+     0.8796,
+     0.6132
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "unknown",
+    "weight": 0.1249,
+    "a_ij": [
+     0.0008,
+     0.0006,
+     0.9986,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 3,
+    "relation": "unknown",
+    "weight": 0.0358,
+    "a_ij": [
+     0.0008,
+     0.0006,
+     0.9986,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 4,
+    "relation": "unknown",
+    "weight": 0.0063,
+    "a_ij": [
+     0.0011,
+     0.0017,
+     0.9972,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 3,
+    "dst": 4,
+    "relation": "overlap",
+    "weight": 0.006,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.9474
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

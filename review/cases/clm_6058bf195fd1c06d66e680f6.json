@@ -1,0 +1,61 @@
+{
+ "claim_id": "clm_6058bf195fd1c06d66e680f6",
+ "condition": "C7",
+ "expected_label": "INSUFFICIENT",
+ "source_image_id": "hitl:Car damages 272",
+ "system": "G1",
+ "narrative_text": "En la fotografía del vehículo, es correcto afirmar que el vehículo presenta piezas rotas. La observación se refiere al vehículo.",
+ "assertions": [
+  {
+   "text": "En la fotografía del vehículo, es correcto afirmar que el vehículo presenta piezas rotas.",
+   "damage_type": "broken_part",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.009541239543021744
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": false,
+  "abstention_reason": null,
+  "calibrated_probabilities": {
+   "SUPPORTED": 1.8710388113424324e-12,
+   "SUSPICIOUS": 1.8710388113424324e-12,
+   "INSUFFICIENT": 0.9999999999962579
+  },
+  "U": 1.0479515514166739e-10,
+  "coverage_bar": 0.125,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.0,
+   "type": "sin relaciones",
+   "detail": "no hay aristas afirmación–daño (falta foto, relato o detecciones)"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.1684,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.6803,
+     0.0095
+    ]
+   }
+  ],
+  "edges": []
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

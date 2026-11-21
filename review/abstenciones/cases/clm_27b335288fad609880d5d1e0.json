@@ -1,0 +1,288 @@
+{
+ "claim_id": "clm_27b335288fad609880d5d1e0",
+ "condition": "C4",
+ "expected_label": "SUSPICIOUS",
+ "source_image_id": "hitl:Car damages 641",
+ "system": "G1",
+ "narrative_text": "Según la evidencia visual, el vehículo presenta abolladuras. Se describe el estado visible.",
+ "assertions": [
+  {
+   "text": "Según la evidencia visual, el vehículo presenta abolladuras.",
+   "damage_type": "dent",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.009884522218734908
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.686 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5597190308878615,
+   "SUSPICIOUS": 0.44028094003147045,
+   "INSUFFICIENT": 2.908066804717745e-08
+  },
+  "U": 0.6859979090215677,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.12134188876218348,
+   "type": "afirmación apoya daño visual",
+   "detail": "«Según la evidencia visual, el vehículo presenta abolladuras.» apoya la detección 'dent' (g=0.12, p=1.00)"
+  },
+  {
+   "weight": 0.04408408576862514,
+   "type": "afirmación apoya daño visual",
+   "detail": "«Según la evidencia visual, el vehículo presenta abolladuras.» apoya la detección 'broken_part' (g=0.04, p=1.00)"
+  },
+  {
+   "weight": 0.031369819737499416,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.15, g_f=0.21"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.1715,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.6927,
+     0.0099
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.8321,
+    "c_q_r_u": [
+     1.0,
+     0.8321,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.1215,
+    "c_q_r_u": [
+     1.0,
+     0.9423,
+     0.3162,
+     0.5922
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "visual",
+    "g": 0.0007,
+    "c_q_r_u": [
+     1.0,
+     0.6822,
+     0.5441,
+     0.9982
+    ]
+   },
+   {
+    "id": 4,
+    "kind": "visual",
+    "g": 0.0002,
+    "c_q_r_u": [
+     1.0,
+     0.4701,
+     0.3162,
+     0.9986
+    ]
+   },
+   {
+    "id": 5,
+    "kind": "visual",
+    "g": 0.0097,
+    "c_q_r_u": [
+     1.0,
+     0.557,
+     0.4202,
+     0.9585
+    ]
+   },
+   {
+    "id": 6,
+    "kind": "visual",
+    "g": 0.0009,
+    "c_q_r_u": [
+     1.0,
+     0.1464,
+     0.0909,
+     0.9344
+    ]
+   },
+   {
+    "id": 7,
+    "kind": "visual",
+    "g": 0.029,
+    "c_q_r_u": [
+     1.0,
+     0.8503,
+     0.3162,
+     0.892
+    ]
+   },
+   {
+    "id": 8,
+    "kind": "visual",
+    "g": 0.0442,
+    "c_q_r_u": [
+     1.0,
+     0.7362,
+     0.4202,
+     0.857
+    ]
+   },
+   {
+    "id": 9,
+    "kind": "forensic",
+    "g": 0.2112,
+    "c_q_r_u": [
+     1.0,
+     0.8321,
+     0.6445,
+     0.6061
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "support",
+    "weight": 0.1213,
+    "a_ij": [
+     0.9986,
+     0.0001,
+     0.0013,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 3,
+    "relation": "unknown",
+    "weight": 0.0006,
+    "a_ij": [
+     0.069,
+     0.026,
+     0.9049,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 4,
+    "relation": "support",
+    "weight": 0.0002,
+    "a_ij": [
+     0.9986,
+     0.0001,
+     0.0013,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 5,
+    "relation": "support",
+    "weight": 0.0097,
+    "a_ij": [
+     0.997,
+     0.0001,
+     0.003,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 6,
+    "relation": "unknown",
+    "weight": 0.0008,
+    "a_ij": [
+     0.0106,
+     0.0823,
+     0.9071,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 7,
+    "relation": "support",
+    "weight": 0.029,
+    "a_ij": [
+     0.9986,
+     0.0001,
+     0.0013,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 8,
+    "relation": "support",
+    "weight": 0.0441,
+    "a_ij": [
+     0.997,
+     0.0001,
+     0.003,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 2,
+    "dst": 8,
+    "relation": "overlap",
+    "weight": 0.0054,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.1231
+    ]
+   },
+   {
+    "src": 4,
+    "dst": 8,
+    "relation": "overlap",
+    "weight": 0.0029,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0667
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

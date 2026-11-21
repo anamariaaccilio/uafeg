@@ -1,0 +1,118 @@
+{
+ "claim_id": "clm_868a729ba4838e910f78431e",
+ "condition": "C8",
+ "expected_label": "SUPPORTED",
+ "source_image_id": "hitl:Car damages 426",
+ "system": "G1",
+ "narrative_text": "Sobre el estado visible, el vehículo no está libre de abolladuras. La observación se refiere al vehículo.",
+ "assertions": [
+  {
+   "text": "Sobre el estado visible, el vehículo no está libre de abolladuras.",
+   "damage_type": "broken_part",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.01000404328514891
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.687 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5576087726147628,
+   "SUSPICIOUS": 0.44238983617591193,
+   "INSUFFICIENT": 1.3912093253040426e-06
+  },
+  "U": 0.6865138925216743,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.10063953046973795,
+   "type": "afirmación apoya daño visual",
+   "detail": "«Sobre el estado visible, el vehículo no está libre de abolladuras.» apoya la detección 'missing_part' (g=0.10, p=0.99)"
+  },
+  {
+   "weight": 0.017307918824229773,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.15, g_f=0.12"
+  },
+  {
+   "weight": 2.2708001375198363e-05,
+   "type": "afirmación contradice daño visual",
+   "detail": "«Sobre el estado visible, el vehículo no está libre de abolladuras.» contradice la detección 'missing_part' (g=0.10, p=0.00)"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.1684,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.6803,
+     0.01
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.9008,
+    "c_q_r_u": [
+     1.0,
+     0.9008,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.1014,
+    "c_q_r_u": [
+     1.0,
+     0.7784,
+     0.5441,
+     0.7607
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "forensic",
+    "g": 0.1175,
+    "c_q_r_u": [
+     1.0,
+     0.9008,
+     0.3286,
+     0.6031
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "support",
+    "weight": 0.1006,
+    "a_ij": [
+     0.9927,
+     0.0002,
+     0.007,
+     0.5,
+     0.0
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

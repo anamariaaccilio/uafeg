@@ -1,0 +1,179 @@
+{
+ "claim_id": "clm_abbf167a99f3d93fda343227",
+ "condition": "C2",
+ "expected_label": "SUSPICIOUS",
+ "source_image_id": "hitl:Car damages 903",
+ "system": "G1",
+ "narrative_text": "Es correcto afirmar que el vehículo presenta corrosión. Esta descripción corresponde al daño observado.",
+ "assertions": [
+  {
+   "text": "Es correcto afirmar que el vehículo presenta corrosión.",
+   "damage_type": "crack",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.022230268697297925
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.681 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5771850180225638,
+   "SUSPICIOUS": 0.42281491738867694,
+   "INSUFFICIENT": 6.45887591997961e-08
+  },
+  "U": 0.681185425050444,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.13458788347917794,
+   "type": "afirmación apoya daño visual",
+   "detail": "«Es correcto afirmar que el vehículo presenta corrosión.» apoya la detección 'dent' (g=0.14, p=0.99)"
+  },
+  {
+   "weight": 0.012761452110501725,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.19, g_f=0.07"
+  },
+  {
+   "weight": 0.004636750663015991,
+   "type": "afirmación apoya daño visual",
+   "detail": "«Es correcto afirmar que el vehículo presenta corrosión.» apoya la detección 'broken_part' (g=0.00, p=0.99)"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.0773,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.3161,
+     0.0222
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.8294,
+    "c_q_r_u": [
+     1.0,
+     0.8294,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.1354,
+    "c_q_r_u": [
+     1.0,
+     0.9761,
+     0.3162,
+     0.5615
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "visual",
+    "g": 0.0047,
+    "c_q_r_u": [
+     1.0,
+     0.573,
+     0.4202,
+     0.9805
+    ]
+   },
+   {
+    "id": 4,
+    "kind": "visual",
+    "g": 0.0029,
+    "c_q_r_u": [
+     1.0,
+     0.8853,
+     0.3162,
+     0.9895
+    ]
+   },
+   {
+    "id": 5,
+    "kind": "forensic",
+    "g": 0.0689,
+    "c_q_r_u": [
+     1.0,
+     0.8294,
+     0.2691,
+     0.6913
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "support",
+    "weight": 0.1346,
+    "a_ij": [
+     0.9943,
+     0.0003,
+     0.0054,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 3,
+    "relation": "support",
+    "weight": 0.0046,
+    "a_ij": [
+     0.9855,
+     0.0001,
+     0.0144,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 4,
+    "relation": "support",
+    "weight": 0.0029,
+    "a_ij": [
+     0.9943,
+     0.0003,
+     0.0054,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 2,
+    "dst": 4,
+    "relation": "overlap",
+    "weight": 0.0023,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.7949
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

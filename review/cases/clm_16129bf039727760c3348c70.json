@@ -1,0 +1,89 @@
+{
+ "claim_id": "clm_16129bf039727760c3348c70",
+ "condition": "C6",
+ "expected_label": "INSUFFICIENT",
+ "source_image_id": "hitl:Car damages 196",
+ "system": "G1",
+ "narrative_text": null,
+ "assertions": [],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": false,
+  "abstention_reason": null,
+  "calibrated_probabilities": {
+   "SUPPORTED": 3.301904568869607e-05,
+   "SUSPICIOUS": 2.0350445933071214e-05,
+   "INSUFFICIENT": 0.9999466305083783
+  },
+  "U": 0.0006139064621848495,
+  "coverage_bar": 0.5,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.009250778824892725,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.18, g_f=0.05"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "source",
+    "g": 0.8114,
+    "c_q_r_u": [
+     1.0,
+     0.8114,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "visual",
+    "g": 0.0015,
+    "c_q_r_u": [
+     1.0,
+     0.7957,
+     0.4202,
+     0.9955
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "forensic",
+    "g": 0.0511,
+    "c_q_r_u": [
+     1.0,
+     0.8114,
+     0.1983,
+     0.6827
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 1,
+    "dst": 2,
+    "relation": "overlap",
+    "weight": 0.0007,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0138
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

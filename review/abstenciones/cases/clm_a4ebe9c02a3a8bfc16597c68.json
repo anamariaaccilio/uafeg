@@ -1,0 +1,118 @@
+{
+ "claim_id": "clm_a4ebe9c02a3a8bfc16597c68",
+ "condition": "C8",
+ "expected_label": "SUPPORTED",
+ "source_image_id": "hitl:Car damages 191",
+ "system": "G1",
+ "narrative_text": "Sobre el estado visible, no es correcto afirmar que el vehículo no presenta pequeños desconchados de pintura. Se describe el estado visible.",
+ "assertions": [
+  {
+   "text": "Sobre el estado visible, no es correcto afirmar que el vehículo no presenta pequeños desconchados de pintura.",
+   "damage_type": "paint_chip",
+   "polarity": "affirmed",
+   "coverage": 0.5,
+   "u": 0.01807487146103514
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.688 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5483983220726674,
+   "SUSPICIOUS": 0.4516011095696504,
+   "INSUFFICIENT": 5.683576822517087e-07
+  },
+  "U": 0.6884633318905633,
+  "coverage_bar": 0.75,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.016707054454345727,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.15, g_f=0.11"
+  },
+  {
+   "weight": 0.004409262968607247,
+   "type": "afirmación apoya daño visual",
+   "detail": "«Sobre el estado visible, no es correcto afirmar que el vehículo no presenta pequeños desconchados de pintura.» apoya la detección 'missing_part' (g=0.00, p=0.95)"
+  },
+  {
+   "weight": 2.606081433594227e-06,
+   "type": "afirmación contradice daño visual",
+   "detail": "«Sobre el estado visible, no es correcto afirmar que el vehículo no presenta pequeños desconchados de pintura.» contradice la detección 'missing_part' (g=0.00, p=0.00)"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.486,
+    "c_q_r_u": [
+     0.5,
+     1.0,
+     0.9899,
+     0.0181
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.946,
+    "c_q_r_u": [
+     1.0,
+     0.946,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.0046,
+    "c_q_r_u": [
+     1.0,
+     0.4258,
+     0.5441,
+     0.98
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "forensic",
+    "g": 0.1106,
+    "c_q_r_u": [
+     1.0,
+     0.946,
+     0.3017,
+     0.6126
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "support",
+    "weight": 0.0044,
+    "a_ij": [
+     0.9525,
+     0.0006,
+     0.0469,
+     0.0,
+     0.0
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

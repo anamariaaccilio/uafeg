@@ -1,0 +1,83 @@
+{
+ "claim_id": "clm_bdc5ddf7d328aa0f7250318e",
+ "condition": "C3",
+ "expected_label": "SUSPICIOUS",
+ "source_image_id": "hitl:Car damages 1269",
+ "system": "G1",
+ "narrative_text": "En la fotografía del vehículo, el vehículo presenta rayones. La observación se refiere al vehículo.",
+ "assertions": [
+  {
+   "text": "En la fotografía del vehículo, el vehículo presenta rayones.",
+   "damage_type": "dent",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.01068940839164172
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.680 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5804919256845525,
+   "SUSPICIOUS": 0.4195059585516939,
+   "INSUFFICIENT": 2.115763753542237e-06
+  },
+  "U": 0.6801606455415953,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.002270038282135428,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.45, g_f=0.01"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.1713,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.6927,
+     0.0107
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.8447,
+    "c_q_r_u": [
+     1.0,
+     0.8447,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "forensic",
+    "g": 0.005,
+    "c_q_r_u": [
+     1.0,
+     0.8447,
+     0.9589,
+     0.9938
+    ]
+   }
+  ],
+  "edges": []
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

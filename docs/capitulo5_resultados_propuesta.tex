@@ -1,0 +1,118 @@
+% Propuesta de redacción del capítulo 5 (resultados). Generada por experiments/chapter5.py a partir de
+% results/evaluation.json, results/final/specialists.json y results/final/graph_stats.json.
+% NO reemplaza secciones/capitulo5.tex: es material para que Ana lo integre.
+% Tablas: \input{results/final/tab_main.tex}, tab_hipotesis, tab_ablaciones, tab_oraculo,
+% tab_sensibilidad, tab_delta_m, tabla_especialistas, tabla_externa, tabla_grafo.
+
+\section{Cambio de diseño: agregador sin GATv2 y verificación humana}
+
+El sistema evaluado no usa la capa GATv2. La propagación de mensajes aprendida se reemplazó por un
+agregador interpretable sobre el mismo grafo de evidencia: para cada afirmación $i$ se calculan
+$S_{\text{apoyo}}=\sum_j g_j\,p_{\text{support}}(i,j)$, $S_{\text{contra}}=\sum_j g_j\,p_{\text{contr}}(i,j)$,
+$S_{\text{desc}}=\sum_j g_j\,p_{\text{unk}}(i,j)$, la similitud ontológica ponderada y el término forense
+$\max_j g_f\,p_{\text{edit}}\,\mathrm{IoU}(\ell_j,\ell_f)$; se agregan por reclamo (máximo y media), junto con conteos,
+$\bar c$, la calidad media y la polaridad de las afirmaciones, y un clasificador liviano elegido en validación produce
+$p(y\mid x)$. G0 es el mismo agregador con $g=1$ y reemplaza a P1; G1 usa la compuerta y reemplaza a P2. En validación,
+el clasificador seleccionado fue logreg para G1 y gboost para G0. Cada decisión se acompaña de un
+reporte para revisión humana (foto con máscaras y mapa forense, afirmaciones, grafo con $g$, decisión calibrada,
+$U$, $\bar c$, motivo de abstención y las tres piezas de evidencia con mayor peso).
+
+\section{Especialistas}
+
+El especialista narrativo acierta el tipo de daño exacto en 0.500 de los
+1129 reclamos de validación con afirmación, 0.689 a nivel de
+familia de la ontología HITL, y la polaridad en 0.965; por eso la confiabilidad narrativa $r$ se mide a nivel
+de familia. YOLOv8n-seg, ajustado en Kaggle (GPU T4) con el split congelado, obtiene un mAP50 de máscara de
+0.118 en validación y 0.096 en test (mAP50-95: 0.055 y
+0.041). En CarDD (validación externa, 374 imágenes, solo cajas) el mAP50 de caja es
+0.054 con clases mapeadas y 0.077 sin distinguir clase: el detector apenas
+transfiere fuera de HITL. TruFor separa las imágenes editadas de las originales en validación con AUROC
+0.889 para C3 (copy-move), 0.544 para C4 (inpainting) y 0.774
+para C3--C5 en conjunto (C5 usa las mismas imágenes que C3). Ver Tablas~\ref{tab:especialistas} y~\ref{tab:externa}.
+
+\section{Grafos de evidencia}
+
+Los grafos tienen en promedio 5.58 nodos y 13.26
+aristas por reclamo en test (6.50 y 16.90 en
+entrenamiento). En C0 el 80.0\,\% de las aristas afirmación--daño son de apoyo y el
+0.0\,\% de contradicción; en C1 y C5 la contradicción sube a
+70.4\,\%. En C2 (sustitución de imagen) la contradicción es
+0.1\,\%: el grafo no ve diferencia con C0. La compuerta media de los nodos visuales
+es 0.030 en C0, porque la confianza y la calidad regional de las detecciones son bajas; en C9
+(desenfoque) el detector no produce nodos visuales y la $g$ de la fuente cae de 0.806 (C0) a
+0.007. La $g$ forense media es 0.190 en C0 y 0.364
+en C3 (Tabla~\ref{tab:grafo}, Figura de distribución de $g$).
+
+\section{Resultados principales}
+
+La Tabla~\ref{tab:resultados_main} resume test (evaluado una sola vez). G1 obtiene PR-AUC de SUSPICIOUS
+0.851 [0.838, 0.865], Macro-F1 0.671, Brier 0.276,
+ECE 0.015 y AURC 0.080. G0 obtiene 0.871 [0.861, 0.882],
+0.699, 0.265, 0.016 y 0.070; B6 (DeepSets)
+0.870, 0.711, 0.263, 0.012 y 0.068.
+Ordenados por PR-AUC: B5 (0.878), G0 (0.871), B6 (0.870), B4 (0.868), B7 (0.864), G1 (0.851), B3 (0.758), B1 (0.736), B0 (0.555), B2 (0.553), B8 (0.438). B8 (Qwen2-VL-2B congelado, sin ajuste) queda en 0.438, por debajo
+incluso de las reglas B0 (0.555); Macro-F1 0.398 frente a 0.571.
+El resultado es negativo para la propuesta: con la evidencia visual disponible, ni el grafo ni la compuerta superan a una
+fusión simple.
+
+\section{Contraste de hipótesis}
+
+Con bootstrap pareado agrupado por \texttt{source\_image\_id} (129 imágenes fuente de test, 2\,000 réplicas)
+y Holm ($m=3$, $\alpha=0{,}05$) (Tabla~\ref{tab:hipotesis}):
+
+\begin{itemize}
+\item \textbf{H1} (G1 frente al mejor sistema sin grafo, elegido en validación: B5; PR-AUC de SUSPICIOUS en C3--C5 frente a
+C8--C9, 817 reclamos): diferencia G1$-$B5 = -0.0388 (IC 95\,\% [-0.0530, -0.0246]; $p$ $<$ 0.0005 (0 de 2000 réplicas), $p_{\mathrm{Holm}}$ $<$ 0.0005 (0 de 2000 réplicas)). G1 obtiene 0.854 y B5
+0.893. Se rechaza la igualdad, pero a favor de B5: \textbf{H1 no se sostiene}. McNemar sobre
+la exactitud global: $b=153$, $c=150$, $p=0.909$.
+\item \textbf{H2} (G1 frente a G0 en Brier): Brier(G0)$-$Brier(G1) = -0.0104 (IC 95\,\% [-0.0192, -0.0018]; $p$ 0.0160, $p_{\mathrm{Holm}}$ 0.0160); G1 0.2758, G0
+0.2654. La compuerta empeora la calibración: \textbf{H2 no se sostiene} (efecto en contra). McNemar:
+$b=87$, $c=128$, $p=0.0062$.
+\item \textbf{H3} (G1 frente a A2, sin forense): diferencia de PR-AUC = +0.0618 (IC 95\,\% [+0.0505, +0.0734]; $p$ $<$ 0.0005 (0 de 2000 réplicas), $p_{\mathrm{Holm}}$ $<$ 0.0005 (0 de 2000 réplicas)); G1 0.851, A2
+0.789. \textbf{H3 se acepta}: el especialista forense aporta. McNemar: $b=185$, $c=58$.
+\end{itemize}
+
+Los valores $p$ reportados como ``$<$ 0.0005'' corresponden a 0 de 2\,000 réplicas con el signo contrario; no son exactamente cero.
+
+\section{Robustez por condición, calibración y abstención}
+
+La exactitud de la decisión final (con abstención contada como INSUFFICIENT) de G1 es 0.674 en C0,
+0.845 en C1, 0.000 en C2, 0.651 en C3, 0.008 en C4,
+0.953 en C5 y 0.708 en C8 (Tabla~\ref{tab:delta_m}). C2 (sustitución) y C4 (inpainting) son
+las condiciones más difíciles para todos los sistemas: $\Delta M_{C2}$ = +0.674 y $\Delta M_{C4}$ = +0.667
+para G1; +0.209 y +0.116 para B5. En C8 (transformaciones benignas) G1 acierta
+0.708 frente a 0.579 de B5 (fracción decidida SUSPICIOUS en C8: G1
+0.000, B5
+0.129).
+Todos los sistemas calibrados tienen ECE baja (G1 0.015). Los umbrales fijados en validación para una cobertura
+de 0.80 dejaron $\tau_c=$ 0.000 (la cobertura de evidencia no discriminó en validación) y $\tau_U=$
+0.679; G1 se abstiene en 0.184 de los reclamos etiquetados de test, y solo
+0.149 de sus abstenciones caen en C6, C7, C9 o C10: las abstenciones no se concentran
+donde deberían, porque esas condiciones ya se resuelven con confianza. Para C10 (OOD), el AUROC de $U$ para separarla del resto
+es 0.646 para G1, 0.597 para G0, 0.619 para B6 y 0.571 para B5.
+
+\section{Ablaciones, sensibilidad y oráculo}
+
+Sin forense (A2) la PR-AUC cae a 0.789. Quitar los atributos continuos de las aristas (A4) deja
+0.851 (G1: 0.851). Entrenar sin C8 (A5) mantiene la PR-AUC
+(0.850) pero hunde el Macro-F1 a 0.460 y la calibración (ECE 0.135).
+Sin los 552 reclamos AMBIGUOS (sensibilidad C2--C5), G1 obtiene PR-AUC 0.869
+y G0 0.888: la conclusión no cambia (Tabla~\ref{tab:sensibilidad}).
+Con percepción oráculo la PR-AUC de G1 sube a 0.866 (narrativa),
+0.943 (visual+forense) y 0.965 (ambas); G0 con ambas
+llega a 0.970. El cuello de botella es la percepción visual y forense, no el agregador.
+
+\section{Análisis de errores y verificación humana}
+
+Se seleccionaron 20 errores de G1 (sin abstención), repartidos por condición; sus reportes están en
+\texttt{review/errores/}. Condiciones de los 20 errores: C0: 1, C1: 4, C2: 4, C3: 4, C4: 4, C5: 3. Tipo de la evidencia con más peso en cada error:
+afirmación apoya daño visual (13), forense global (7); pares etiqueta$\to$decisión: SUSPICIOUS$\to$SUPPORTED (19), SUPPORTED$\to$SUSPICIOUS (1). La probabilidad máxima media de esos errores es 0.612. El paquete de
+revisión de 50 casos (\texttt{review/}) está listo para que la asesora y la autora lo llenen; no contiene respuestas de
+revisión.
+
+\section{Amenazas a la validez}
+
+Los reclamos son escenarios controlados sobre imágenes reales, no expedientes de una aseguradora. El especialista visual es
+débil y no transfiere a CarDD. El test no es completamente ciego (se miró al diseñar la QA). C3 y C5 comparten imágenes. La
+varianza entre semillas solo cubre al clasificador final: G1 eligió una regresión logística convexa y sus 5 semillas coinciden
+(desviación 0). B8 se usó sin ajuste y con un solo prompt.

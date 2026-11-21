@@ -1,0 +1,131 @@
+{
+ "claim_id": "clm_a784d6dda7f2045e5a53d1c2",
+ "condition": "C4",
+ "expected_label": "SUSPICIOUS",
+ "source_image_id": "hitl:Car damages 219",
+ "system": "G1",
+ "narrative_text": "El vehículo presenta piezas rotas. Se describe el estado visible.",
+ "assertions": [
+  {
+   "text": "El vehículo presenta piezas rotas.",
+   "damage_type": "broken_part",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.006944757143416796
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.683 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.4286315363827566,
+   "SUSPICIOUS": 0.5713670379049806,
+   "INSUFFICIENT": 1.425712262903083e-06
+  },
+  "U": 0.6829452082565517,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.050655464089253144,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.83, g_f=0.06"
+  },
+  {
+   "weight": 0.002062892202729766,
+   "type": "forense sobre región visual",
+   "detail": "TruFor marca la región de 'dent' (g_f·p_edit·IoU=0.00)"
+  },
+  {
+   "weight": 0.0004590587291135453,
+   "type": "afirmación apoya daño visual",
+   "detail": "«El vehículo presenta piezas rotas.» apoya la detección 'dent' (g=0.00, p=0.18)"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.1689,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.6803,
+     0.0069
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.8861,
+    "c_q_r_u": [
+     1.0,
+     0.8861,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.0025,
+    "c_q_r_u": [
+     1.0,
+     0.7288,
+     0.3162,
+     0.9892
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "forensic",
+    "g": 0.0609,
+    "c_q_r_u": [
+     1.0,
+     0.8861,
+     0.1983,
+     0.6535
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "unknown",
+    "weight": 0.002,
+    "a_ij": [
+     0.1847,
+     0.0001,
+     0.8152,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 2,
+    "dst": 3,
+    "relation": "overlap",
+    "weight": 0.0025,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0407
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

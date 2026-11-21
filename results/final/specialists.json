@@ -45,31 +45,40 @@
  },
  "reliability": {
   "forensic": {
-   "n_validation_images": null,
-   "normalization": null,
-   "status": "NOT_RUN: artifacts/specialists/forensic.jsonl (TruFor) not available; forensic stays null",
-   "validation_auroc_score_local_edit": null
+   "n_validation_images": 706,
+   "normalization": "empirical CDF of conf_mean over validation images",
+   "status": "MEASURED",
+   "validation_auroc_score_local_edit": 0.7093995510662179
   },
   "narrative_r": {
-   "broken_part": 0.5306122448979592,
+   "broken_part": 0.6802721088435374,
    "corrosion": 0.5,
-   "crack": 0.0064516129032258064,
+   "crack": 0.3161290322580645,
    "dent": 0.6926605504587156,
    "flaking": 0.5,
-   "missing_part": 0.6753246753246753,
-   "paint_chip": 0.5353535353535354,
-   "scratch": 0.013513513513513514
+   "missing_part": 0.9415584415584416,
+   "paint_chip": 0.98989898989899,
+   "scratch": 0.14864864864864866
   },
-  "visual_r": null
+  "visual_r": {
+   "broken_part": 0.42016806722689076,
+   "corrosion": 0.09090909090909091,
+   "crack": 0.6,
+   "dent": 0.3162393162393162,
+   "flaking": 0.5,
+   "missing_part": 0.5441176470588235,
+   "paint_chip": 0.09090909090909091,
+   "scratch": 0.3333333333333333
+  }
  },
  "visual": {
   "base_weights_sha256": "a7cd8f929e1903d78a12a48efecab430209f18dc46cb96c3599a5980c63c423c",
-  "best_sha256": "3124225d47366179e297fa2599c2f685a56909a0b04f6c43f0a992e10c46ef4e",
+  "best_sha256": "a4ebd22a597a2c87e1d916f99bd5545f877059a9793563284b3bfa25aba1e349",
   "external_cardd": {
-   "box_map50_95_agnostic": 0.0138083276017547,
-   "box_map50_95_mapped": 0.010697270952433901,
-   "box_map50_agnostic": 0.0334041500162979,
-   "box_map50_mapped": 0.025483759524117224,
+   "box_map50_95_agnostic": 0.030348595086486657,
+   "box_map50_95_mapped": 0.022474491207230184,
+   "box_map50_agnostic": 0.0773901527206623,
+   "box_map50_mapped": 0.05363692398511134,
    "cardd_names": [
     "dent",
     "scratch",
@@ -95,53 +104,53 @@
    "n_images": 374,
    "status": "MEASURED"
   },
-  "finished": "2026-11-21T03:05:19Z",
+  "finished": "2026-11-21T04:06:27Z",
   "hitl_eval": {
    "test": {
-    "box_map50": 0.11415117480786321,
-    "box_map50_95": 0.06163190084052885,
-    "mask_map50": 0.08926527961854033,
-    "mask_map50_95": 0.037392735970396926,
+    "box_map50": 0.11155325223038454,
+    "box_map50_95": 0.05648877854025195,
+    "mask_map50": 0.09647396367226625,
+    "mask_map50_95": 0.04089117944068099,
     "n_images": 129,
     "per_class_mask_map50_95": {
-     "broken_part": 0.07270358622629515,
-     "corrosion": 0.0006134629345487777,
-     "crack": 0.014362952234852455,
-     "dent": 0.030006973980953054,
-     "flaking": 0.0017377772417696159,
-     "missing_part": 0.16119051025767392,
-     "paint_chip": 0.008605269332797297,
-     "scratch": 0.009921355554285116
+     "broken_part": 0.07095292028851699,
+     "corrosion": 0.003113294079701177,
+     "crack": 0.010219285714285714,
+     "dent": 0.036411625570884336,
+     "flaking": 0.00288653691049307,
+     "missing_part": 0.17806570316620948,
+     "paint_chip": 0.012437877582878579,
+     "scratch": 0.013042192212478524
     }
    },
    "val": {
-    "box_map50": 0.1366127203098415,
-    "box_map50_95": 0.0761313593479589,
-    "mask_map50": 0.11733867369791505,
-    "mask_map50_95": 0.06084984871881396,
+    "box_map50": 0.12768567937986403,
+    "box_map50_95": 0.0709140856018715,
+    "mask_map50": 0.11768628024915676,
+    "mask_map50_95": 0.05537932290268273,
     "n_images": 110,
     "per_class_mask_map50_95": {
-     "broken_part": 0.05765708155383057,
-     "corrosion": 0.00012488093043264503,
-     "crack": 0.10608551693404633,
-     "dent": 0.02069966268687654,
-     "flaking": 0.010322350281579126,
-     "missing_part": 0.27767193396554146,
-     "paint_chip": 0.006756253051865281,
-     "scratch": 0.0074811103463397295
+     "broken_part": 0.0564040447541281,
+     "corrosion": 0.00010808108589799412,
+     "crack": 0.10765474963840713,
+     "dent": 0.02676452445273405,
+     "flaking": 0.0012269352199329718,
+     "missing_part": 0.24060127787057786,
+     "paint_chip": 0.002595962615195414,
+     "scratch": 0.007679007584588314
     }
    }
   },
   "hitl_images": 807,
   "hitl_sha_mismatch": 0,
-  "started": "2026-11-21T02:44:22Z",
+  "started": "2026-11-21T03:51:24Z",
   "train_config": {
    "batch": 16,
    "deterministic": true,
-   "epochs": 100,
+   "epochs": 50,
    "imgsz": 640,
    "optimizer": "auto",
-   "patience": 20,
+   "patience": 10,
    "pretrained": true,
    "seed": 0,
    "workers": 2

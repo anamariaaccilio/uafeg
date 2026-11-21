@@ -1,0 +1,83 @@
+{
+ "claim_id": "clm_5b20058e4818925afe028e83",
+ "condition": "C8",
+ "expected_label": "SUPPORTED",
+ "source_image_id": "hitl:Car damages 778",
+ "system": "G1",
+ "narrative_text": "En esta descripción, es correcto afirmar que el vehículo presenta piezas rotas. Esta descripción corresponde al daño observado.",
+ "assertions": [
+  {
+   "text": "En esta descripción, es correcto afirmar que el vehículo presenta piezas rotas.",
+   "damage_type": "broken_part",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.009017695315129075
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.699 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.6158277930675363,
+   "SUSPICIOUS": 0.37756614895167384,
+   "INSUFFICIENT": 0.006606057980789795
+  },
+  "U": 0.6994597637856086,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.005528877415519884,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.19, g_f=0.03"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.1685,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.6803,
+     0.009
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.4961,
+    "c_q_r_u": [
+     1.0,
+     0.4961,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "forensic",
+    "g": 0.0289,
+    "c_q_r_u": [
+     1.0,
+     0.4961,
+     0.1969,
+     0.7038
+    ]
+   }
+  ],
+  "edges": []
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

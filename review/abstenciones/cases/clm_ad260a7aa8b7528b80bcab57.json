@@ -1,0 +1,118 @@
+{
+ "claim_id": "clm_ad260a7aa8b7528b80bcab57",
+ "condition": "C10",
+ "expected_label": "OOD",
+ "source_image_id": "hitl:Car damages 196",
+ "system": "G1",
+ "narrative_text": "No es correcto afirmar que el vehículo no presenta rayones.",
+ "assertions": [
+  {
+   "text": "No es correcto afirmar que el vehículo no presenta rayones.",
+   "damage_type": "crack",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.05925501941646819
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.687 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5544479349890684,
+   "SUSPICIOUS": 0.44555148481234463,
+   "INSUFFICIENT": 5.801985870854383e-07
+  },
+  "U": 0.6872146938102163,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.01948354540654962,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.26, g_f=0.07"
+  },
+  {
+   "weight": 0.0015151795076177223,
+   "type": "afirmación apoya daño visual",
+   "detail": "«No es correcto afirmar que el vehículo no presenta rayones.» apoya la detección 'broken_part' (g=0.00, p=0.99)"
+  },
+  {
+   "weight": 3.1041675130836665e-07,
+   "type": "afirmación contradice daño visual",
+   "detail": "«No es correcto afirmar que el vehículo no presenta rayones.» contradice la detección 'broken_part' (g=0.00, p=0.00)"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.0743,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.3161,
+     0.0593
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.8114,
+    "c_q_r_u": [
+     1.0,
+     0.8114,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.0015,
+    "c_q_r_u": [
+     1.0,
+     0.7957,
+     0.4202,
+     0.9954
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "forensic",
+    "g": 0.0745,
+    "c_q_r_u": [
+     1.0,
+     0.8114,
+     0.5368,
+     0.8289
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "support",
+    "weight": 0.0015,
+    "a_ij": [
+     0.986,
+     0.0002,
+     0.0138,
+     0.5,
+     0.0
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

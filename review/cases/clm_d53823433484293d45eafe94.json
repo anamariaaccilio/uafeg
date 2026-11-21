@@ -1,0 +1,148 @@
+{
+ "claim_id": "clm_d53823433484293d45eafe94",
+ "condition": "C6",
+ "expected_label": "INSUFFICIENT",
+ "source_image_id": "hitl:Car damages 1246",
+ "system": "G1",
+ "narrative_text": null,
+ "assertions": [],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": false,
+  "abstention_reason": null,
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.008431002357541387,
+   "SUSPICIOUS": 0.00320286568433206,
+   "INSUFFICIENT": 0.9883661319581266
+  },
+  "U": 0.07022737519905473,
+  "coverage_bar": 0.5,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.01636591820657385,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.02, g_f=0.77"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "source",
+    "g": 0.9286,
+    "c_q_r_u": [
+     1.0,
+     0.9286,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "visual",
+    "g": 0.1769,
+    "c_q_r_u": [
+     1.0,
+     0.936,
+     0.4202,
+     0.5503
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.002,
+    "c_q_r_u": [
+     1.0,
+     0.9383,
+     0.4202,
+     0.9949
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "visual",
+    "g": 0.0239,
+    "c_q_r_u": [
+     1.0,
+     0.8841,
+     0.4202,
+     0.9358
+    ]
+   },
+   {
+    "id": 4,
+    "kind": "visual",
+    "g": 0.062,
+    "c_q_r_u": [
+     1.0,
+     0.8944,
+     0.4202,
+     0.835
+    ]
+   },
+   {
+    "id": 5,
+    "kind": "forensic",
+    "g": 0.7733,
+    "c_q_r_u": [
+     1.0,
+     0.9286,
+     0.9773,
+     0.1479
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 1,
+    "dst": 2,
+    "relation": "overlap",
+    "weight": 0.0,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0137
+    ]
+   },
+   {
+    "src": 1,
+    "dst": 3,
+    "relation": "overlap",
+    "weight": 0.0001,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0029
+    ]
+   },
+   {
+    "src": 1,
+    "dst": 4,
+    "relation": "overlap",
+    "weight": 0.0069,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.1105
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

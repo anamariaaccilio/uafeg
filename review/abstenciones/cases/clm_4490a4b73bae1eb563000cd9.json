@@ -1,0 +1,83 @@
+{
+ "claim_id": "clm_4490a4b73bae1eb563000cd9",
+ "condition": "C2",
+ "expected_label": "SUSPICIOUS",
+ "source_image_id": "hitl:Car damages 315",
+ "system": "G1",
+ "narrative_text": "Sobre el estado visible, el vehículo no está libre de piezas rotas. La observación se refiere al vehículo.",
+ "assertions": [
+  {
+   "text": "Sobre el estado visible, el vehículo no está libre de piezas rotas.",
+   "damage_type": "broken_part",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.007803083598412756
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.683 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5728967304963587,
+   "SUSPICIOUS": 0.4271013422159797,
+   "INSUFFICIENT": 1.9272876616522156e-06
+  },
+  "U": 0.682506989225848,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.009815291557441042,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.20, g_f=0.05"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.1687,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.6803,
+     0.0078
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.8454,
+    "c_q_r_u": [
+     1.0,
+     0.8454,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "forensic",
+    "g": 0.0502,
+    "c_q_r_u": [
+     1.0,
+     0.8454,
+     0.2068,
+     0.7128
+    ]
+   }
+  ],
+  "edges": []
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

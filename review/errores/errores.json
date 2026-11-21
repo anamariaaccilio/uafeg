@@ -1,0 +1,162 @@
+[
+ {
+  "claim_id": "clm_005158d1f902875574f890f7",
+  "condition": "C3",
+  "expected": "SUSPICIOUS",
+  "predicted": "SUPPORTED",
+  "p_max": 0.6038796503670605,
+  "top_evidence": "afirmación apoya daño visual"
+ },
+ {
+  "claim_id": "clm_077fef1e9e738d87e210ed19",
+  "condition": "C1",
+  "expected": "SUSPICIOUS",
+  "predicted": "SUPPORTED",
+  "p_max": 0.6010307509860574,
+  "top_evidence": "afirmación apoya daño visual"
+ },
+ {
+  "claim_id": "clm_15f2c37965b7a33ee22a0154",
+  "condition": "C2",
+  "expected": "SUSPICIOUS",
+  "predicted": "SUPPORTED",
+  "p_max": 0.5880400262534218,
+  "top_evidence": "afirmación apoya daño visual"
+ },
+ {
+  "claim_id": "clm_295669530756c26b57266c3e",
+  "condition": "C5",
+  "expected": "SUSPICIOUS",
+  "predicted": "SUPPORTED",
+  "p_max": 0.6260240555849435,
+  "top_evidence": "forense global"
+ },
+ {
+  "claim_id": "clm_30781207da90e75eb9b271e4",
+  "condition": "C4",
+  "expected": "SUSPICIOUS",
+  "predicted": "SUPPORTED",
+  "p_max": 0.6045586767468837,
+  "top_evidence": "afirmación apoya daño visual"
+ },
+ {
+  "claim_id": "clm_543d1d395e17b6f70774fc37",
+  "condition": "C4",
+  "expected": "SUSPICIOUS",
+  "predicted": "SUPPORTED",
+  "p_max": 0.6132506080317109,
+  "top_evidence": "afirmación apoya daño visual"
+ },
+ {
+  "claim_id": "clm_864290dbe994d2b55db5cd5a",
+  "condition": "C0",
+  "expected": "SUPPORTED",
+  "predicted": "SUSPICIOUS",
+  "p_max": 0.5852308078702354,
+  "top_evidence": "forense global"
+ },
+ {
+  "claim_id": "clm_88cac51ef171f8b6bce5af9c",
+  "condition": "C4",
+  "expected": "SUSPICIOUS",
+  "predicted": "SUPPORTED",
+  "p_max": 0.5867230403348975,
+  "top_evidence": "forense global"
+ },
+ {
+  "claim_id": "clm_97d24d256e206890b148ed47",
+  "condition": "C3",
+  "expected": "SUSPICIOUS",
+  "predicted": "SUPPORTED",
+  "p_max": 0.6122525577110915,
+  "top_evidence": "afirmación apoya daño visual"
+ },
+ {
+  "claim_id": "clm_9a15ffa121b7fe04dcefa087",
+  "condition": "C4",
+  "expected": "SUSPICIOUS",
+  "predicted": "SUPPORTED",
+  "p_max": 0.6012309906430223,
+  "top_evidence": "afirmación apoya daño visual"
+ },
+ {
+  "claim_id": "clm_ab0af5e520ce517d758b5b28",
+  "condition": "C1",
+  "expected": "SUSPICIOUS",
+  "predicted": "SUPPORTED",
+  "p_max": 0.6012701701696261,
+  "top_evidence": "forense global"
+ },
+ {
+  "claim_id": "clm_aef1d3b5536f56d62203566a",
+  "condition": "C3",
+  "expected": "SUSPICIOUS",
+  "predicted": "SUPPORTED",
+  "p_max": 0.6290643500804842,
+  "top_evidence": "afirmación apoya daño visual"
+ },
+ {
+  "claim_id": "clm_b520a7e14a8612eb1d747634",
+  "condition": "C3",
+  "expected": "SUSPICIOUS",
+  "predicted": "SUPPORTED",
+  "p_max": 0.5895870517630918,
+  "top_evidence": "afirmación apoya daño visual"
+ },
+ {
+  "claim_id": "clm_bba987ca69d4aeaa3f25d5c4",
+  "condition": "C1",
+  "expected": "SUSPICIOUS",
+  "predicted": "SUPPORTED",
+  "p_max": 0.6250920363986143,
+  "top_evidence": "forense global"
+ },
+ {
+  "claim_id": "clm_be4ee58a1faddfa1a3f1e007",
+  "condition": "C2",
+  "expected": "SUSPICIOUS",
+  "predicted": "SUPPORTED",
+  "p_max": 0.6906861741223284,
+  "top_evidence": "forense global"
+ },
+ {
+  "claim_id": "clm_c736f906ce4d367b765e86f0",
+  "condition": "C2",
+  "expected": "SUSPICIOUS",
+  "predicted": "SUPPORTED",
+  "p_max": 0.6221301277480419,
+  "top_evidence": "afirmación apoya daño visual"
+ },
+ {
+  "claim_id": "clm_dc7dfd4f83ae3d2e0e253591",
+  "condition": "C5",
+  "expected": "SUSPICIOUS",
+  "predicted": "SUPPORTED",
+  "p_max": 0.6038721045226896,
+  "top_evidence": "afirmación apoya daño visual"
+ },
+ {
+  "claim_id": "clm_e694634d2ecdcd174f1d0731",
+  "condition": "C5",
+  "expected": "SUSPICIOUS",
+  "predicted": "SUPPORTED",
+  "p_max": 0.6033347073984724,
+  "top_evidence": "afirmación apoya daño visual"
+ },
+ {
+  "claim_id": "clm_f16739f45fb0632921f896b5",
+  "condition": "C2",
+  "expected": "SUSPICIOUS",
+  "predicted": "SUPPORTED",
+  "p_max": 0.6143608314994274,
+  "top_evidence": "forense global"
+ },
+ {
+  "claim_id": "clm_f2835b3a7395850aefbb9d62",
+  "condition": "C1",
+  "expected": "SUSPICIOUS",
+  "predicted": "SUPPORTED",
+  "p_max": 0.6328756614794913,
+  "top_evidence": "afirmación apoya daño visual"
+ }
+]

@@ -1,0 +1,131 @@
+{
+ "claim_id": "clm_4501c6c12fff4acbeb87d54f",
+ "condition": "C8",
+ "expected_label": "SUPPORTED",
+ "source_image_id": "hitl:Car damages 196",
+ "system": "G1",
+ "narrative_text": "No es correcto afirmar que el vehículo no presenta rayones.",
+ "assertions": [
+  {
+   "text": "No es correcto afirmar que el vehículo no presenta rayones.",
+   "damage_type": "crack",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.05925501941646819
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.680 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.582138769150114,
+   "SUSPICIOUS": 0.41786065104591813,
+   "INSUFFICIENT": 5.798039680051161e-07
+  },
+  "U": 0.6796006691452986,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.010386433153673491,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.19, g_f=0.06"
+  },
+  {
+   "weight": 0.0013501653396186884,
+   "type": "afirmación apoya daño visual",
+   "detail": "«No es correcto afirmar que el vehículo no presenta rayones.» apoya la detección 'broken_part' (g=0.00, p=0.99)"
+  },
+  {
+   "weight": 9.82633221728807e-05,
+   "type": "forense sobre región visual",
+   "detail": "TruFor marca la región de 'broken_part' (g_f·p_edit·IoU=0.00)"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.0743,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.3161,
+     0.0593
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.8112,
+    "c_q_r_u": [
+     1.0,
+     0.8112,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.0014,
+    "c_q_r_u": [
+     1.0,
+     0.7972,
+     0.4202,
+     0.9959
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "forensic",
+    "g": 0.0551,
+    "c_q_r_u": [
+     1.0,
+     0.8112,
+     0.2252,
+     0.6986
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "support",
+    "weight": 0.0014,
+    "a_ij": [
+     0.986,
+     0.0002,
+     0.0138,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 2,
+    "dst": 3,
+    "relation": "overlap",
+    "weight": 0.0005,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0095
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

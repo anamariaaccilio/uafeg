@@ -243,25 +243,31 @@ def write_set(reports: dict, out: Path, title: str, with_images: bool) -> None:
     (out / "index.html").write_text(body)
 
 
-def select_review(reports_all: dict, n: int = 50, seed: int = 0) -> list[str]:
-    """Stratified by condition, with ALL abstentions (if they exceed n, they are sampled per condition)."""
+def select_review(reports_all: dict, n: int = 50, seed: int = 0) -> dict:
+    """50 cases stratified by condition (round-robin over C0..C10); inside each condition the
+    abstentions are taken first. ALL abstentions are additionally exported to review/abstenciones/."""
     rng = np.random.default_rng(seed)
-    ids = sorted(reports_all)
-    abst = [c for c in ids if reports_all[c][0]["decision"]["abstained"]]
     by_cond = {}
-    for c in ids:
+    for c in sorted(reports_all):
         by_cond.setdefault(reports_all[c][0]["condition"], []).append(c)
-    if len(abst) >= n:
-        return {"ids": sorted(rng.choice(abst, n, replace=False).tolist()),
-                "note": f"{len(abst)} abstenciones > {n}: se muestrean {n} abstenciones"}
-    chosen = set(abst)
-    conds = sorted(by_cond, key=lambda s: int(s[1:]))
-    while len(chosen) < n:
+    pools = {}
+    for cnd, ids in by_cond.items():
+        ab = [c for c in ids if reports_all[c][0]["decision"]["abstained"]]
+        rest = [c for c in ids if c not in set(ab)]
+        rng.shuffle(ab); rng.shuffle(rest)
+        pools[cnd] = ab + rest
+    chosen = []
+    conds = sorted(pools, key=lambda s: int(s[1:]))
+    while len(chosen) < n and any(pools.values()):
         for cnd in conds:
-            pool = [c for c in by_cond[cnd] if c not in chosen]
-            if pool and len(chosen) < n:
-                chosen.add(pool[int(rng.integers(len(pool)))])
-    return {"ids": sorted(chosen), "note": f"todas las {len(abst)} abstenciones + relleno estratificado por condición"}
+            if pools[cnd] and len(chosen) < n:
+                chosen.append(pools[cnd].pop(0))
+    n_abst = sum(reports_all[c][0]["decision"]["abstained"] for c in reports_all)
+    n_abst_sel = sum(reports_all[c][0]["decision"]["abstained"] for c in chosen)
+    return {"ids": sorted(chosen), "n_abstentions_total": int(n_abst), "n_abstentions_in_50": int(n_abst_sel),
+            "note": f"{n_abst} abstenciones en test (> 50): los 50 casos se estratifican por condición tomando primero "
+                    f"las abstenciones de cada condición ({n_abst_sel} de los 50 son abstenciones); TODAS las "
+                    f"abstenciones están en review/abstenciones/"}
 
 
 def main():
@@ -273,6 +279,8 @@ def main():
         write_set(reports, OUT_ALL, "Reportes de verificación humana — todos los reclamos de test", with_images=False)
     sel = select_review(reports)
     sub = {c: reports[c] for c in sel["ids"]}
+    abst = {c: r for c, r in reports.items() if r[0]["decision"]["abstained"]}
+    write_set(abst, OUT_REVIEW / "abstenciones", f"Todas las abstenciones de G1 en test ({len(abst)})", with_images=True)
     write_set(sub, OUT_REVIEW, "Paquete de revisión humana — 50 casos de test", with_images=True)
     # combined review page with export button
     pages = []
@@ -292,6 +300,27 @@ def main():
         for cid, (rep, _) in sub.items():
             w.writerow([cid, rep["condition"], rep["decision"]["label"], "", "", "", ""])
     (OUT_REVIEW / "seleccion.json").write_text(json.dumps({**sel, "system": SYSTEM, "seed": 0}, indent=1))
+    # error analysis: 20 misclassified, non-abstained labelled test claims, round-robin by condition (seed 0)
+    rng = np.random.default_rng(0)
+    errs = {}
+    for cid, (rep, _) in reports.items():
+        d = rep["decision"]
+        if rep["condition"] != "C10" and not d["abstained"] and d["label"] != rep["expected_label"]:
+            errs.setdefault(rep["condition"], []).append(cid)
+    chosen = []
+    conds = sorted(errs, key=lambda c: int(c[1:]))
+    while len(chosen) < 20 and any(errs.values()):
+        for c in conds:
+            if errs[c] and len(chosen) < 20:
+                chosen.append(errs[c].pop(int(rng.integers(len(errs[c])))))
+    err_dir = OUT_REVIEW / "errores"
+    write_set({c: reports[c] for c in sorted(chosen)}, err_dir, "Análisis de errores — 20 casos mal clasificados por G1",
+              with_images=True)
+    summary = [{"claim_id": c, "condition": reports[c][0]["condition"], "expected": reports[c][0]["expected_label"],
+                "predicted": reports[c][0]["decision"]["label"],
+                "p_max": max(reports[c][0]["decision"]["calibrated_probabilities"].values()),
+                "top_evidence": reports[c][0]["top_evidence"][0]["type"]} for c in sorted(chosen)]
+    (err_dir / "errores.json").write_text(json.dumps(summary, indent=1, ensure_ascii=False))
     print(json.dumps({"all_reports": 0 if args.no_all else len(reports), "review_cases": len(sub), "note": sel["note"]}))
 
 

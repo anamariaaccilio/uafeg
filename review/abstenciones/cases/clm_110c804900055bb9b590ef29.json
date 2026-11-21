@@ -1,0 +1,83 @@
+{
+ "claim_id": "clm_110c804900055bb9b590ef29",
+ "condition": "C2",
+ "expected_label": "SUSPICIOUS",
+ "source_image_id": "hitl:Car damages 780",
+ "system": "G1",
+ "narrative_text": "Según la evidencia visual, el vehículo no está libre de desprendimientos de pintura. Esta descripción corresponde al daño observado.",
+ "assertions": [
+  {
+   "text": "Según la evidencia visual, el vehículo no está libre de desprendimientos de pintura.",
+   "damage_type": "paint_chip",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.011259508543274939
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.685 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5663687432743635,
+   "SUSPICIOUS": 0.43359681601233324,
+   "INSUFFICIENT": 3.444071330334594e-05
+  },
+  "U": 0.684671090673876,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.015527787513538449,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.19, g_f=0.08"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.2447,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.9899,
+     0.0113
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.7283,
+    "c_q_r_u": [
+     1.0,
+     0.7283,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "forensic",
+    "g": 0.0803,
+    "c_q_r_u": [
+     1.0,
+     0.7283,
+     0.3782,
+     0.7085
+    ]
+   }
+  ],
+  "edges": []
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

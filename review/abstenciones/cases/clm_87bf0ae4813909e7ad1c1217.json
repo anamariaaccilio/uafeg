@@ -1,0 +1,240 @@
+{
+ "claim_id": "clm_87bf0ae4813909e7ad1c1217",
+ "condition": "C8",
+ "expected_label": "SUPPORTED",
+ "source_image_id": "hitl:Car damages 1256",
+ "system": "G1",
+ "narrative_text": "Sobre el estado visible, es correcto afirmar que el vehículo presenta abolladuras. Esta descripción corresponde al daño observado.",
+ "assertions": [
+  {
+   "text": "Sobre el estado visible, es correcto afirmar que el vehículo presenta abolladuras.",
+   "damage_type": "dent",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.012384547130668005
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.698 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.6380278072988536,
+   "SUSPICIOUS": 0.35269547449041894,
+   "INSUFFICIENT": 0.009276718210727583
+  },
+  "U": 0.6976917539823501,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.008478932617760004,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.20, g_f=0.04"
+  },
+  {
+   "weight": 0.003425230476681143,
+   "type": "afirmación apoya daño visual",
+   "detail": "«Sobre el estado visible, es correcto afirmar que el vehículo presenta abolladuras.» apoya la detección 'dent' (g=0.00, p=1.00)"
+  },
+  {
+   "weight": 0.001892381690043956,
+   "type": "afirmación apoya daño visual",
+   "detail": "«Sobre el estado visible, es correcto afirmar que el vehículo presenta abolladuras.» apoya la detección 'dent' (g=0.00, p=1.00)"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.171,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.6927,
+     0.0124
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.4881,
+    "c_q_r_u": [
+     1.0,
+     0.4881,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.0,
+    "c_q_r_u": [
+     1.0,
+     0.1128,
+     0.5441,
+     1.0
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "visual",
+    "g": 0.0001,
+    "c_q_r_u": [
+     1.0,
+     0.0339,
+     0.3162,
+     0.9892
+    ]
+   },
+   {
+    "id": 4,
+    "kind": "visual",
+    "g": 0.0019,
+    "c_q_r_u": [
+     1.0,
+     0.2204,
+     0.3162,
+     0.9728
+    ]
+   },
+   {
+    "id": 5,
+    "kind": "visual",
+    "g": 0.0034,
+    "c_q_r_u": [
+     1.0,
+     0.1093,
+     0.3162,
+     0.9008
+    ]
+   },
+   {
+    "id": 6,
+    "kind": "visual",
+    "g": 0.0019,
+    "c_q_r_u": [
+     1.0,
+     0.124,
+     0.0909,
+     0.8349
+    ]
+   },
+   {
+    "id": 7,
+    "kind": "forensic",
+    "g": 0.0422,
+    "c_q_r_u": [
+     1.0,
+     0.4881,
+     0.313,
+     0.7239
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "unknown",
+    "weight": 0.0,
+    "a_ij": [
+     0.2412,
+     0.0033,
+     0.7555,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 3,
+    "relation": "support",
+    "weight": 0.0001,
+    "a_ij": [
+     0.9982,
+     0.0001,
+     0.0017,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 4,
+    "relation": "support",
+    "weight": 0.0019,
+    "a_ij": [
+     0.9982,
+     0.0001,
+     0.0017,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 5,
+    "relation": "support",
+    "weight": 0.0034,
+    "a_ij": [
+     0.9982,
+     0.0001,
+     0.0017,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 6,
+    "relation": "unknown",
+    "weight": 0.0018,
+    "a_ij": [
+     0.0031,
+     0.0116,
+     0.9854,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 2,
+    "dst": 6,
+    "relation": "overlap",
+    "weight": 0.0018,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.9697
+    ]
+   },
+   {
+    "src": 4,
+    "dst": 5,
+    "relation": "overlap",
+    "weight": 0.0021,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.6214
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

@@ -1,0 +1,131 @@
+{
+ "claim_id": "clm_c748ecac47163edc28b9b728",
+ "condition": "C4",
+ "expected_label": "SUSPICIOUS",
+ "source_image_id": "hitl:Car damages 1238",
+ "system": "G1",
+ "narrative_text": "En la fotografía del vehículo, es correcto afirmar que el vehículo presenta rayones.",
+ "assertions": [
+  {
+   "text": "En la fotografía del vehículo, es correcto afirmar que el vehículo presenta rayones.",
+   "damage_type": "dent",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.011879024812939764
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.688 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5484511185327435,
+   "SUSPICIOUS": 0.4515487942693435,
+   "INSUFFICIENT": 8.719791279456731e-08
+  },
+  "U": 0.6884462185835859,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.035583535108038244,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.11, g_f=0.34"
+  },
+  {
+   "weight": 0.017989353922450914,
+   "type": "afirmación apoya daño visual",
+   "detail": "«En la fotografía del vehículo, es correcto afirmar que el vehículo presenta rayones.» apoya la detección 'dent' (g=0.02, p=1.00)"
+  },
+  {
+   "weight": 0.0002824090087939543,
+   "type": "forense sobre región visual",
+   "detail": "TruFor marca la región de 'dent' (g_f·p_edit·IoU=0.00)"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.1711,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.6927,
+     0.0119
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.8773,
+    "c_q_r_u": [
+     1.0,
+     0.8773,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.018,
+    "c_q_r_u": [
+     1.0,
+     0.9521,
+     0.3162,
+     0.9401
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "forensic",
+    "g": 0.3351,
+    "c_q_r_u": [
+     1.0,
+     0.8773,
+     0.7465,
+     0.4883
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "support",
+    "weight": 0.018,
+    "a_ij": [
+     0.9983,
+     0.0001,
+     0.0016,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "src": 2,
+    "dst": 3,
+    "relation": "overlap",
+    "weight": 0.0027,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0079
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

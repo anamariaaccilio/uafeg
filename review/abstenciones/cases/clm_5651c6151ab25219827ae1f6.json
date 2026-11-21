@@ -1,0 +1,118 @@
+{
+ "claim_id": "clm_5651c6151ab25219827ae1f6",
+ "condition": "C10",
+ "expected_label": "OOD",
+ "source_image_id": "hitl:Car damages 256",
+ "system": "G1",
+ "narrative_text": "Sobre el estado visible, el vehículo no está libre de pequeños desconchados de pintura. Esta descripción corresponde al daño observado.",
+ "assertions": [
+  {
+   "text": "Sobre el estado visible, el vehículo no está libre de pequeños desconchados de pintura.",
+   "damage_type": "broken_part",
+   "polarity": "affirmed",
+   "coverage": 0.5,
+   "u": 0.009731020796077372
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.691 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5301754156607749,
+   "SUSPICIOUS": 0.46982420396600044,
+   "INSUFFICIENT": 3.8037322474913135e-07
+  },
+  "U": 0.6913306778040158,
+  "coverage_bar": 0.75,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.02320157731604988,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.21, g_f=0.11"
+  },
+  {
+   "weight": 0.0016423280919948592,
+   "type": "afirmación apoya daño visual",
+   "detail": "«Sobre el estado visible, el vehículo no está libre de pequeños desconchados de pintura.» apoya la detección 'dent' (g=0.00, p=1.00)"
+  },
+  {
+   "weight": 2.303959405981004e-07,
+   "type": "afirmación contradice daño visual",
+   "detail": "«Sobre el estado visible, el vehículo no está libre de pequeños desconchados de pintura.» contradice la detección 'dent' (g=0.00, p=0.00)"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.3368,
+    "c_q_r_u": [
+     0.5,
+     1.0,
+     0.6803,
+     0.0097
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.839,
+    "c_q_r_u": [
+     1.0,
+     0.839,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.0016,
+    "c_q_r_u": [
+     1.0,
+     0.6392,
+     0.3162,
+     0.9919
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "forensic",
+    "g": 0.1126,
+    "c_q_r_u": [
+     1.0,
+     0.839,
+     0.5042,
+     0.7338
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "support",
+    "weight": 0.0016,
+    "a_ij": [
+     0.998,
+     0.0001,
+     0.0019,
+     0.5,
+     0.0
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

@@ -1,0 +1,27 @@
+\begin{table}[H]
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.1}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llccccc}
+\toprule
+\textbf{ID} & \textbf{Sistema} & \textbf{PR-AUC} & \textbf{Macro-F1} & \textbf{Brier} & \textbf{ECE} & \textbf{AURC} \\
+\midrule
+\rowcolor{black!6} G1 & \modelo{} (agregador con $g$) & 0.851 $\pm$ 0.000 & 0.671 $\pm$ 0.000 & 0.276 $\pm$ 0.000 & 0.015 $\pm$ 0.000 & 0.080 $\pm$ 0.000 \\
+\rowcolor{black!6}  & & {\scriptsize 0.851 [0.838, 0.865]} & {\scriptsize 0.671 [0.647, 0.695]} & {\scriptsize 0.276 [0.267, 0.285]} & {\scriptsize 0.015 [0.007, 0.027]} & {\scriptsize 0.080 [0.072, 0.087]} \\
+G1\_oracleN & Oráculo narrativa & 0.866 $\pm$ 0.000 & 0.670 $\pm$ 0.000 & 0.261 $\pm$ 0.000 & 0.013 $\pm$ 0.000 & 0.070 $\pm$ 0.000 \\
+ & & {\scriptsize 0.866 [0.856, 0.877]} & {\scriptsize 0.670 [0.648, 0.693]} & {\scriptsize 0.261 [0.255, 0.268]} & {\scriptsize 0.013 [0.006, 0.028]} & {\scriptsize 0.070 [0.064, 0.075]} \\
+G1\_oracleVF & Oráculo visual+forense & 0.943 $\pm$ 0.000 & 0.733 $\pm$ 0.000 & 0.159 $\pm$ 0.000 & 0.014 $\pm$ 0.000 & 0.026 $\pm$ 0.000 \\
+ & & {\scriptsize 0.943 [0.936, 0.950]} & {\scriptsize 0.733 [0.703, 0.765]} & {\scriptsize 0.159 [0.150, 0.171]} & {\scriptsize 0.014 [0.008, 0.031]} & {\scriptsize 0.026 [0.022, 0.031]} \\
+G1\_oracleNVF & Oráculo ambos & 0.965 $\pm$ 0.000 & 0.799 $\pm$ 0.000 & 0.132 $\pm$ 0.000 & 0.014 $\pm$ 0.000 & 0.016 $\pm$ 0.000 \\
+ & & {\scriptsize 0.965 [0.958, 0.971]} & {\scriptsize 0.799 [0.772, 0.826]} & {\scriptsize 0.132 [0.128, 0.136]} & {\scriptsize 0.014 [0.007, 0.030]} & {\scriptsize 0.016 [0.013, 0.018]} \\
+\midrule
+G0 & Agregador, $g=1$ & 0.871 $\pm$ 0.002 & 0.698 $\pm$ 0.003 & 0.266 $\pm$ 0.003 & 0.021 $\pm$ 0.004 & 0.071 $\pm$ 0.002 \\
+ & & {\scriptsize 0.871 [0.861, 0.882]} & {\scriptsize 0.699 [0.675, 0.721]} & {\scriptsize 0.265 [0.256, 0.275]} & {\scriptsize 0.016 [0.012, 0.033]} & {\scriptsize 0.070 [0.064, 0.077]} \\
+G0\_oracleNVF & G0, oráculo ambos & 0.970 $\pm$ 0.000 & 0.768 $\pm$ 0.006 & 0.104 $\pm$ 0.001 & 0.010 $\pm$ 0.001 & 0.012 $\pm$ 0.000 \\
+ & & {\scriptsize 0.970 [0.964, 0.976]} & {\scriptsize 0.778 [0.748, 0.807]} & {\scriptsize 0.103 [0.093, 0.114]} & {\scriptsize 0.009 [0.006, 0.023]} & {\scriptsize 0.012 [0.010, 0.015]} \\
+\bottomrule
+\end{tabular}}
+\caption{Protocolo oráculo (diagnóstico): percepción predicha u oráculo para la narrativa y para visual+forense.}
+\label{tab:oraculo}
+\end{table}

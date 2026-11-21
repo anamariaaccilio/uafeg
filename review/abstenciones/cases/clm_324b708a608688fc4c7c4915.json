@@ -1,0 +1,227 @@
+{
+ "claim_id": "clm_324b708a608688fc4c7c4915",
+ "condition": "C0",
+ "expected_label": "SUPPORTED",
+ "source_image_id": "hitl:Car damages 323",
+ "system": "G1",
+ "narrative_text": "En la fotografía del vehículo, no es correcto afirmar que el vehículo no presenta piezas rotas. La observación se refiere al vehículo.",
+ "assertions": [
+  {
+   "text": "En la fotografía del vehículo, no es correcto afirmar que el vehículo no presenta piezas rotas.",
+   "damage_type": "missing_part",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.022786477866280536
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.685 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5886722010113735,
+   "SUSPICIOUS": 0.4101386700488048,
+   "INSUFFICIENT": 0.0011891289398218159
+  },
+  "U": 0.6854774342690293,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.01497841453672466,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.13, g_f=0.12"
+  },
+  {
+   "weight": 0.0005258156291246414,
+   "type": "afirmación apoya daño visual",
+   "detail": "«En la fotografía del vehículo, no es correcto afirmar que el vehículo no presenta piezas rotas.» apoya la detección 'scratch' (g=0.00, p=0.22)"
+  },
+  {
+   "weight": 0.0005204638593047857,
+   "type": "afirmación apoya daño visual",
+   "detail": "«En la fotografía del vehículo, no es correcto afirmar que el vehículo no presenta piezas rotas.» apoya la detección 'scratch' (g=0.00, p=0.22)"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.23,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.9416,
+     0.0228
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.9405,
+    "c_q_r_u": [
+     1.0,
+     0.9405,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.0023,
+    "c_q_r_u": [
+     1.0,
+     0.094,
+     0.3333,
+     0.9251
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "visual",
+    "g": 0.0007,
+    "c_q_r_u": [
+     1.0,
+     0.0464,
+     0.3333,
+     0.9554
+    ]
+   },
+   {
+    "id": 4,
+    "kind": "visual",
+    "g": 0.0024,
+    "c_q_r_u": [
+     1.0,
+     0.0831,
+     0.3333,
+     0.9144
+    ]
+   },
+   {
+    "id": 5,
+    "kind": "visual",
+    "g": 0.0017,
+    "c_q_r_u": [
+     1.0,
+     0.0539,
+     0.3333,
+     0.9068
+    ]
+   },
+   {
+    "id": 6,
+    "kind": "visual",
+    "g": 0.0295,
+    "c_q_r_u": [
+     1.0,
+     0.5884,
+     0.3162,
+     0.8413
+    ]
+   },
+   {
+    "id": 7,
+    "kind": "forensic",
+    "g": 0.1169,
+    "c_q_r_u": [
+     1.0,
+     0.9405,
+     0.2776,
+     0.5524
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "unknown",
+    "weight": 0.0018,
+    "a_ij": [
+     0.2216,
+     0.0025,
+     0.7759,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 3,
+    "relation": "unknown",
+    "weight": 0.0005,
+    "a_ij": [
+     0.2216,
+     0.0025,
+     0.7759,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 4,
+    "relation": "unknown",
+    "weight": 0.0018,
+    "a_ij": [
+     0.2216,
+     0.0025,
+     0.7759,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 5,
+    "relation": "unknown",
+    "weight": 0.0013,
+    "a_ij": [
+     0.2216,
+     0.0025,
+     0.7759,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 6,
+    "relation": "unknown",
+    "weight": 0.029,
+    "a_ij": [
+     0.0159,
+     0.0007,
+     0.9834,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 2,
+    "dst": 4,
+    "relation": "overlap",
+    "weight": 0.0024,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

@@ -1,0 +1,240 @@
+{
+ "claim_id": "clm_5eb17587422df963b19b1800",
+ "condition": "C4",
+ "expected_label": "SUSPICIOUS",
+ "source_image_id": "hitl:Car damages 984",
+ "system": "G1",
+ "narrative_text": "Respecto al daño mostrado, el vehículo presenta piezas faltantes. La observación se refiere al vehículo.",
+ "assertions": [
+  {
+   "text": "Respecto al daño mostrado, el vehículo presenta piezas faltantes.",
+   "damage_type": "broken_part",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.008755048134845187
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.679 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5827737336756084,
+   "SUSPICIOUS": 0.41722625858611,
+   "INSUFFICIENT": 7.738281605385229e-09
+  },
+  "U": 0.6793810571268724,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.03389887440085411,
+   "type": "afirmación apoya daño visual",
+   "detail": "«Respecto al daño mostrado, el vehículo presenta piezas faltantes.» apoya la detección 'missing_part' (g=0.03, p=1.00)"
+  },
+  {
+   "weight": 0.013203716504541226,
+   "type": "afirmación apoya daño visual",
+   "detail": "«Respecto al daño mostrado, el vehículo presenta piezas faltantes.» apoya la detección 'broken_part' (g=0.01, p=1.00)"
+  },
+  {
+   "weight": 0.00937585428729959,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.29, g_f=0.03"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.1686,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.6803,
+     0.0088
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.7254,
+    "c_q_r_u": [
+     1.0,
+     0.7254,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.1207,
+    "c_q_r_u": [
+     1.0,
+     0.9726,
+     0.3162,
+     0.6077
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "visual",
+    "g": 0.0,
+    "c_q_r_u": [
+     1.0,
+     0.5659,
+     0.0909,
+     0.9999
+    ]
+   },
+   {
+    "id": 4,
+    "kind": "visual",
+    "g": 0.0045,
+    "c_q_r_u": [
+     1.0,
+     0.8644,
+     0.3162,
+     0.9835
+    ]
+   },
+   {
+    "id": 5,
+    "kind": "visual",
+    "g": 0.0132,
+    "c_q_r_u": [
+     1.0,
+     0.6842,
+     0.4202,
+     0.954
+    ]
+   },
+   {
+    "id": 6,
+    "kind": "visual",
+    "g": 0.0339,
+    "c_q_r_u": [
+     1.0,
+     0.8608,
+     0.5441,
+     0.9275
+    ]
+   },
+   {
+    "id": 7,
+    "kind": "forensic",
+    "g": 0.0325,
+    "c_q_r_u": [
+     1.0,
+     0.7254,
+     0.3357,
+     0.8664
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "unknown",
+    "weight": 0.1205,
+    "a_ij": [
+     0.0009,
+     0.0001,
+     0.9989,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 3,
+    "relation": "unknown",
+    "weight": 0.0,
+    "a_ij": [
+     0.0006,
+     0.0005,
+     0.9989,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 4,
+    "relation": "unknown",
+    "weight": 0.0045,
+    "a_ij": [
+     0.0009,
+     0.0001,
+     0.9989,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 5,
+    "relation": "support",
+    "weight": 0.0132,
+    "a_ij": [
+     0.9988,
+     0.0001,
+     0.0011,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 6,
+    "relation": "support",
+    "weight": 0.0339,
+    "a_ij": [
+     0.9985,
+     0.0001,
+     0.0013,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 2,
+    "dst": 4,
+    "relation": "overlap",
+    "weight": 0.0004,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0808
+    ]
+   },
+   {
+    "src": 5,
+    "dst": 7,
+    "relation": "overlap",
+    "weight": 0.0042,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.1284
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

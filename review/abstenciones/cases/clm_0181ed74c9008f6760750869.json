@@ -1,0 +1,227 @@
+{
+ "claim_id": "clm_0181ed74c9008f6760750869",
+ "condition": "C4",
+ "expected_label": "SUSPICIOUS",
+ "source_image_id": "hitl:Car damages 323",
+ "system": "G1",
+ "narrative_text": "En la fotografía del vehículo, no es correcto afirmar que el vehículo no presenta piezas rotas. La observación se refiere al vehículo.",
+ "assertions": [
+  {
+   "text": "En la fotografía del vehículo, no es correcto afirmar que el vehículo no presenta piezas rotas.",
+   "damage_type": "missing_part",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.022786477866280536
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.685 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5889972988356158,
+   "SUSPICIOUS": 0.40984023612166154,
+   "INSUFFICIENT": 0.0011624650427226866
+  },
+  "U": 0.6852036482906259,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.014962924737831562,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.13, g_f=0.12"
+  },
+  {
+   "weight": 0.0005791121064573526,
+   "type": "afirmación apoya daño visual",
+   "detail": "«En la fotografía del vehículo, no es correcto afirmar que el vehículo no presenta piezas rotas.» apoya la detección 'scratch' (g=0.00, p=0.22)"
+  },
+  {
+   "weight": 0.0005252284417599439,
+   "type": "afirmación apoya daño visual",
+   "detail": "«En la fotografía del vehículo, no es correcto afirmar que el vehículo no presenta piezas rotas.» apoya la detección 'scratch' (g=0.00, p=0.22)"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.23,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.9416,
+     0.0228
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.9405,
+    "c_q_r_u": [
+     1.0,
+     0.9405,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.0024,
+    "c_q_r_u": [
+     1.0,
+     0.094,
+     0.3333,
+     0.9244
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "visual",
+    "g": 0.0007,
+    "c_q_r_u": [
+     1.0,
+     0.0464,
+     0.3333,
+     0.9553
+    ]
+   },
+   {
+    "id": 4,
+    "kind": "visual",
+    "g": 0.0024,
+    "c_q_r_u": [
+     1.0,
+     0.0831,
+     0.3333,
+     0.9151
+    ]
+   },
+   {
+    "id": 5,
+    "kind": "visual",
+    "g": 0.0026,
+    "c_q_r_u": [
+     1.0,
+     0.0534,
+     0.3333,
+     0.8531
+    ]
+   },
+   {
+    "id": 6,
+    "kind": "visual",
+    "g": 0.0298,
+    "c_q_r_u": [
+     1.0,
+     0.5892,
+     0.3162,
+     0.8401
+    ]
+   },
+   {
+    "id": 7,
+    "kind": "forensic",
+    "g": 0.1173,
+    "c_q_r_u": [
+     1.0,
+     0.9405,
+     0.2776,
+     0.5506
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "unknown",
+    "weight": 0.0018,
+    "a_ij": [
+     0.2216,
+     0.0025,
+     0.7759,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 3,
+    "relation": "unknown",
+    "weight": 0.0005,
+    "a_ij": [
+     0.2216,
+     0.0025,
+     0.7759,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 4,
+    "relation": "unknown",
+    "weight": 0.0018,
+    "a_ij": [
+     0.2216,
+     0.0025,
+     0.7759,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 5,
+    "relation": "unknown",
+    "weight": 0.002,
+    "a_ij": [
+     0.2216,
+     0.0025,
+     0.7759,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 6,
+    "relation": "unknown",
+    "weight": 0.0293,
+    "a_ij": [
+     0.0159,
+     0.0007,
+     0.9834,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 2,
+    "dst": 4,
+    "relation": "overlap",
+    "weight": 0.0024,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

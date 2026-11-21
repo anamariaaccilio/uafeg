@@ -1,0 +1,318 @@
+{
+ "claim_id": "clm_46cd6f7fc9ae7dcc257f3ccf",
+ "condition": "C8",
+ "expected_label": "SUPPORTED",
+ "source_image_id": "hitl:Car damages 1086",
+ "system": "G1",
+ "narrative_text": "En la fotografía del vehículo, el vehículo presenta piezas rotas. La observación se refiere al vehículo.",
+ "assertions": [
+  {
+   "text": "En la fotografía del vehículo, el vehículo presenta piezas rotas.",
+   "damage_type": "broken_part",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.007758358694339598
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.680 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5814979198563226,
+   "SUSPICIOUS": 0.41850207768732856,
+   "INSUFFICIENT": 2.456348749611268e-09
+  },
+  "U": 0.6798039535866895,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.1187389053632319,
+   "type": "afirmación apoya daño visual",
+   "detail": "«En la fotografía del vehículo, el vehículo presenta piezas rotas.» apoya la detección 'broken_part' (g=0.12, p=1.00)"
+  },
+  {
+   "weight": 0.042959488733857874,
+   "type": "afirmación apoya daño visual",
+   "detail": "«En la fotografía del vehículo, el vehículo presenta piezas rotas.» apoya la detección 'broken_part' (g=0.04, p=1.00)"
+  },
+  {
+   "weight": 0.020092025087190657,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.12, g_f=0.16"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.1687,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.6803,
+     0.0078
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.7843,
+    "c_q_r_u": [
+     1.0,
+     0.7843,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.1189,
+    "c_q_r_u": [
+     1.0,
+     0.9863,
+     0.4202,
+     0.7132
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "visual",
+    "g": 0.0046,
+    "c_q_r_u": [
+     1.0,
+     0.8901,
+     0.4202,
+     0.9876
+    ]
+   },
+   {
+    "id": 4,
+    "kind": "visual",
+    "g": 0.0019,
+    "c_q_r_u": [
+     1.0,
+     0.6268,
+     0.3162,
+     0.9904
+    ]
+   },
+   {
+    "id": 5,
+    "kind": "visual",
+    "g": 0.0003,
+    "c_q_r_u": [
+     1.0,
+     0.9376,
+     0.4202,
+     0.9994
+    ]
+   },
+   {
+    "id": 6,
+    "kind": "visual",
+    "g": 0.043,
+    "c_q_r_u": [
+     1.0,
+     0.8908,
+     0.4202,
+     0.8851
+    ]
+   },
+   {
+    "id": 7,
+    "kind": "forensic",
+    "g": 0.165,
+    "c_q_r_u": [
+     1.0,
+     0.7843,
+     0.4518,
+     0.5345
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "support",
+    "weight": 0.1187,
+    "a_ij": [
+     0.999,
+     0.0001,
+     0.0009,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 3,
+    "relation": "support",
+    "weight": 0.0046,
+    "a_ij": [
+     0.999,
+     0.0001,
+     0.0009,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 4,
+    "relation": "support",
+    "weight": 0.0018,
+    "a_ij": [
+     0.9642,
+     0.0001,
+     0.0358,
+     0.5,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 5,
+    "relation": "support",
+    "weight": 0.0003,
+    "a_ij": [
+     0.999,
+     0.0001,
+     0.0009,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 6,
+    "relation": "support",
+    "weight": 0.043,
+    "a_ij": [
+     0.999,
+     0.0001,
+     0.0009,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "src": 2,
+    "dst": 3,
+    "relation": "overlap",
+    "weight": 0.0,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0086
+    ]
+   },
+   {
+    "src": 2,
+    "dst": 5,
+    "relation": "overlap",
+    "weight": 0.0,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0073
+    ]
+   },
+   {
+    "src": 2,
+    "dst": 6,
+    "relation": "overlap",
+    "weight": 0.0026,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0598
+    ]
+   },
+   {
+    "src": 2,
+    "dst": 7,
+    "relation": "overlap",
+    "weight": 0.0078,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0473
+    ]
+   },
+   {
+    "src": 3,
+    "dst": 5,
+    "relation": "overlap",
+    "weight": 0.0002,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.9174
+    ]
+   },
+   {
+    "src": 3,
+    "dst": 6,
+    "relation": "overlap",
+    "weight": 0.0018,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0417
+    ]
+   },
+   {
+    "src": 4,
+    "dst": 6,
+    "relation": "overlap",
+    "weight": 0.0015,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.036
+    ]
+   },
+   {
+    "src": 5,
+    "dst": 6,
+    "relation": "overlap",
+    "weight": 0.001,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0244
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

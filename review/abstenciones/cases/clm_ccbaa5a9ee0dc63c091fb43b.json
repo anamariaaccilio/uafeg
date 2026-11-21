@@ -1,0 +1,83 @@
+{
+ "claim_id": "clm_ccbaa5a9ee0dc63c091fb43b",
+ "condition": "C2",
+ "expected_label": "SUSPICIOUS",
+ "source_image_id": "hitl:Car damages 935",
+ "system": "G1",
+ "narrative_text": "En la fotografía del vehículo, es correcto afirmar que el vehículo presenta piezas faltantes. Se describe el estado visible.",
+ "assertions": [
+  {
+   "text": "En la fotografía del vehículo, es correcto afirmar que el vehículo presenta piezas faltantes.",
+   "damage_type": "missing_part",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.009778482053974347
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.686 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5597907867033567,
+   "SUSPICIOUS": 0.44020813647965756,
+   "INSUFFICIENT": 1.0768169857366924e-06
+  },
+  "U": 0.685995156108464,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.038007819632572826,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.09, g_f=0.40"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.2331,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.9416,
+     0.0098
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.8467,
+    "c_q_r_u": [
+     1.0,
+     0.8467,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "forensic",
+    "g": 0.4049,
+    "c_q_r_u": [
+     1.0,
+     0.8467,
+     0.8683,
+     0.4493
+    ]
+   }
+  ],
+  "edges": []
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

@@ -1,0 +1,83 @@
+{
+ "claim_id": "clm_e49eb6fe75568f84fcec9041",
+ "condition": "C10",
+ "expected_label": "OOD",
+ "source_image_id": "hitl:Car damages 903",
+ "system": "G1",
+ "narrative_text": "Es correcto afirmar que el vehículo presenta corrosión. Esta descripción corresponde al daño observado.",
+ "assertions": [
+  {
+   "text": "Es correcto afirmar que el vehículo presenta corrosión.",
+   "damage_type": "crack",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.022230268697297925
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.685 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5639586754049204,
+   "SUSPICIOUS": 0.43602899989760324,
+   "INSUFFICIENT": 1.2324697476188744e-05
+  },
+  "U": 0.6850847090252585,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.026622795742350824,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.15, g_f=0.18"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.0773,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.3161,
+     0.0222
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.7399,
+    "c_q_r_u": [
+     1.0,
+     0.7399,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "forensic",
+    "g": 0.1766,
+    "c_q_r_u": [
+     1.0,
+     0.7399,
+     0.6147,
+     0.6118
+    ]
+   }
+  ],
+  "edges": []
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

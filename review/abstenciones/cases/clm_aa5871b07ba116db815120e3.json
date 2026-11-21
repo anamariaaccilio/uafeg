@@ -1,0 +1,194 @@
+{
+ "claim_id": "clm_aa5871b07ba116db815120e3",
+ "condition": "C8",
+ "expected_label": "SUPPORTED",
+ "source_image_id": "hitl:Car damages 701",
+ "system": "G1",
+ "narrative_text": "En la evidencia presentada, no es correcto afirmar que el vehículo no presenta corrosión. Esta descripción corresponde al daño observado.",
+ "assertions": [],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.783 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.6156879034953182,
+   "SUSPICIOUS": 0.3495410220737228,
+   "INSUFFICIENT": 0.03477107443095906
+  },
+  "U": 0.7828274777811582,
+  "coverage_bar": 0.5,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.011678651232085002,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.15, g_f=0.08"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.0,
+    "c_q_r_u": [
+     0.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.6054,
+    "c_q_r_u": [
+     1.0,
+     0.6054,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.0107,
+    "c_q_r_u": [
+     1.0,
+     0.2093,
+     0.0909,
+     0.439
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "visual",
+    "g": 0.0019,
+    "c_q_r_u": [
+     1.0,
+     0.1385,
+     0.0909,
+     0.8474
+    ]
+   },
+   {
+    "id": 4,
+    "kind": "visual",
+    "g": 0.0004,
+    "c_q_r_u": [
+     1.0,
+     0.1693,
+     0.0909,
+     0.9728
+    ]
+   },
+   {
+    "id": 5,
+    "kind": "visual",
+    "g": 0.001,
+    "c_q_r_u": [
+     1.0,
+     0.1007,
+     0.0909,
+     0.895
+    ]
+   },
+   {
+    "id": 6,
+    "kind": "visual",
+    "g": 0.0033,
+    "c_q_r_u": [
+     1.0,
+     0.2321,
+     0.0909,
+     0.8451
+    ]
+   },
+   {
+    "id": 7,
+    "kind": "visual",
+    "g": 0.0024,
+    "c_q_r_u": [
+     1.0,
+     0.1638,
+     0.0909,
+     0.8357
+    ]
+   },
+   {
+    "id": 8,
+    "kind": "forensic",
+    "g": 0.0796,
+    "c_q_r_u": [
+     1.0,
+     0.6054,
+     0.33,
+     0.6014
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 3,
+    "dst": 4,
+    "relation": "overlap",
+    "weight": 0.0003,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.6667
+    ]
+   },
+   {
+    "src": 4,
+    "dst": 5,
+    "relation": "overlap",
+    "weight": 0.0003,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.3333
+    ]
+   },
+   {
+    "src": 4,
+    "dst": 7,
+    "relation": "overlap",
+    "weight": 0.0008,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.3333
+    ]
+   },
+   {
+    "src": 5,
+    "dst": 7,
+    "relation": "overlap",
+    "weight": 0.0024,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

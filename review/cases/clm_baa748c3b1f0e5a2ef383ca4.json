@@ -1,0 +1,144 @@
+{
+ "claim_id": "clm_baa748c3b1f0e5a2ef383ca4",
+ "condition": "C6",
+ "expected_label": "INSUFFICIENT",
+ "source_image_id": "hitl:Car damages 1088",
+ "system": "G1",
+ "narrative_text": null,
+ "assertions": [],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": false,
+  "abstention_reason": null,
+  "calibrated_probabilities": {
+   "SUPPORTED": 4.744686731573926e-05,
+   "SUSPICIOUS": 3.315841714535229e-05,
+   "INSUFFICIENT": 0.9999193947155389
+  },
+  "U": 0.0008949813138269747,
+  "coverage_bar": 0.5,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.034258527397536875,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.10, g_f=0.35"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "source",
+    "g": 0.9563,
+    "c_q_r_u": [
+     1.0,
+     0.9563,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "visual",
+    "g": 0.0066,
+    "c_q_r_u": [
+     1.0,
+     0.6368,
+     0.5441,
+     0.9808
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.0037,
+    "c_q_r_u": [
+     1.0,
+     0.8215,
+     0.5441,
+     0.9916
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "visual",
+    "g": 0.0003,
+    "c_q_r_u": [
+     1.0,
+     0.497,
+     0.3162,
+     0.9981
+    ]
+   },
+   {
+    "id": 4,
+    "kind": "visual",
+    "g": 0.0076,
+    "c_q_r_u": [
+     1.0,
+     0.5248,
+     0.4202,
+     0.9657
+    ]
+   },
+   {
+    "id": 5,
+    "kind": "visual",
+    "g": 0.0118,
+    "c_q_r_u": [
+     1.0,
+     0.2711,
+     0.4202,
+     0.8968
+    ]
+   },
+   {
+    "id": 6,
+    "kind": "visual",
+    "g": 0.0612,
+    "c_q_r_u": [
+     1.0,
+     0.6277,
+     0.6,
+     0.8374
+    ]
+   },
+   {
+    "id": 7,
+    "kind": "forensic",
+    "g": 0.3492,
+    "c_q_r_u": [
+     1.0,
+     0.9563,
+     0.6799,
+     0.463
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 1,
+    "dst": 2,
+    "relation": "overlap",
+    "weight": 0.003,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.8
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

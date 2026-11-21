@@ -1,0 +1,83 @@
+{
+ "claim_id": "clm_f558b168154676de545c0f82",
+ "condition": "C8",
+ "expected_label": "SUPPORTED",
+ "source_image_id": "hitl:Car damages 779",
+ "system": "G1",
+ "narrative_text": "Sobre el estado visible, es correcto afirmar que el vehículo presenta pequeños desconchados de pintura. Esta descripción corresponde al daño observado.",
+ "assertions": [
+  {
+   "text": "Sobre el estado visible, es correcto afirmar que el vehículo presenta pequeños desconchados de pintura.",
+   "damage_type": "paint_chip",
+   "polarity": "affirmed",
+   "coverage": 0.5,
+   "u": 0.013140448959039474
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.691 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.533762989290691,
+   "SUSPICIOUS": 0.466236985599757,
+   "INSUFFICIENT": 2.5109551836546934e-08
+  },
+  "U": 0.6908660112514977,
+  "coverage_bar": 0.75,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.031157846926937127,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.09, g_f=0.36"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.4884,
+    "c_q_r_u": [
+     0.5,
+     1.0,
+     0.9899,
+     0.0131
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.9482,
+    "c_q_r_u": [
+     1.0,
+     0.9482,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "forensic",
+    "g": 0.3583,
+    "c_q_r_u": [
+     1.0,
+     0.9482,
+     0.6586,
+     0.4262
+    ]
+   }
+  ],
+  "edges": []
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

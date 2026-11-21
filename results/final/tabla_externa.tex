@@ -1,0 +1,15 @@
+\begin{table}[H]\centering\footnotesize
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Conjunto} & \textbf{Imágenes} & \textbf{Etiqueta} & \textbf{mAP50} & \textbf{mAP50-95} \\ \midrule
+HITL val (máscara) & 110 & polígonos & 0.118 & 0.055 \\
+HITL test (máscara) & 129 & polígonos & 0.096 & 0.041 \\
+HITL test (caja) & 129 & polígonos & 0.112 & 0.056 \\
+CarDD test, clases mapeadas (caja) & 374 & cajas & 0.054 & 0.022 \\
+CarDD test, daño agnóstico (caja) & 374 & cajas & 0.077 & 0.030 \\
+CarDD test (máscara) & -- & -- & \multicolumn{2}{c}{NOT\_RUN: sin máscaras con licencia declarada} \\
+\bottomrule
+\end{tabular}
+\caption{Validación externa del especialista visual (YOLOv8n-seg entrenado solo en HITL). CarDD: espejo de Kaggle con licencia CC BY-NC 4.0; mapeo de clases fijado antes de evaluar. Fuente: \texttt{results/final/specialists.json}.}
+\label{tab:externa}
+\end{table}

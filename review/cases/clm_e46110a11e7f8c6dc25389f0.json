@@ -1,0 +1,83 @@
+{
+ "claim_id": "clm_e46110a11e7f8c6dc25389f0",
+ "condition": "C9",
+ "expected_label": "INSUFFICIENT",
+ "source_image_id": "hitl:Car damages 1324",
+ "system": "G1",
+ "narrative_text": "En la imagen, no es correcto afirmar que el vehículo no presenta rayones. La observación se refiere al vehículo.",
+ "assertions": [
+  {
+   "text": "En la imagen, no es correcto afirmar que el vehículo no presenta rayones.",
+   "damage_type": "broken_part",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.0607326899076581
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": false,
+  "abstention_reason": null,
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.001687885367343652,
+   "SUSPICIOUS": 0.0007652144678572786,
+   "INSUFFICIENT": 0.9975469001647992
+  },
+  "U": 0.018716704291385906,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 5.4456260760692154e-05,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.29, g_f=0.00"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.1597,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.6803,
+     0.0607
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.0077,
+    "c_q_r_u": [
+     1.0,
+     0.0077,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "forensic",
+    "g": 0.0002,
+    "c_q_r_u": [
+     1.0,
+     0.0077,
+     0.1898,
+     0.8734
+    ]
+   }
+  ],
+  "edges": []
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

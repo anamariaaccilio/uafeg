@@ -1,0 +1,83 @@
+{
+ "claim_id": "clm_d7f8974a17f7bbc442dc0025",
+ "condition": "C5",
+ "expected_label": "SUSPICIOUS",
+ "source_image_id": "hitl:Car damages 429",
+ "system": "G1",
+ "narrative_text": "En la evidencia presentada, el vehículo está libre de abolladuras. Se describe el estado visible.",
+ "assertions": [
+  {
+   "text": "En la evidencia presentada, el vehículo está libre de abolladuras.",
+   "damage_type": "scratch",
+   "polarity": "denied",
+   "coverage": 0.25,
+   "u": 0.007033476820718394
+  }
+ ],
+ "decision": {
+  "label": "SUSPICIOUS",
+  "abstained": false,
+  "abstention_reason": null,
+  "calibrated_probabilities": {
+   "SUPPORTED": 6.0514867806303594e-05,
+   "SUSPICIOUS": 0.9999394191181592,
+   "INSUFFICIENT": 6.60140345579183e-08
+  },
+  "U": 0.0006494284876874197,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.03347554723127644,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.26, g_f=0.13"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.0369,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.1486,
+     0.007
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.7892,
+    "c_q_r_u": [
+     1.0,
+     0.7892,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "forensic",
+    "g": 0.1278,
+    "c_q_r_u": [
+     1.0,
+     0.7892,
+     0.9504,
+     0.8296
+    ]
+   }
+  ],
+  "edges": []
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

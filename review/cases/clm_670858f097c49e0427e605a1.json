@@ -1,0 +1,61 @@
+{
+ "claim_id": "clm_670858f097c49e0427e605a1",
+ "condition": "C7",
+ "expected_label": "INSUFFICIENT",
+ "source_image_id": "hitl:Car damages 476",
+ "system": "G1",
+ "narrative_text": "En la evidencia presentada, el vehículo presenta abolladuras. Se describe el estado visible.",
+ "assertions": [
+  {
+   "text": "En la evidencia presentada, el vehículo presenta abolladuras.",
+   "damage_type": "dent",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.00774817065626638
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": false,
+  "abstention_reason": null,
+  "calibrated_probabilities": {
+   "SUPPORTED": 1.8710388113424324e-12,
+   "SUSPICIOUS": 1.8710388113424324e-12,
+   "INSUFFICIENT": 0.9999999999962579
+  },
+  "U": 1.0479515514166739e-10,
+  "coverage_bar": 0.125,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.0,
+   "type": "sin relaciones",
+   "detail": "no hay aristas afirmación–daño (falta foto, relato o detecciones)"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.1718,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.6927,
+     0.0077
+    ]
+   }
+  ],
+  "edges": []
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

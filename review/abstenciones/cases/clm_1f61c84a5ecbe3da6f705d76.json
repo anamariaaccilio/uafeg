@@ -1,0 +1,155 @@
+{
+ "claim_id": "clm_1f61c84a5ecbe3da6f705d76",
+ "condition": "C0",
+ "expected_label": "SUPPORTED",
+ "source_image_id": "hitl:Car damages 701",
+ "system": "G1",
+ "narrative_text": "En la evidencia presentada, no es correcto afirmar que el vehículo no presenta corrosión. Esta descripción corresponde al daño observado.",
+ "assertions": [],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.710 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.6560295830827789,
+   "SUSPICIOUS": 0.3275294670483952,
+   "INSUFFICIENT": 0.016440949868825883
+  },
+  "U": 0.7096689094374697,
+  "coverage_bar": 0.5,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.01702757390460974,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.06, g_f=0.29"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.0,
+    "c_q_r_u": [
+     0.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.628,
+    "c_q_r_u": [
+     1.0,
+     0.628,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.0096,
+    "c_q_r_u": [
+     1.0,
+     0.2083,
+     0.0909,
+     0.4917
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "visual",
+    "g": 0.0045,
+    "c_q_r_u": [
+     1.0,
+     0.185,
+     0.0909,
+     0.7351
+    ]
+   },
+   {
+    "id": 4,
+    "kind": "visual",
+    "g": 0.0007,
+    "c_q_r_u": [
+     1.0,
+     0.1314,
+     0.0909,
+     0.942
+    ]
+   },
+   {
+    "id": 5,
+    "kind": "visual",
+    "g": 0.0004,
+    "c_q_r_u": [
+     1.0,
+     0.2627,
+     0.0909,
+     0.9814
+    ]
+   },
+   {
+    "id": 6,
+    "kind": "visual",
+    "g": 0.0001,
+    "c_q_r_u": [
+     1.0,
+     0.1278,
+     0.0909,
+     0.9883
+    ]
+   },
+   {
+    "id": 7,
+    "kind": "visual",
+    "g": 0.0009,
+    "c_q_r_u": [
+     1.0,
+     0.1453,
+     0.0909,
+     0.9289
+    ]
+   },
+   {
+    "id": 8,
+    "kind": "forensic",
+    "g": 0.2918,
+    "c_q_r_u": [
+     1.0,
+     0.628,
+     0.6841,
+     0.3209
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 3,
+    "dst": 7,
+    "relation": "overlap",
+    "weight": 0.0009,
+    "a_ij": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}

@@ -1,0 +1,238 @@
+{
+ "claim_id": "clm_9ba116a713df8238fdd5521d",
+ "condition": "C10",
+ "expected_label": "OOD",
+ "source_image_id": "hitl:Car damages 1324",
+ "system": "G1",
+ "narrative_text": "En la imagen, no es correcto afirmar que el vehículo no presenta rayones. La observación se refiere al vehículo.",
+ "assertions": [
+  {
+   "text": "En la imagen, no es correcto afirmar que el vehículo no presenta rayones.",
+   "damage_type": "broken_part",
+   "polarity": "affirmed",
+   "coverage": 0.25,
+   "u": 0.0607326899076581
+  }
+ ],
+ "decision": {
+  "label": "INSUFFICIENT",
+  "abstained": true,
+  "abstention_reason": "incertidumbre U=0.691 > τU=0.679",
+  "calibrated_probabilities": {
+   "SUPPORTED": 0.5321013295489605,
+   "SUSPICIOUS": 0.46789362333829415,
+   "INSUFFICIENT": 5.047112745439741e-06
+  },
+  "U": 0.6911475434848166,
+  "coverage_bar": 0.625,
+  "tau_U": 0.6792924368290103,
+  "tau_c": 0.0,
+  "T_star": 0.9975317662820923
+ },
+ "top_evidence": [
+  {
+   "weight": 0.01616318041102227,
+   "type": "forense global",
+   "detail": "TruFor p_edit=0.63, g_f=0.03"
+  },
+  {
+   "weight": 0.00763164896145463,
+   "type": "afirmación apoya daño visual",
+   "detail": "«En la imagen, no es correcto afirmar que el vehículo no presenta rayones.» apoya la detección 'scratch' (g=0.03, p=0.29)"
+  },
+  {
+   "weight": 0.004734890407517552,
+   "type": "afirmación apoya daño visual",
+   "detail": "«En la imagen, no es correcto afirmar que el vehículo no presenta rayones.» apoya la detección 'scratch' (g=0.02, p=0.29)"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": 0,
+    "kind": "claim",
+    "g": 0.1597,
+    "c_q_r_u": [
+     0.25,
+     1.0,
+     0.6803,
+     0.0607
+    ]
+   },
+   {
+    "id": 1,
+    "kind": "source",
+    "g": 0.9768,
+    "c_q_r_u": [
+     1.0,
+     0.9768,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "id": 2,
+    "kind": "visual",
+    "g": 0.0043,
+    "c_q_r_u": [
+     1.0,
+     0.7227,
+     0.3333,
+     0.9823
+    ]
+   },
+   {
+    "id": 3,
+    "kind": "visual",
+    "g": 0.0006,
+    "c_q_r_u": [
+     1.0,
+     0.2939,
+     0.3333,
+     0.9936
+    ]
+   },
+   {
+    "id": 4,
+    "kind": "visual",
+    "g": 0.005,
+    "c_q_r_u": [
+     1.0,
+     0.7576,
+     0.0909,
+     0.9277
+    ]
+   },
+   {
+    "id": 5,
+    "kind": "visual",
+    "g": 0.0027,
+    "c_q_r_u": [
+     1.0,
+     0.0861,
+     0.3333,
+     0.9051
+    ]
+   },
+   {
+    "id": 6,
+    "kind": "visual",
+    "g": 0.0163,
+    "c_q_r_u": [
+     1.0,
+     0.3834,
+     0.3333,
+     0.8728
+    ]
+   },
+   {
+    "id": 7,
+    "kind": "visual",
+    "g": 0.0262,
+    "c_q_r_u": [
+     1.0,
+     0.4522,
+     0.3333,
+     0.8262
+    ]
+   },
+   {
+    "id": 8,
+    "kind": "forensic",
+    "g": 0.0258,
+    "c_q_r_u": [
+     1.0,
+     0.9768,
+     0.5708,
+     0.9537
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "src": 0,
+    "dst": 2,
+    "relation": "unknown",
+    "weight": 0.003,
+    "a_ij": [
+     0.2914,
+     0.0017,
+     0.707,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 3,
+    "relation": "unknown",
+    "weight": 0.0004,
+    "a_ij": [
+     0.2914,
+     0.0017,
+     0.707,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 4,
+    "relation": "unknown",
+    "weight": 0.005,
+    "a_ij": [
+     0.0009,
+     0.001,
+     0.998,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 5,
+    "relation": "unknown",
+    "weight": 0.0019,
+    "a_ij": [
+     0.2914,
+     0.0017,
+     0.707,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 6,
+    "relation": "unknown",
+    "weight": 0.0115,
+    "a_ij": [
+     0.2914,
+     0.0017,
+     0.707,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "src": 0,
+    "dst": 7,
+    "relation": "unknown",
+    "weight": 0.0185,
+    "a_ij": [
+     0.2914,
+     0.0017,
+     0.707,
+     0.0,
+     0.0
+    ]
+   }
+  ]
+ },
+ "review": {
+  "veredicto": null,
+  "evidencia_incorrecta": null,
+  "comentario": null,
+  "status": "PENDIENTE (no se rellena automáticamente)"
+ }
+}
