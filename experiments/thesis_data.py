@@ -34,7 +34,9 @@ FORBIDDEN_FEATURE_KEYS = {"label", "expected_label", "condition", "claim_id", "s
 
 
 def packets_dir() -> Path:
-    return canonical_repository() / "artifacts/packets/v3"
+    """Official packets; UAFEG_PACKETS_DIR points to post hoc packets (e.g. another detector) instead."""
+    import os
+    return Path(os.environ.get("UAFEG_PACKETS_DIR", canonical_repository() / "artifacts/packets/v3"))
 
 
 def sha256(path: Path) -> str:
