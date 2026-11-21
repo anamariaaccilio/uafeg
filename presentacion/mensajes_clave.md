@@ -71,6 +71,9 @@ benignos (C8), 0.71 frente a 0.58. (`07_heatmap_condiciones`)
      0.859 y B5 sigue en 0.881. No cruzan en ningún nivel (`05_percepcion_progresiva`).
    - Además, el acierto de G1 por imagen casi no depende del acierto del detector: R² = 0.02, pendiente +0.03 con
      IC 95 % [−0.01, +0.07] (`12_regresion`).
+   - Con un detector real mejor (yolo11m-seg, mAP50 de máscara en validación 0.141 frente a 0.118), reentrenando
+     todo con el mismo protocolo, G1 se queda en 0.851 y B5 en 0.879. La diferencia tipo H1 sigue siendo −0.042,
+     con IC 95 % [−0.055, −0.028] (`06_oficial_vs_mejorada`).
    - El salto del oráculo, en cambio, aparece cuando son perfectos a la vez la imagen y el forense (0.943).
    - Conclusión defendible: la brecha se explica por la percepción en conjunto, sobre todo la forense (inpainting) y
      el cruce relato–imagen (sustitución). No se explica solo por YOLO. No se midió un oráculo solo forense, así que
@@ -107,7 +110,8 @@ lo que le entra. Y la compuerta, que debía protegerlo de la evidencia mala, ter
 ## Trabajo futuro concreto
 
 - **Mejor detector visual**, entrenado con más datos de daño vehicular con licencia académica (CarDD con máscaras
-  bajo licencia clara, por ejemplo). Ojo: la curva post hoc indica que esto solo no cierra la brecha.
+  bajo licencia clara, por ejemplo). Ojo: la curva post hoc y la prueba con yolo11m-seg indican que esto solo no
+  cierra la brecha.
 - **Forense específico para inpainting**: TruFor está en 0.544 en C4. Un detector entrenado con
   inpainting de daño vehicular es la mejora con mayor potencial según el oráculo.
 - **Reentrenar el especialista narrativo (NLI)** con relatos de reclamos en español. Hoy acierta 0.50 en el tipo

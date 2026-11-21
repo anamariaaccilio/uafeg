@@ -13,5 +13,10 @@
   "date": "2026-11-21",
   "posthoc": true,
   "purpose": "Prueba de humo de experiments.posthoc_improved con una copia de los packets OFICIALES (10 r\u00e9plicas, salida solo en el scratchpad): reproduce exactamente los valores oficiales (G1 0.8509, G0 0.8710, A2 0.7891, B6 0.8699, B5 0.8778; H1 \u22120.0388, H2 \u22120.0104, H3 +0.0618). Validaci\u00f3n de c\u00f3digo, sin resultados nuevos."
+ },
+ {
+  "date": "2026-11-21",
+  "posthoc": true,
+  "purpose": "Parte 1.2: experiments.posthoc_improved con packets post hoc de yolo11m-seg (elegido por validaci\u00f3n). Resultado en results/posthoc/percepcion_mejorada.json. No modifica results/evaluation.json ni H1\u2013H3."
  }
 ]

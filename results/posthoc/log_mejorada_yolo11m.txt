@@ -1,0 +1,52 @@
+/home/ana/Documentos/tesis 2/uafeg/experiments/thesis_data.py:47: UserWarning: Informative only: canonical HEAD 218e6ff75b64 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
+  lock = verify_benchmark(LOCK)
+/home/ana/Documentos/tesis 2/uafeg/experiments/thesis_data.py:47: UserWarning: Informative only: canonical HEAD 218e6ff75b64 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
+  lock = verify_benchmark(LOCK)
+/home/ana/Documentos/tesis 2/uafeg/experiments/thesis_data.py:47: UserWarning: Informative only: canonical HEAD 218e6ff75b64 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
+  lock = verify_benchmark(LOCK)
+/home/ana/Documentos/tesis 2/uafeg/experiments/thesis_data.py:47: UserWarning: Informative only: canonical HEAD 218e6ff75b64 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
+  lock = verify_benchmark(LOCK)
+G1 0.394340455532074
+G0 0.39909040927886963
+/home/ana/Documentos/tesis 2/uafeg/experiments/thesis_data.py:47: UserWarning: Informative only: canonical HEAD 218e6ff75b64 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
+  lock = verify_benchmark(LOCK)
+/home/ana/Documentos/tesis 2/uafeg/experiments/thesis_data.py:47: UserWarning: Informative only: canonical HEAD 218e6ff75b64 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
+  lock = verify_benchmark(LOCK)
+/home/ana/Documentos/tesis 2/uafeg/experiments/thesis_data.py:47: UserWarning: Informative only: canonical HEAD 218e6ff75b64 differs from pinned 11d63dad60f8; hashes match, so the contract holds.
+  lock = verify_benchmark(LOCK)
+A2 0.44427549839019775
+B6 0.3853759765625
+B1 0.7843455076217651
+B2 0.8150452375411987
+B3 0.801838755607605
+trained+evaluated 688 s
+[Parallel(n_jobs=4)]: Using backend LokyBackend with 4 concurrent workers.
+[Parallel(n_jobs=4)]: Done 10 out of 33 | elapsed: 12.9min
+[Parallel(n_jobs=4)]: Done 33 out of 33 | elapsed: 31.6min finished
+{
+ "G1": {
+  "ensemble": 0.8510839508943153,
+  "ci_low": 0.8384874066985221,
+  "ci_high": 0.8637682612596626
+ },
+ "G0": {
+  "ensemble": 0.8590928658051815,
+  "ci_low": 0.8490584489415537,
+  "ci_high": 0.8695367504723809
+ },
+ "A2": {
+  "ensemble": 0.7920070121802454,
+  "ci_low": 0.7786575539024059,
+  "ci_high": 0.8048922095501453
+ },
+ "B6": {
+  "ensemble": 0.8699755257807615,
+  "ci_low": 0.8586206187380986,
+  "ci_high": 0.8811812551172667
+ },
+ "B5": {
+  "ensemble": 0.8794576332464743,
+  "ci_low": 0.8695577023533994,
+  "ci_high": 0.8898239733241858
+ }
+}

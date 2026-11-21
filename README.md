@@ -90,7 +90,9 @@ Lo marcado como **post hoc** se hizo después de consultar test, está en `resul
 validación, el relato acierta el tipo de daño exacto 0.50 y TruFor tiene AUROC 0.544 en inpainting. La compuerta
 atenúa casi por completo esa señal, mientras B5 la usa tal cual. Un análisis post hoc muestra que mejorar solo
 la parte visual no cierra la brecha: con el 100 % de anotaciones reales en la imagen, G1 llega a 0.859 y B5 está en
-0.881. El salto del oráculo aparece cuando mejoran a la vez la imagen y el forense.
+0.881. Con un detector real mejor (yolo11m-seg, 0.141 de mAP50 de máscara en validación frente a 0.118) y todo
+reentrenado con el mismo protocolo, G1 se queda en 0.851 y B5 en 0.879. El salto del oráculo aparece cuando mejoran
+a la vez la imagen y el forense.
 
 <!-- RESULTS:BEGIN -->
 ## Resultados principales (test, evaluado una sola vez)
@@ -199,6 +201,7 @@ Material de presentación y análisis adicional (post hoc):
 
 ```bash
 python -m experiments.posthoc_perception     # curva de percepción progresiva (~33 min en CPU)
+UAFEG_PACKETS_DIR=<packets post hoc> python -m experiments.posthoc_improved --detector yolo11m-seg --val-mask-map50 <val>
 python -m experiments.presentation_figures   # figuras de presentacion/figuras/ (PNG 300 dpi + SVG)
 python -m experiments.add_descriptions       # campos "descripcion" en español en los JSON (sin cambiar números)
 ```

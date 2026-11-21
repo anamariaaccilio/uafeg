@@ -310,10 +310,15 @@ def fig06():
     e = ev()
     systems = [s for s in ("B5", "B6", "G0", "G1", "A2") if s in d["systems"]]
     fig = plt.figure(figsize=(11, 5.6))
+    g1a = e["systems"]["G1"]["test"]["pr_auc_suspicious"]["ensemble"]
+    g1b = d["systems"]["G1"]["test"]["pr_auc_suspicious"]["ensemble"]
     frame(fig, "Oficial frente a percepción visual mejorada",
-          f"Mismo protocolo con el detector {d['detector']} (elegido en validación) en lugar de YOLOv8n-seg v2.",
+          f"Con {d['detector']} (mAP50 de máscara en validación {d['val_mask_map50']:.3f} frente a 0.118 de v2), "
+          + (f"G1 se queda en {g1a:.3f}" if f"{g1a:.3f}" == f"{g1b:.3f}" else f"G1 pasa de {g1a:.3f} a {g1b:.3f}")
+          + f"; B5 sigue arriba "
+          f"({d['systems']['B5']['test']['pr_auc_suspicious']['ensemble']:.3f}).",
           "results/evaluation.json (oficial) y results/posthoc/percepcion_mejorada.json", POSTHOC)
-    ax = fig.add_axes([0.08, 0.13, 0.88, 0.7])
+    ax = fig.add_axes([0.08, 0.19, 0.88, 0.64])
     w = 0.38
     for i, s in enumerate(systems):
         for j, (src, c, lab) in enumerate(((e["systems"][s]["test"]["pr_auc_suspicious"], NEUTRO, "Oficial"),
@@ -325,9 +330,9 @@ def fig06():
                         fmt="none", ecolor=INK, lw=1, capsize=2)
             ax.text(xx, src["ci_high"] + 0.01, f"{src['ensemble']:.3f}", ha="center", fontsize=8.5)
     ax.set_xticks(range(len(systems)))
-    ax.set_xticklabels([SISTEMAS[s] for s in systems], fontsize=8.5)
+    ax.set_xticklabels([f"{s}\n{CORTO[s]}" for s in systems], fontsize=9)
     ax.set_ylim(0.5, 1.02)
-    ax.set_ylabel("PR-AUC de Suspicious (más alto es mejor)")
+    ax.set_ylabel("PR-AUC de Suspicious (eje desde 0.5)")
     ax.legend(frameon=False, loc="upper left")
     ax.yaxis.grid(True, color=GRID)
     ax.set_axisbelow(True)

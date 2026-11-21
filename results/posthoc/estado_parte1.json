@@ -1,19 +1,23 @@
 {
  "tipo": "ANÁLISIS ADICIONAL (post hoc)",
  "parte_1_1": {
-  "status": "NOT_RUN",
-  "motivo": "kernels GPU de Kaggle en cola (QUEUED) más de 2 h; un kernel CPU de prueba corrió al instante",
-  "kernels": [
-   "anamaria203/uafeg-yolo-train-v8m",
-   "anamaria203/uafeg-yolo-train-11m"
-  ],
-  "enviados_utc": "2026-11-21T09:41Z",
-  "corte_utc": "2026-11-21T11:45Z",
-  "umbral_validacion_mask_map50": 0.1177
+  "status": "PARCIAL",
+  "yolo11m": {
+   "kernel": "anamaria203/uafeg-yolo-train-11m",
+   "val_mask_map50": 0.14056161992740399,
+   "supera_v2": true,
+   "epocas": 59
+  },
+  "yolov8m": {
+   "status": "EN COLA en Kaggle (kernel anamaria203/uafeg-yolo-train-v8m-b)",
+   "nota": "si termina y supera 0.1406 en validación, la Parte 1.2 se rehace con v8m"
+  },
+  "causa_cola_inicial": "acelerador por defecto; resuelto con --accelerator NvidiaTeslaT4"
  },
  "parte_1_2": {
-  "status": "NOT_RUN",
-  "motivo": "depende de 1.1"
+  "status": "MEASURED",
+  "archivo": "results/posthoc/percepcion_mejorada.json",
+  "detector": "yolo11m-seg"
  },
  "parte_1_3": {
   "status": "MEASURED",
